@@ -1,21 +1,27 @@
 import React, { createContext,useState,useCallback,useMemo,useEffect, useRef} from "react";
-
+import { View } from "react-native";
 export const ExpandableContext = createContext();
 const { Provider } = ExpandableContext;
-const Expandable = ({ children, onExpanded }) => {
+const Expandable = ({ children, onExpand, shouldExpand, ...otherProps }) => {
 
    const [expanded, setExpanded] = useState(false);
+   const isExpandControlled = shouldExpand !== undefined;
    const componentJustMounted = useRef(true);
+   
    useEffect(()=>{
-    if(!componentJustMounted){
-    onExpanded(expanded);
+    if (!componentJustMounted && !isExpandControlled) {
+        onExpanded(expanded);
     }
     componentJustMounted.current = false;
-   },[expanded])
+   },[expanded, isExpandControlled])
+
+   const getState = isExpandControlled ? shouldExpand : expanded;
    const toggle = useCallback ( () => setExpanded(prevExpanded =>!prevExpanded) ,[]);
-   const value = useMemo(()=>({expanded, toggle}),[expanded,toggle])
-    return(
-    <Provider value={value}>{children}</Provider>
+   const getToggle = isExpandControlled ? onExpand : toggle;
+   const value = useMemo(()=>({expanded: getState, toggle: getToggle}),[getState, getToggle]);
+
+   return(
+    <Provider value={value}><View {...otherProps}>{children}</View></Provider>
     );
 }
 

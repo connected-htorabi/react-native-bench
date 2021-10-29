@@ -1,20 +1,34 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Expandable from "./components/Expandable";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Icon from "./components/Icon";
 
+const info = [
+  { header: "First Header", note: "First Note" },
+  { header: "Second Header", note: "Second Note" },
+  { header: "Third Header", note: "Third Note" },
+];
+
 export default function App() {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const onExpand = index => {
+    setActiveIndex(index);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Expandable>
-        <Header style={styles.header}></Header>
-        <Icon/>
-        <Body><Text>Hello World!</Text></Body>
-      </Expandable>
+      {info.map((item, index) => (
+        <Expandable shouldExpand={index === activeIndex} onExpand={() => onExpand(index)} key={index}>
+          <Header dataIndex={index}><Text>{item.header}</Text></Header>
+          <Icon/>
+          <Body><Text>{item.note}</Text></Body>
+        </Expandable>
+      ))}        
     </View>
   );
 }
