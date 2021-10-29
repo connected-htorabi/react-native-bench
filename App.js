@@ -30,8 +30,9 @@ export default function App() {
         >
           <Header dataIndex={index}>
             <Text>{item.header}</Text>
+            <Icon />
           </Header>
-          <Icon />
+
           <Body>
             <Text>{item.note}</Text>
           </Body>
