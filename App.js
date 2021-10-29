@@ -15,20 +15,28 @@ const info = [
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  const onExpand = index => {
-    setActiveIndex(index);
+  const onExpand = (index) => {
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       {info.map((item, index) => (
-        <Expandable shouldExpand={index === activeIndex} onExpand={() => onExpand(index)} key={index}>
-          <Header dataIndex={index}><Text>{item.header}</Text></Header>
-          <Icon/>
-          <Body><Text>{item.note}</Text></Body>
+        <Expandable
+          shouldExpand={index === activeIndex}
+          onExpand={() => onExpand(index)}
+          key={index}
+        >
+          <Header dataIndex={index}>
+            <Text>{item.header}</Text>
+          </Header>
+          <Icon />
+          <Body>
+            <Text>{item.note}</Text>
+          </Body>
         </Expandable>
-      ))}        
+      ))}
     </View>
   );
 }
@@ -44,5 +52,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fcc",
     width: 200,
     height: 100,
-  }
+  },
 });
