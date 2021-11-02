@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import useExpanded from "../hooks/useExpanded";
 
 const isNormalInteger = (str) => {
@@ -19,8 +26,10 @@ const Payee = ({ name, onSendMoney = () => {} }) => {
   return (
     <View>
       <View style={styles.firstRow}>
-        <Text>{name}</Text>
-        <Button title={expanded ? "Cancel" : "Add"} onPress={toggle} />
+        <Text style={{ fontSize: 21 }}>{name}</Text>
+        <Pressable style={styles.addButton} onPress={toggle}>
+          {expanded ? "Cancel" : "Add"}
+        </Pressable>
       </View>
       {expanded && (
         <View>
@@ -56,11 +65,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 10,
   },
   secondRow: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+  },
+  addButton: {
+    border: "1px solid #000",
+    borderRadius: 2,
+    paddingTop: 5,
+    paddingBottom: 5,
+    width: 100,
+    textAlign: "center",
   },
 });
 

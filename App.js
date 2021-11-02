@@ -23,8 +23,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Wallet />
-      {/* {info.map((item, index) => (
+      {info.map((item, index) => (
         <Expandable
           shouldExpand={index === activeIndex}
           onExpand={() => onExpand(index)}
