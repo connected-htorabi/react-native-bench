@@ -5,6 +5,7 @@ import Expandable from "./components/Expandable";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Icon from "./components/Icon";
+import Payee from "./components/Payee";
 
 const info = [
   { header: "First Header", note: "First Note" },
@@ -38,6 +39,7 @@ export default function App() {
           </Body>
         </Expandable>
       ))}
+      <Payee name="Haydn" />
     </View>
   );
 }

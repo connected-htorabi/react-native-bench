@@ -1,7 +1,9 @@
 import { useState, useCallback, useMemo } from "react";
 
-const useExpand = () => {
-  const [expanded, setExpanded] = useState(false);
+const useExpanded = () => {
+  // const [expanded, setExpanded] = useState(false);
+  // TODO - remove due to testing purposes
+  const [expanded, setExpanded] = useState(true);
   const toggle = useCallback(() => {
     setExpanded((prev) => !prev);
   }, []);
@@ -17,4 +19,4 @@ const useExpand = () => {
   return value;
 };
 
-export default useExpand;
+export default useExpanded;
