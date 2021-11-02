@@ -23,7 +23,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      {info.map((item, index) => (
+      <Wallet />
+      {/* {info.map((item, index) => (
         <Expandable
           shouldExpand={index === activeIndex}
           onExpand={() => onExpand(index)}
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   header: {
     backgroundColor: "#fcc",
