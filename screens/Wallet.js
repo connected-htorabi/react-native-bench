@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Expandable from "./Expandable";
-import Header from "./Header";
-import Body from "./Body";
-import Icon from "./Icon";
-import Payee from "./Payee";
+import Expandable from "../components/Expandable";
+import Header from "../components/Header";
+import Body from "../components/Body";
+import Icon from "../components/Icon";
+import Payee from "../components/Payee";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 
 const info = [
@@ -25,9 +25,7 @@ const Wallet = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 36, fontWeight: "bold", marginBottom: 10 }}>
-        Wallet
-      </Text>
+      <Text style={{ fontSize: 36, fontWeight: "bold", marginBottom: 10 }}>Wallet</Text>
       <Balance balance={balance} />
       <Pending pendingBalance={pendingBalance} />
       <Text
@@ -37,9 +35,7 @@ const Wallet = () => {
           marginBottom: 20,
           marginTop: 25,
         }}
-      >
-        Send Money
-      </Text>
+      >Send Money</Text>
       {info.map((item, index) => (
         <Expandable
           shouldExpand={index === activeIndex}
@@ -53,7 +49,7 @@ const Wallet = () => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              border: "1px solid #000",
+              borderWidth: 1,
               borderRadius: 5,
               padding: 20,
             }}
@@ -67,7 +63,7 @@ const Wallet = () => {
               style={{
                 flexDirection: "column",
                 justifyContent: "space-between",
-                border: "1px solid #000",
+                borderWidth: 1,
                 borderRadius: 5,
                 paddingTop: 5,
                 paddingLeft: 15,
@@ -75,8 +71,8 @@ const Wallet = () => {
                 paddingRight: 15,
               }}
             >
-              {names.map((obj, index) => (
-                <Payee name={obj} dataIndex={index} />
+              {names.map((obj, i) => (
+                <Payee name={obj} key={i} />
               ))}
             </View>
           </Body>
@@ -97,7 +93,7 @@ const Balance = ({ balance }) => {
       }}
     >
       <Text style={{ fontSize: 21 }}>Balance</Text>
-      <Text style={{ fontSize: 21 }}>${balance}</Text>
+      {/* <Text style={{ fontSize: 21 }}>${balance}</Text> */}
     </View>
   );
 };
@@ -105,9 +101,7 @@ const Balance = ({ balance }) => {
 const Pending = ({ pendingBalance }) => {
   return (
     <View>
-      <Text style={{ fontSize: 21, fontWeight: "bold", marginTop: 20 }}>
-        Pending
-      </Text>
+      <Text style={{ fontSize: 21, fontWeight: "bold", marginTop: 20 }}>Pending</Text>
       <View
         style={{
           marginTop: 10,
@@ -116,10 +110,11 @@ const Pending = ({ pendingBalance }) => {
           justifyContent: "space-between",
         }}
       >
-        <Text style={{ fontSize: 16 }}>${pendingBalance} from Henry</Text>
+        {/* <Text style={{ fontSize: 16 }}>${pendingBalance} from Henry</Text> */}
         <Pressable
           style={{
-            border: "1px solid #4BAA00",
+            borderColor: "#4BAA00",
+            borderWidth: 1,
             borderRadius: 2,
             paddingTop: 5,
             paddingBottom: 5,

@@ -3,7 +3,7 @@ import { useState, useCallback, useMemo } from "react";
 const useExpanded = () => {
   // const [expanded, setExpanded] = useState(false);
   // TODO - remove due to testing purposes
-  const [expanded, setExpanded] = useState("");
+  const [expanded, setExpanded] = useState(false);
   const toggle = useCallback(() => {
     setExpanded((prev) => !prev);
   }, []);

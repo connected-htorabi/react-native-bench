@@ -22,31 +22,29 @@ const Payee = ({ name, onSendMoney = () => {} }) => {
     toggle();
     setAmount("");
   };
-
   return (
     <View>
       <View style={styles.firstRow}>
         <Text style={{ fontSize: 21 }}>{name}</Text>
         <Pressable style={styles.addButton} onPress={toggle}>
-          {expanded ? "Cancel" : "Add"}
+          <Text>{expanded ? "Cancel" : "Add"}</Text>
         </Pressable>
       </View>
       {expanded && (
         <View>
-          <Text>Test</Text>
           <View style={styles.secondRow}>
             <TextInput
               onChangeText={setAmount}
               placeholder="Amount"
               value={amount}
               style={styles.textInput}
-            ></TextInput>
+            />
             <Button
               color="green"
               disabled={!isNormalInteger(amount)}
               onPress={sendMoney}
               title="Send"
-            ></Button>
+            />
           </View>
         </View>
       )}
@@ -73,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addButton: {
-    border: "1px solid #000",
+    borderWidth: 1,
     borderRadius: 2,
     paddingTop: 5,
     paddingBottom: 5,
