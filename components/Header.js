@@ -5,7 +5,7 @@ import { ExpandableContext } from "./Expandable";
 
 const Header = ({children, title, ...otherProps}) => {
     const {toggle} = useContext(ExpandableContext);
-   
+
     const func = () => {
         toggle();
     }
@@ -15,9 +15,9 @@ const Header = ({children, title, ...otherProps}) => {
 
 const styles = StyleSheet.create({
     default: {
-      backgroundColor: "#fcc",
-      width:'100%',
-      height: 100,
+      backgroundColor: "#fff",
+      width: "100%",
+      height: 50,
       padding: 5,
     }
   });
