@@ -17,10 +17,6 @@ export default function App() {
         <Stack.Screen name="Wallet" component={Wallet} />
       </Stack.Navigator>
     </NavigationContainer>
-    // <View style={styles.container}>
-    //   <StatusBar style="auto" />
-    //   <Wallet />
-    // </View>
   );
 }
 
