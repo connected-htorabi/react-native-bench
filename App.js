@@ -1,10 +1,18 @@
-import { StatusBar } from "expo-status-bar";
+import * as React from "react";
+import Home from './screens/Home'
+
+export default function App() {
+  return <Home/>;
+}
+
+/*import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Expandable from "./components/Expandable";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Icon from "./components/Icon";
+import Home from "./screens/Home";
 import Payee from "./components/Payee";
 
 const info = [
@@ -23,6 +31,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      <Home/>
       {info.map((item, index) => (
         <Expandable
           shouldExpand={index === activeIndex}
@@ -55,5 +64,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fcc",
     width: 200,
     height: 100,
-  },
+  }
 });
