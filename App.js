@@ -13,6 +13,8 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import Icon from "./components/Icon";
 import Home from "./screens/Home";
+import Payee from "./components/Payee";
+
 const info = [
   { header: "First Header", note: "First Note" },
   { header: "Second Header", note: "Second Note" },
@@ -22,8 +24,8 @@ const info = [
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  const onExpand = index => {
-    setActiveIndex(index);
+  const onExpand = (index) => {
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
@@ -31,13 +33,22 @@ export default function App() {
       <StatusBar style="auto" />
       <Home/>
       {info.map((item, index) => (
-        <Expandable shouldExpand={index === activeIndex} onExpand={() => onExpand(index)} key={index}>
-          <Header dataIndex={index}><Text>{item.header}</Text></Header>
-          <Icon/>
-          <Body><Text>{item.note}</Text></Body>
+        <Expandable
+          shouldExpand={index === activeIndex}
+          onExpand={() => onExpand(index)}
+          key={index}
+        >
+          <Header dataIndex={index}>
+            <Text>{item.header}</Text>
+            <Icon />
+          </Header>
+
+          <Body>
+            <Text>{item.note}</Text>
+          </Body>
         </Expandable>
-        
-      ))}        
+      ))}
+      <Payee name="Haydn" />
     </View>
   );
 }
@@ -55,4 +66,3 @@ const styles = StyleSheet.create({
     height: 100,
   }
 });
-*/
