@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Wallet from "./screens/Wallet";
 import Home from "./screens/Home";
+import RestaurantDetails from "./screens/RestaurantDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="RestaurantDetails"
         screenOptions={{ headerStyle: { backgroundColor: "red" } }}
       >
         <Stack.Screen
@@ -25,6 +26,11 @@ export default function App() {
           name="Wallet"
           component={Wallet}
           options={{ title: "Wallet" }}
+        />
+        <Stack.Screen
+          name="RestaurantDetails"
+          component={RestaurantDetails}
+          options={{ title: "Restaurant" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
