@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Body from "../components/Body";
 import Icon from "../components/Icon";
 import Payee from "../components/Payee";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Text, Pressable, Button } from "react-native";
 
 const info = [
   { header: "Individuals", names: ["Henry", "Bob", "Sally"] },
@@ -16,7 +16,7 @@ const names = ["Henry", "Bob", "Sally"];
 const balance = 20;
 const pendingBalance = 10;
 
-const Wallet = () => {
+const Wallet = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const onExpand = (index) => {
@@ -25,7 +25,14 @@ const Wallet = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 36, fontWeight: "bold", marginBottom: 10 }}>Wallet</Text>
+      <Button title="wallet again" onPress={() => navigation.push("Wallet")} />
+      <Button
+        title="to home"
+        onPress={() => navigation.navigate("Home", { itemId: 123 })}
+      />
+      <Text style={{ fontSize: 36, fontWeight: "bold", marginBottom: 10 }}>
+        Wallet
+      </Text>
       <Balance balance={balance} />
       <Pending pendingBalance={pendingBalance} />
       <Text
@@ -35,7 +42,9 @@ const Wallet = () => {
           marginBottom: 20,
           marginTop: 25,
         }}
-      >Send Money</Text>
+      >
+        Send Money
+      </Text>
       {info.map((item, index) => (
         <Expandable
           shouldExpand={index === activeIndex}
@@ -101,7 +110,9 @@ const Balance = ({ balance }) => {
 const Pending = ({ pendingBalance }) => {
   return (
     <View>
-      <Text style={{ fontSize: 21, fontWeight: "bold", marginTop: 20 }}>Pending</Text>
+      <Text style={{ fontSize: 21, fontWeight: "bold", marginTop: 20 }}>
+        Pending
+      </Text>
       <View
         style={{
           marginTop: 10,

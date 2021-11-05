@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -12,9 +12,20 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Wallet">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Wallet" component={Wallet} />
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{ headerStyle: { backgroundColor: "red" } }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "Menu" }}
+        />
+        <Stack.Screen
+          name="Wallet"
+          component={Wallet}
+          options={{ title: "Wallet" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
