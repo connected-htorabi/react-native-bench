@@ -1,7 +1,17 @@
 import React from "react";
-import { Image, StyleSheet, Text, FlatList } from "react-native";
+import {
+  View,
+  ScrollView,
+  Image,
+  StyleSheet,
+  Text,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import MenuItem from "../components/MenuItem";
 import RestaurantInfo from "../components/RestaurantInfo";
+
+const CONTAINER_PADDING = 20;
 
 const restaurantDetails = {
   name: "Starbucks (Yonge & Finch)",
@@ -47,24 +57,43 @@ const items = [
 ];
 
 export default function RestaurantDetails() {
-  return (
+  const renderHeader = () => (
     <>
       <Image
+        resizeMode="cover"
         style={styles.headerImage}
         source={{ uri: restaurantDetails.image_url }}
       />
       <RestaurantInfo info={restaurantDetails} />
-      <Text>Picked for you</Text>
-      <FlatList
-        data={items}
-        renderItem={({ item }) => <MenuItem item={item} />}
-      />
+      <Text style={styles.subHeader}>Picked for you</Text>
     </>
+  );
+
+  const renderItem = ({ item }) => <MenuItem item={item} />;
+
+  return (
+    <FlatList
+      style={styles.container}
+      ListHeaderComponent={renderHeader}
+      data={items}
+      renderItem={renderItem}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   headerImage: {
-    height: "20%",
+    // TODO: Find a better way to do this
+    left: -CONTAINER_PADDING,
+    height: Dimensions.get("window").height * 0.25,
+    width: Dimensions.get("window").width,
+  },
+  container: {
+    paddingHorizontal: 20,
+  },
+  subHeader: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginVertical: 25,
   },
 });
