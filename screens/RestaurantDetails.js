@@ -31,7 +31,9 @@ const items = [
     calories: 500,
     description:
       "Bacon smoked for six hours over hickory wood chips, stacked with something",
-    image_url: "../images/item.png",
+    image_url:
+      "https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg",
+
     tags: ["Popular"],
   },
   {
@@ -41,7 +43,9 @@ const items = [
     calories: 500,
     description:
       "Bacon smoked for six hours over hickory wood chips, stacked with something",
-    image_url: "../images/item.png",
+    image_url:
+      "https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg",
+
     tags: [],
   },
   {
@@ -51,7 +55,9 @@ const items = [
     calories: 500,
     description:
       "Bacon smoked for six hours over hickory wood chips, stacked with something",
-    image_url: "../images/item.png",
+    image_url:
+      "https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg",
+
     tags: [],
   },
 ];
