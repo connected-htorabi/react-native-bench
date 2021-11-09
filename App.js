@@ -1,16 +1,11 @@
 import React from "react";
-import { Text, Button } from "react-native";
+import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import Wallet from "./screens/Wallet";
-import Home from "./screens/Home";
-import About from "./screens/About";
-import { HeaderRight, HeaderLeft } from "./components/NavHeader";
+import { HomeStack } from "./navigation/Home/HomeStack";
 
-const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const IconMapping = {
@@ -25,15 +20,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={({ route, navigation }) => {
+        initialRouteName="Home"
+        screenOptions={({ route }) => {
           return {
             tabBarActiveTintColor: "black",
             headerTitleAlign: "center",
-            headerRight: () => (
-              <HeaderRight navigation={navigation} route={route} />
-            ),
-            headerLeft: () => <HeaderLeft navigation={navigation} />,
-            tabBarIcon: ({ color, size, focused }) => (
+            tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name={IconMapping[route.name]}
                 color={color}
@@ -43,7 +35,11 @@ export default function App() {
           };
         }}
       >
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen
+          name="Home"
+          component={HomeStack}
+          options={{ headerShown: false }}
+        />
         <Tab.Screen name="Browse" component={() => <Text>Browse</Text>} />
         <Tab.Screen name="Grocery" component={() => <Text>Grocery</Text>} />
         <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />

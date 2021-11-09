@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
-import { Button } from "react-native";
+import React from "react";
+import { SafeAreaView, ScrollView } from "react-native";
 
 import RestaurantItem from "../components/RestaurantItem";
 
-export default function Home({ navigation }) {
+export default function Home() {
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
