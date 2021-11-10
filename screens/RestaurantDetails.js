@@ -10,18 +10,9 @@ import {
 } from "react-native";
 import MenuItem from "../components/MenuItem";
 import RestaurantInfo from "../components/RestaurantInfo";
+import { localRestaurants } from "../constants";
 
 const CONTAINER_PADDING = 20;
-
-const restaurantDetails = {
-  name: "Starbucks (Yonge & Finch)",
-  image_url:
-    "https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg",
-
-  price: "$0.99",
-  reviews: 1000,
-  rating: 4.9,
-};
 
 const items = [
   {
@@ -62,7 +53,11 @@ const items = [
   },
 ];
 
-export default function RestaurantDetails() {
+export default function RestaurantDetails({ route }) {
+  const restaurantDetails = localRestaurants.find(
+    (item) => item.id === route.params.id
+  );
+
   const renderHeader = () => (
     <>
       <Image
