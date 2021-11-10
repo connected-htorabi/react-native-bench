@@ -1,47 +1,50 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import Wallet from "./screens/Wallet";
-import Home from "./screens/Home";
-import RestaurantDetails from "./screens/RestaurantDetails";
+import { HomeStack } from "./navigation/Home/HomeStack";
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const IconMapping = {
+  Grocery: "basket",
+  Home: "home",
+  Browse: "text-search",
+  Orders: "receipt",
+  Account: "account",
+};
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="RestaurantDetails"
-        screenOptions={{ headerStyle: { backgroundColor: "red" } }}
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={({ route }) => {
+          return {
+            tabBarActiveTintColor: "black",
+            headerTitleAlign: "center",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name={IconMapping[route.name]}
+                color={color}
+                size={size}
+              />
+            ),
+          };
+        }}
       >
-        <Stack.Screen
+        <Tab.Screen
           name="Home"
-          component={Home}
-          options={{ title: "Menu" }}
+          component={HomeStack}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Wallet"
-          component={Wallet}
-          options={{ title: "Wallet" }}
-        />
-        <Stack.Screen
-          name="RestaurantDetails"
-          component={RestaurantDetails}
-          options={{ title: "Restaurant" }}
-        />
-      </Stack.Navigator>
+        <Tab.Screen name="Browse" component={() => <Text>Browse</Text>} />
+        <Tab.Screen name="Grocery" component={() => <Text>Grocery</Text>} />
+        <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
+        <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-});
