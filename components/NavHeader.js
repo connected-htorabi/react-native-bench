@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import AppStack from "../navigation/Home/AppStack"
 export const HeaderLeft = ({ navigation }) => {
   return (
     <View>
       <Ionicons
         name="menu"
-        onPress={() => navigation.navigate("About")}
+        onPress={() =>navigation.openDrawer() }
         size={40}
       />
     </View>
