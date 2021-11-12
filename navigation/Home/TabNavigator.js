@@ -4,8 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { HomeStack } from "./navigation/Home/HomeStack";
-import AppStack from "./navigation/Home/AppStack";
+import { HomeStack } from "./HomeStack";
+import AppStack from "./AppStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,11 +17,10 @@ const IconMapping = {
   Account: "account",
 };
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <AppStack/>
-      {/* <Tab.Navigator
+const TabNavigator = ()=>{
+
+return (
+<Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => {
           return {
@@ -46,7 +45,7 @@ export default function App() {
         <Tab.Screen name="Grocery" component={() => <Text>Grocery</Text>} />
         <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
         <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
-      </Tab.Navigator> */}
-    </NavigationContainer>
-  );
-}
+      </Tab.Navigator>
+);
+    }
+export default TabNavigator;
