@@ -1,20 +1,26 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
-import { Button } from "react-native";
+import React from "react";
+import { SafeAreaView, ScrollView, FlatList } from "react-native";
 
 import RestaurantItem from "../components/RestaurantItem";
+import { localRestaurants } from "../constants";
 
-export default function Home({ navigation, route }) {
+export default function Home({ navigation }) {
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
-      {!!route.params && <Text>{route.params.itemId}</Text>}
-      <Button title="click" onPress={() => navigation.navigate("Wallet")} />
-      <View style={{ backgroundColor: "white", padding: 15 }}></View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <RestaurantItem />
-        <RestaurantItem />
-        <RestaurantItem />
-      </ScrollView>
+      <FlatList
+        keyExtractor={({ id }) => id}
+        data={localRestaurants}
+        renderItem={({ item }) => (
+          <RestaurantItem
+            name={item.name}
+            image_url={item.image_url}
+            rating={item.rating}
+            onPress={() =>
+              navigation.navigate("Restaurant Details", { id: item.id })
+            }
+          />
+        )}
+      />
     </SafeAreaView>
   );
 }
