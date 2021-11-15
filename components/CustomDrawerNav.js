@@ -4,8 +4,12 @@ import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawe
 const CustomDrawerNav = (props)=>{
     
     return (
+
+             
+        
         <View style={{flex:1,borderBottomColor: '#995d9a',
         borderBottomWidth: 0.5}}>
+            
        <DrawerContentScrollView {...props}>
            <View style={{flexDirection:'row', alignContent:'center',justifyContent: 'space-around'}}>
        <Image source={{
