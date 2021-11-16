@@ -1,0 +1,6 @@
+build
+coverage
+.expo
+android
+ios
+node_modules
