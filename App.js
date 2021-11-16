@@ -1,27 +1,27 @@
-import React from "react";
-import { Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import React from 'react';
+import { Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { HomeStack } from "./navigation/Home/HomeStack";
-import AppStack from "./navigation/Home/AppStack";
+import { HomeStack } from './navigation/Home/HomeStack';
+import AppStack from './navigation/Home/AppStack';
 
 const Tab = createBottomTabNavigator();
 
 const IconMapping = {
-  Grocery: "basket",
-  Home: "home",
-  Browse: "text-search",
-  Orders: "receipt",
-  Account: "account",
+    Grocery: 'basket',
+    Home: 'home',
+    Browse: 'text-search',
+    Orders: 'receipt',
+    Account: 'account',
 };
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <AppStack/>
-      {/* <Tab.Navigator
+    return (
+        <NavigationContainer>
+            <AppStack />
+            {/* <Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => {
           return {
@@ -47,6 +47,6 @@ export default function App() {
         <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
         <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
       </Tab.Navigator> */}
-    </NavigationContainer>
-  );
+        </NavigationContainer>
+    );
 }

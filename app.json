@@ -1,11 +1,9 @@
 {
-  "expo": {
-    "name": "react-native-bench",
-    "slug": "react-native-bench",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  },
-  "name": "react-native-bench"
+    "expo": {
+        "name": "react-native-bench",
+        "slug": "react-native-bench",
+        "version": "1.0.0",
+        "assetBundlePatterns": ["**/*"]
+    },
+    "name": "react-native-bench"
 }
