@@ -6,7 +6,8 @@
     "web": "expo start --web",
     "start": "react-native start",
     "prettier-check": "prettier --check .",
-    "prettier-write": "prettier --write ."
+    "prettier-write": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.0.9",
@@ -30,6 +31,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "husky": "^7.0.0",
+    "lint-staged": "^12.0.2",
     "prettier": "^2.4.1"
   },
   "private": true
