@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppStack from '../navigation/Home/AppStack';
 
-export const PageHeader = ({ title, navigation }) => {
+export var PageHeader = function ({ title, navigation }) {
     return (
         <View
             style={{

@@ -17,23 +17,21 @@ const IconMapping = {
     Account: 'account',
 };
 
-const TabNavigator = () => {
+const TabNavigator = function () {
     return (
         <Tab.Navigator
             initialRouteName="Home"
-            screenOptions={({ route }) => {
-                return {
-                    tabBarActiveTintColor: 'black',
-                    headerTitleAlign: 'center',
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons
-                            name={IconMapping[route.name]}
-                            color={color}
-                            size={size}
-                        />
-                    ),
-                };
-            }}
+            screenOptions={({ route }) => ({
+                tabBarActiveTintColor: 'black',
+                headerTitleAlign: 'center',
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons
+                        name={IconMapping[route.name]}
+                        color={color}
+                        size={size}
+                    />
+                ),
+            })}
         >
             <Tab.Screen
                 name="Home"

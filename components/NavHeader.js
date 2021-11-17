@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppStack from '../navigation/Home/AppStack';
-export const HeaderLeft = ({ navigation }) => {
+
+export var HeaderLeft = function ({ navigation }) {
     return (
         <View>
             <Ionicons
@@ -14,7 +15,7 @@ export const HeaderLeft = ({ navigation }) => {
     );
 };
 
-export const HeaderRight = ({ navigation, route }) => {
+export var HeaderRight = function ({ navigation, route }) {
     return (
         <View style={rightStyles.container}>
             <Ionicons

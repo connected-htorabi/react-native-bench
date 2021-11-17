@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Text } from 'react-native';
 import { ExpandableContext } from './Expandable';
 
-const Icon = ({ children }) => {
+const Icon = function ({ children }) {
     const { expanded } = useContext(ExpandableContext);
 
     return expanded ? (

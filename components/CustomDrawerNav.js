@@ -4,7 +4,8 @@ import {
     DrawerContentScrollView,
     DrawerItemList,
 } from '@react-navigation/drawer';
-const CustomDrawerNav = (props) => {
+
+const CustomDrawerNav = function (props) {
     return (
         <View
             style={{

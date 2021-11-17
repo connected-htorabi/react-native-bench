@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { StyleSheet, View, Text, Pressable, Button } from 'react-native';
 import Expandable from '../components/Expandable';
 import Header from '../components/Header';
 import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
-import { StyleSheet, View, Text, Pressable, Button } from 'react-native';
 
 const info = [
     { header: 'Individuals', names: ['Henry', 'Bob', 'Sally'] },
@@ -16,7 +16,7 @@ const names = ['Henry', 'Bob', 'Sally'];
 const balance = 20;
 const pendingBalance = 10;
 
-const Wallet = ({ navigation }) => {
+const Wallet = function ({ navigation }) {
     const [activeIndex, setActiveIndex] = useState(null);
 
     const onExpand = (index) => {
@@ -88,7 +88,7 @@ const Wallet = ({ navigation }) => {
     );
 };
 
-const Balance = ({ balance }) => {
+const Balance = function ({ balance }) {
     return (
         <View
             style={{
@@ -103,7 +103,7 @@ const Balance = ({ balance }) => {
     );
 };
 
-const Pending = ({ pendingBalance }) => {
+const Pending = function ({ pendingBalance }) {
     return (
         <View>
             <Text style={{ fontSize: 21, fontWeight: 'bold', marginTop: 20 }}>

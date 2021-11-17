@@ -9,7 +9,7 @@ import RestaurantDetails from '../../screens/RestaurantDetails';
 
 const Stack = createNativeStackNavigator();
 
-export const HomeStack = () => {
+export var HomeStack = function () {
     return (
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
