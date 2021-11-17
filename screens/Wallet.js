@@ -25,14 +25,6 @@ const Wallet = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Button
-                title="wallet again"
-                onPress={() => navigation.push('Wallet')}
-            />
-            <Button
-                title="to home"
-                onPress={() => navigation.navigate('Home', { itemId: 123 })}
-            />
             <Text
                 style={{ fontSize: 36, fontWeight: 'bold', marginBottom: 10 }}
             >
@@ -107,7 +99,6 @@ const Balance = ({ balance }) => {
             }}
         >
             <Text style={{ fontSize: 21 }}>Balance</Text>
-            {/* <Text style={{ fontSize: 21 }}>${balance}</Text> */}
         </View>
     );
 };
@@ -126,7 +117,6 @@ const Pending = ({ pendingBalance }) => {
                     justifyContent: 'space-between',
                 }}
             >
-                {/* <Text style={{ fontSize: 16 }}>${pendingBalance} from Henry</Text> */}
                 <Pressable
                     style={{
                         borderColor: '#4BAA00',
