@@ -10,12 +10,7 @@ import { View } from 'react-native';
 
 export const ExpandableContext = createContext();
 const { Provider } = ExpandableContext;
-const Expandable = function ({
-    children,
-    onExpand,
-    shouldExpand,
-    ...otherProps
-}) {
+const Expandable = ({ children, onExpand, shouldExpand, ...otherProps }) => {
     const [expanded, setExpanded] = useState(false);
     const isExpandControlled = shouldExpand !== undefined;
     const componentJustMounted = useRef(true);

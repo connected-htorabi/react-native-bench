@@ -9,26 +9,21 @@ import RestaurantDetails from '../../screens/RestaurantDetails';
 
 const Stack = createNativeStackNavigator();
 
-export var HomeStack = function () {
-    return (
-        <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={({ route, navigation }) => ({
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                        <HeaderRight navigation={navigation} route={route} />
-                    ),
-                    headerLeft: () => <HeaderLeft navigation={navigation} />,
-                })}
-            />
-            <Stack.Screen name="Wallet" component={Wallet} />
-            <Stack.Screen name="Cart" component={() => <Text>Cart</Text>} />
-            <Stack.Screen
-                name="Restaurant Details"
-                component={RestaurantDetails}
-            />
-        </Stack.Navigator>
-    );
-};
+export var HomeStack = () => (
+    <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+            name="Home"
+            component={Home}
+            options={({ route, navigation }) => ({
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                    <HeaderRight navigation={navigation} route={route} />
+                ),
+                headerLeft: () => <HeaderLeft navigation={navigation} />,
+            })}
+        />
+        <Stack.Screen name="Wallet" component={Wallet} />
+        <Stack.Screen name="Cart" component={() => <Text>Cart</Text>} />
+        <Stack.Screen name="Restaurant Details" component={RestaurantDetails} />
+    </Stack.Navigator>
+);

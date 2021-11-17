@@ -11,7 +11,7 @@ import useExpanded from '../hooks/useExpanded';
 
 const isNormalInteger = (str) => /^\+?(0|[1-9]\d*)$/.test(str);
 
-const Payee = function ({ name, onSendMoney = () => {} }) {
+const Payee = ({ name, onSendMoney = () => {} }) => {
     const { expanded, toggle } = useExpanded();
     const [amount, setAmount] = useState('');
 

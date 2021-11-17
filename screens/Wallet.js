@@ -16,7 +16,7 @@ const names = ['Henry', 'Bob', 'Sally'];
 const balance = 20;
 const pendingBalance = 10;
 
-const Wallet = function ({ navigation }) {
+const Wallet = ({ navigation }) => {
     const [activeIndex, setActiveIndex] = useState(null);
 
     const onExpand = (index) => {
@@ -88,8 +88,24 @@ const Wallet = function ({ navigation }) {
     );
 };
 
-const Balance = function ({ balance }) {
-    return (
+const Balance = ({ balance }) => (
+    <View
+        style={{
+            marginTop: 10,
+            marginBottom: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        }}
+    >
+        <Text style={{ fontSize: 21 }}>Balance</Text>
+    </View>
+);
+
+const Pending = ({ pendingBalance }) => (
+    <View>
+        <Text style={{ fontSize: 21, fontWeight: 'bold', marginTop: 20 }}>
+            Pending
+        </Text>
         <View
             style={{
                 marginTop: 10,
@@ -98,42 +114,22 @@ const Balance = function ({ balance }) {
                 justifyContent: 'space-between',
             }}
         >
-            <Text style={{ fontSize: 21 }}>Balance</Text>
-        </View>
-    );
-};
-
-const Pending = function ({ pendingBalance }) {
-    return (
-        <View>
-            <Text style={{ fontSize: 21, fontWeight: 'bold', marginTop: 20 }}>
-                Pending
-            </Text>
-            <View
+            <Pressable
                 style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    borderColor: '#4BAA00',
+                    borderWidth: 1,
+                    borderRadius: 2,
+                    paddingTop: 5,
+                    paddingBottom: 5,
+                    width: 100,
+                    textAlign: 'center',
                 }}
             >
-                <Pressable
-                    style={{
-                        borderColor: '#4BAA00',
-                        borderWidth: 1,
-                        borderRadius: 2,
-                        paddingTop: 5,
-                        paddingBottom: 5,
-                        width: 100,
-                        textAlign: 'center',
-                    }}
-                >
-                    <Text style={{ color: '#4BAA00' }}>Accept</Text>
-                </Pressable>
-            </View>
+                <Text style={{ color: '#4BAA00' }}>Accept</Text>
+            </Pressable>
         </View>
-    );
-};
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {

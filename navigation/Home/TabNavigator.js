@@ -17,31 +17,29 @@ const IconMapping = {
     Account: 'account',
 };
 
-const TabNavigator = function () {
-    return (
-        <Tab.Navigator
-            initialRouteName="Home"
-            screenOptions={({ route }) => ({
-                tabBarActiveTintColor: 'black',
-                headerTitleAlign: 'center',
-                tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons
-                        name={IconMapping[route.name]}
-                        color={color}
-                        size={size}
-                    />
-                ),
-            })}
-        >
-            <Tab.Screen
-                name="Home"
-                component={HomeStack}
-                options={{ headerShown: false }}
-            />
-            <Tab.Screen name="Browse" component={() => <Text>Browse</Text>} />
-            <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
-            <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
-        </Tab.Navigator>
-    );
-};
+const TabNavigator = () => (
+    <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={({ route }) => ({
+            tabBarActiveTintColor: 'black',
+            headerTitleAlign: 'center',
+            tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons
+                    name={IconMapping[route.name]}
+                    color={color}
+                    size={size}
+                />
+            ),
+        })}
+    >
+        <Tab.Screen
+            name="Home"
+            component={HomeStack}
+            options={{ headerShown: false }}
+        />
+        <Tab.Screen name="Browse" component={() => <Text>Browse</Text>} />
+        <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
+        <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
+    </Tab.Navigator>
+);
 export default TabNavigator;

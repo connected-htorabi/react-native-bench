@@ -5,51 +5,49 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 
-const CustomDrawerNav = function (props) {
-    return (
-        <View
-            style={{
-                flex: 1,
-                borderBottomColor: '#995d9a',
-                borderBottomWidth: 0.5,
-            }}
-        >
-            <DrawerContentScrollView {...props}>
-                <View
+const CustomDrawerNav = (props) => (
+    <View
+        style={{
+            flex: 1,
+            borderBottomColor: '#995d9a',
+            borderBottomWidth: 0.5,
+        }}
+    >
+        <DrawerContentScrollView {...props}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignContent: 'center',
+                    justifyContent: 'space-around',
+                }}
+            >
+                <Image
+                    source={{
+                        uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWYo2yKCLQmnzoC9UZxuXzkjBMZCNtvSt_0A&usqp=CAU',
+                    }}
                     style={{
-                        flexDirection: 'row',
+                        width: 100,
+                        height: 100,
+                        borderRadius: 60,
+                        marginBottom: 10,
+                    }}
+                />
+                <Text
+                    style={{
+                        fontSize: 18,
+                        fontFamily: 'Arial',
+                        fontWeight: 'bold',
                         alignContent: 'center',
-                        justifyContent: 'space-around',
+                        marginTop: 30,
+                        marginRight: 40,
                     }}
                 >
-                    <Image
-                        source={{
-                            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWYo2yKCLQmnzoC9UZxuXzkjBMZCNtvSt_0A&usqp=CAU',
-                        }}
-                        style={{
-                            width: 100,
-                            height: 100,
-                            borderRadius: 60,
-                            marginBottom: 10,
-                        }}
-                    />
-                    <Text
-                        style={{
-                            fontSize: 18,
-                            fontFamily: 'Arial',
-                            fontWeight: 'bold',
-                            alignContent: 'center',
-                            marginTop: 30,
-                            marginRight: 40,
-                        }}
-                    >
-                        Hi Anna!
-                    </Text>
-                </View>
+                    Hi Anna!
+                </Text>
+            </View>
 
-                <DrawerItemList {...props} />
-            </DrawerContentScrollView>
-        </View>
-    );
-};
+            <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+    </View>
+);
 export default CustomDrawerNav;

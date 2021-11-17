@@ -3,7 +3,7 @@ import { Pressable, StyleSheet } from 'react-native';
 
 import { ExpandableContext } from './Expandable';
 
-const Header = function ({ children, title, ...otherProps }) {
+const Header = ({ children, title, ...otherProps }) => {
     const { toggle } = useContext(ExpandableContext);
 
     const func = () => {
