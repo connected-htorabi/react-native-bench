@@ -2,59 +2,56 @@ import React from 'react';
 import { View, Text, SectionList, StyleSheet } from 'react-native';
 
 import ImageHeader from '../components/ImageHeader';
-import { CONTAINER_PADDING } from '../constants';
-
-const testData = [
-    {
-        id: 1,
-        sectionName: 'Choice of Size',
-        data: ['Regular', 'Deluxe'],
-    },
-    {
-        id: 2,
-        sectionName: 'Choice of Cheese',
-        data: [
-            'American Cheese',
-            'Swiss Cheese',
-            'Cheddar Cheese',
-            'Mozarella Cheese',
-        ],
-    },
-    {
-        id: 3,
-        sectionName: 'Choice of Add ons',
-        data: ['Raw onions', 'Fried onions'],
-    },
-];
+import DetailsHeader from '../components/DetailsHeader';
+import { CONTAINER_PADDING, itemOptions } from '../constants';
 
 const ItemDetails = ({ route }) => {
-    const { item: menuItem } = route.params;
+    const { item: details } = route.params;
 
     const renderHeader = () => (
-        <ImageHeader
-            style={{ marginBottom: 10 }}
-            imageUrl={menuItem.image_url}
-            parentPadding={CONTAINER_PADDING}
-        />
+        <>
+            <ImageHeader imageUrl={details.image_url} />
+            <View style={styles.detailsContainer}>
+                <DetailsHeader title={details.name} />
+                <Text>{details.description}</Text>
+            </View>
+        </>
+    );
+
+    const renderSectionHeader = ({ section: { sectionName } }) => (
+        <View style={styles.sectionHeaderContainer}>
+            <Text style={styles.sectionHeaderText}>{sectionName}</Text>
+        </View>
     );
 
     return (
         <SectionList
             style={styles.container}
             ListHeaderComponent={renderHeader}
-            sections={testData}
+            sections={itemOptions}
             keyExtractor={(item, index) => item + index}
             renderItem={({ item }) => <Text>{item}</Text>}
-            renderSectionHeader={({ section }) => (
-                <Text>{section.sectionName}</Text>
-            )}
+            renderSectionHeader={renderSectionHeader}
+            SectionSeparatorComponent={() => <View style={{ height: 10 }} />}
         />
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: CONTAINER_PADDING,
+    detailsContainer: {
+        paddingHorizontal: 20,
+        marginBottom: 20,
+    },
+    sectionHeaderContainer: {
+        justifyContent: 'center',
+        width: '100%',
+        height: 50,
+        fontSize: 30,
+        paddingHorizontal: 20,
+        backgroundColor: '#dedede',
+    },
+    sectionHeaderText: {
+        fontSize: 18,
     },
 });
 

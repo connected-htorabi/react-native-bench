@@ -1,14 +1,10 @@
 import React from 'react';
 import { Image, Text, Dimensions, StyleSheet } from 'react-native';
 
-const ImageHeader = ({ imageUrl, parentPadding, style }) => (
+const ImageHeader = ({ imageUrl, parentPadding = 0 }) => (
     <Image
         resizeMode="cover"
-        style={[
-            styles.headerImage,
-            { marginHorizontal: -parentPadding },
-            style,
-        ]}
+        style={[styles.headerImage, { marginHorizontal: -parentPadding }]}
         source={{ uri: imageUrl }}
     />
 );
