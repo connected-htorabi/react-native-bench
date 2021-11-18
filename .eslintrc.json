@@ -1,0 +1,39 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": ["react", "react-native"],
+    "rules": {
+        "import/prefer-default-export": "off",
+        "react/prop-types": "warn",
+        "no-unused-vars": "warn",
+        "import/no-unresolved": "warn",
+        "react/function-component-definition": [
+            "warn",
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
+        "react/jsx-filename-extension": "warn",
+        "react/jsx-props-no-spreading": "warn",
+        "no-use-before-define": "warn",
+        "camelcase": "warn",
+        "import/no-cycle": "warn",
+        "import/no-mutable-exports": "warn",
+        "no-var": "warn",
+        "react/destructuring-assignment": "warn",
+        "react/no-array-index-key": "warn",
+        "no-shadow": "warn",
+        "react/no-unstable-nested-components": "warn"
+    }
+}

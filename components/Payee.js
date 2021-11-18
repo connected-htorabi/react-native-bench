@@ -9,9 +9,7 @@ import {
 } from 'react-native';
 import useExpanded from '../hooks/useExpanded';
 
-const isNormalInteger = (str) => {
-    return /^\+?(0|[1-9]\d*)$/.test(str);
-};
+const isNormalInteger = (str) => /^\+?(0|[1-9]\d*)$/.test(str);
 
 const Payee = ({ name, onSendMoney = () => {} }) => {
     const { expanded, toggle } = useExpanded();

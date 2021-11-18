@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { StyleSheet, View, Text, Pressable, Button } from 'react-native';
 import Expandable from '../components/Expandable';
 import Header from '../components/Header';
 import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
-import { StyleSheet, View, Text, Pressable, Button } from 'react-native';
 
 const info = [
     { header: 'Individuals', names: ['Henry', 'Bob', 'Sally'] },
@@ -88,8 +88,24 @@ const Wallet = ({ navigation }) => {
     );
 };
 
-const Balance = ({ balance }) => {
-    return (
+const Balance = ({ balance }) => (
+    <View
+        style={{
+            marginTop: 10,
+            marginBottom: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        }}
+    >
+        <Text style={{ fontSize: 21 }}>Balance</Text>
+    </View>
+);
+
+const Pending = ({ pendingBalance }) => (
+    <View>
+        <Text style={{ fontSize: 21, fontWeight: 'bold', marginTop: 20 }}>
+            Pending
+        </Text>
         <View
             style={{
                 marginTop: 10,
@@ -98,42 +114,22 @@ const Balance = ({ balance }) => {
                 justifyContent: 'space-between',
             }}
         >
-            <Text style={{ fontSize: 21 }}>Balance</Text>
-        </View>
-    );
-};
-
-const Pending = ({ pendingBalance }) => {
-    return (
-        <View>
-            <Text style={{ fontSize: 21, fontWeight: 'bold', marginTop: 20 }}>
-                Pending
-            </Text>
-            <View
+            <Pressable
                 style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    borderColor: '#4BAA00',
+                    borderWidth: 1,
+                    borderRadius: 2,
+                    paddingTop: 5,
+                    paddingBottom: 5,
+                    width: 100,
+                    textAlign: 'center',
                 }}
             >
-                <Pressable
-                    style={{
-                        borderColor: '#4BAA00',
-                        borderWidth: 1,
-                        borderRadius: 2,
-                        paddingTop: 5,
-                        paddingBottom: 5,
-                        width: 100,
-                        textAlign: 'center',
-                    }}
-                >
-                    <Text style={{ color: '#4BAA00' }}>Accept</Text>
-                </Pressable>
-            </View>
+                <Text style={{ color: '#4BAA00' }}>Accept</Text>
+            </Pressable>
         </View>
-    );
-};
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {

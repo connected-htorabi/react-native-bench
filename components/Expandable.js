@@ -7,6 +7,7 @@ import React, {
     useRef,
 } from 'react';
 import { View } from 'react-native';
+
 export const ExpandableContext = createContext();
 const { Provider } = ExpandableContext;
 const Expandable = ({ children, onExpand, shouldExpand, ...otherProps }) => {

@@ -1,0 +1,7 @@
+__tests__
+.expo
+.husky
+android
+ios
+babel.config.js
+metro.config.js
