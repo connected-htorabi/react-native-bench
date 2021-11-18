@@ -6,6 +6,7 @@ import { HeaderRight, HeaderLeft } from '../../components/NavHeader';
 import Wallet from '../../screens/Wallet';
 import Home from '../../screens/Home';
 import RestaurantDetails from '../../screens/RestaurantDetails';
+import ItemDetails from '../../screens/ItemDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,5 +26,6 @@ export var HomeStack = () => (
         <Stack.Screen name="Wallet" component={Wallet} />
         <Stack.Screen name="Cart" component={() => <Text>Cart</Text>} />
         <Stack.Screen name="Restaurant Details" component={RestaurantDetails} />
+        <Stack.Screen name="Item Details" component={ItemDetails} />
     </Stack.Navigator>
 );
