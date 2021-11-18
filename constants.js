@@ -1,3 +1,5 @@
+export const CONTAINER_PADDING = 20;
+
 export const localRestaurants = [
     {
         id: 1,
@@ -38,5 +40,44 @@ export const localRestaurants = [
         price: '$2.00',
         reviews: 700,
         rating: 4.9,
+    },
+];
+
+export const restaurantItems = [
+    {
+        id: 1,
+        name: 'Double-Smoked Bacon, Cheddar & Egg Sandwich',
+        price: 6.25,
+        calories: 500,
+        description:
+            'Bacon smoked for six hours over hickory wood chips, stacked with something',
+        image_url:
+            'https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg',
+
+        tags: ['Popular'],
+    },
+    {
+        id: 2,
+        name: 'Everything Croissant & Roasted Ham Sandwich',
+        price: 6.25,
+        calories: 500,
+        description:
+            'Bacon smoked for six hours over hickory wood chips, stacked with something',
+        image_url:
+            'https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg',
+
+        tags: [],
+    },
+    {
+        id: 3,
+        name: 'Mango Dragonfruit Lemonade',
+        price: 6.25,
+        calories: 500,
+        description:
+            'Bacon smoked for six hours over hickory wood chips, stacked with something',
+        image_url:
+            'https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg',
+
+        tags: [],
     },
 ];
