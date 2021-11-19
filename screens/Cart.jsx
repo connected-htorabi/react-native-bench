@@ -63,8 +63,6 @@ const Cart = () => (
         <Pressable onPress={() => {}}>
             <Text style={styles.placeOrderText}>Place Order</Text>
         </Pressable>
-        <SectionSeparator />
-        <CardList />
     </View>
 );
 
