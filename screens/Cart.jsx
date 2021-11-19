@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, SafeAreaView, StyleSheet, Pressable, Text } from 'react-native';
 
-import OrderSection from '../components/cart/OrderSection';
-import PaymentSection from '../components/cart/PaymentSection';
-import NoteSection from '../components/cart/NoteSection';
 import SectionSeparator from '../components/cart/SectionSeparator';
-import CardSection from '../components/cart/CardSection';
+import OrderSection from '../components/cart/order/OrderSection';
+import PaymentSection from '../components/cart/payment/PaymentSection';
+import NoteSection from '../components/cart/note/NoteSection';
+import CardSection from '../components/cart/card/CardSection';
 
 const dummyData = [
     {
