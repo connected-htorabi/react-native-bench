@@ -12,6 +12,8 @@ const OrderSection = ({ items = [] }) => (
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={ItemSeparator}
         scrollEnabled={false}
+        // TODO - figure out why this is required
+        style={{ flexGrow: 0 }}
     />
 );
 

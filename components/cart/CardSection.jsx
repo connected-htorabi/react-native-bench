@@ -1,5 +1,9 @@
 import React, { useRef } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import {
+    TouchableWithoutFeedback,
+    TouchableOpacity,
+    TouchableHighlight,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { Modalize } from 'react-native-modalize';
 
@@ -17,14 +21,14 @@ const CardSection = () => {
 
     return (
         <>
-            <TouchableWithoutFeedback onPress={onOpen}>
+            <TouchableHighlight onPressIn={onOpen} onPress={() => alert('hey')}>
                 <CardItem
                     type={dummyData.type}
                     cardNumber={dummyData.cardNumber}
                     isList={false}
                 />
-            </TouchableWithoutFeedback>
-            <Modalize ref={modalizeRef} modalHeight={400}>
+            </TouchableHighlight>
+            <Modalize ref={modalizeRef} modalHeight={400} modalTopOffset={50}>
                 <CardList />
             </Modalize>
         </>

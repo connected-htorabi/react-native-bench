@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, SafeAreaView, StyleSheet, Pressable, Text } from 'react-native';
 
 import OrderSection from '../components/cart/OrderSection';
 import PaymentSection from '../components/cart/PaymentSection';
 import NoteSection from '../components/cart/NoteSection';
 import SectionSeparator from '../components/cart/SectionSeparator';
 import CardSection from '../components/cart/CardSection';
-import CardList from '../components/cart/CardList';
 
 const dummyData = [
     {
@@ -47,7 +46,8 @@ const dummyData = [
 ];
 
 const Cart = () => (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <>
         <OrderSection items={dummyData} />
         <SectionSeparator />
         <NoteSection />
@@ -63,7 +63,8 @@ const Cart = () => (
         <Pressable onPress={() => {}}>
             <Text style={styles.placeOrderText}>Place Order</Text>
         </Pressable>
-    </View>
+    </>
+    // </View>
 );
 
 const styles = StyleSheet.create({
