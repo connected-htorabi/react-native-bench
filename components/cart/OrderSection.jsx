@@ -11,6 +11,7 @@ const OrderSection = ({ items = [] }) => (
         renderItem={({ item }) => <OrderItem {...item} />}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={ItemSeparator}
+        scrollEnabled={false}
     />
 );
 
