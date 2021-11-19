@@ -7,8 +7,9 @@ const NoteSection = () => {
         <View style={styles.container}>
             <TextInput
                 value={text}
+                style={styles.textInput}
                 onChangeText={(v) => setText(v)}
-                placeholder="Add a Note (extra napkins, extra sauce...)"
+                placeholder="Add a Note (extra napkins, extra sauce ...)"
             />
         </View>
     );
@@ -17,6 +18,9 @@ const NoteSection = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
+        padding: 5,
+    },
+    textInput: {
         padding: 10,
     },
 });

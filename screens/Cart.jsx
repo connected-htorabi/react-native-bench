@@ -64,7 +64,7 @@ const Cart = () => (
             <Text style={styles.placeOrderText}>Place Order</Text>
         </Pressable>
     </>
-    // </View>
+    //  </View>
 );
 
 const styles = StyleSheet.create({

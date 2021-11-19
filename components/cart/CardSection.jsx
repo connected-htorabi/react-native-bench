@@ -1,13 +1,9 @@
 import React, { useRef } from 'react';
-import {
-    TouchableWithoutFeedback,
-    TouchableOpacity,
-    TouchableHighlight,
-} from 'react-native';
+import { StyleSheet, Text, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 import { Modalize } from 'react-native-modalize';
 
-import CardItem from './CardItem';
+import BaseCardItem from './BaseCardItem';
 import CardList from './CardList';
 
 const dummyData = { type: 'visa', cardNumber: '****-****-1234' };
@@ -21,12 +17,14 @@ const CardSection = () => {
 
     return (
         <>
-            <TouchableHighlight onPressIn={onOpen} onPress={() => alert('hey')}>
-                <CardItem
+            <TouchableHighlight onPress={onOpen}>
+                <BaseCardItem
                     type={dummyData.type}
                     cardNumber={dummyData.cardNumber}
                     isList={false}
-                />
+                >
+                    <Text style={styles.change}>Change</Text>
+                </BaseCardItem>
             </TouchableHighlight>
             <Modalize ref={modalizeRef} modalHeight={400} modalTopOffset={50}>
                 <CardList />
@@ -36,5 +34,12 @@ const CardSection = () => {
 };
 
 CardSection.propTypes = {};
+
+const styles = StyleSheet.create({
+    change: {
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+    },
+});
 
 export default CardSection;
