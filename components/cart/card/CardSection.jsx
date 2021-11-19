@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, TouchableHighlight } from 'react-native';
-import PropTypes from 'prop-types';
 import { Modalize } from 'react-native-modalize';
 
 import BaseCardItem from './BaseCardItem';
@@ -32,8 +31,6 @@ const CardSection = () => {
         </>
     );
 };
-
-CardSection.propTypes = {};
 
 const styles = StyleSheet.create({
     change: {
