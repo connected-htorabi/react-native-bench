@@ -1,31 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import OrderItem, { OrderItemPropTypes } from './OrderItem';
 import ItemSeparator from '../ItemSeparator';
 
+const DELETION_WIDTH = 80;
+
+const renderHiddenItem = (item) => (
+    <View style={styles.container}>
+        <Icon
+            onPress={() => alert('clicked delete')}
+            name="trash"
+            color="red"
+            size={30}
+            style={styles.icon}
+        />
+    </View>
+);
+
+const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        height: '100%',
+        justifyContent: 'flex-end',
+    },
+    icon: {
+        width: DELETION_WIDTH,
+        textAlign: 'center',
+        alignSelf: 'center',
+    },
+});
+
 const OrderSection = ({ items = [] }) => (
-    <>
-        <FlatList
-            data={items}
-            renderItem={({ item }) => <OrderItem {...item} />}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={ItemSeparator}
-            scrollEnabled={false}
-            // TODO - figure out why this is required
-            style={{ flexGrow: 0 }}
-        />
-        <SwipeListView
-            data={items}
-            renderItem={({ item }) => <OrderItem {...item} />}
-            renderHiddenItem={({ item }) => (
-                <Text style={{ textAlign: 'right' }}>Hello there</Text>
-            )}
-            rightOpenValue={-20}
-        />
-    </>
+    <SwipeListView
+        data={items}
+        renderItem={({ item }) => <OrderItem {...item} />}
+        renderHiddenItem={({ item }) => renderHiddenItem(item)}
+        ItemSeparatorComponent={ItemSeparator}
+        rightOpenValue={-DELETION_WIDTH}
+        style={{ flexGrow: 0 }}
+        disableRightSwipe
+    />
 );
 
 OrderSection.propTypes = {

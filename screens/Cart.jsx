@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
 
 import SectionSeparator from '../components/cart/SectionSeparator';
 import OrderSection from '../components/cart/order/OrderSection';
@@ -46,30 +46,41 @@ const dummyData = [
 ];
 
 const Cart = () => (
-    // <View style={styles.container}>
-    <>
-        <OrderSection items={dummyData} />
-        <SectionSeparator />
-        <NoteSection />
-        <SectionSeparator />
-        <PaymentSection
-            subtotalValue={10.39}
-            taxValue={3.45}
-            totalValue={9.99}
-        />
-        <SectionSeparator />
-        <CardSection />
-        <SectionSeparator />
-        <Pressable onPress={() => {}}>
-            <Text style={styles.placeOrderText}>Place Order</Text>
-        </Pressable>
-    </>
-    //  </View>
+    <View style={styles.container}>
+        <View style={styles.topContainer}>
+            <OrderSection items={dummyData} />
+            <SectionSeparator />
+            <NoteSection />
+            <SectionSeparator />
+            <PaymentSection
+                subtotalValue={10.39}
+                taxValue={3.45}
+                totalValue={9.99}
+            />
+            <SectionSeparator />
+            <CardSection />
+        </View>
+        <View style={styles.bottomContainer}>
+            <Pressable
+                onPress={() => alert('placed order')}
+                style={{ position: 'absolute', bottom: 0, width: '100%' }}
+            >
+                <Text style={styles.placeOrderText}>Place Order</Text>
+            </Pressable>
+        </View>
+    </View>
 );
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        height: '100%',
+    },
+    topContainer: {
+        paddingTop: 10,
+        paddingHorizontal: 10,
+    },
+    bottomContainer: {
+        flex: 1,
     },
     placeOrderText: {
         paddingVertical: 8,
