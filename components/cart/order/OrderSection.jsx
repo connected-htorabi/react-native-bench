@@ -44,6 +44,7 @@ const OrderSection = ({ items = [] }) => (
         rightOpenValue={-DELETION_WIDTH}
         style={{ flexGrow: 0 }}
         disableRightSwipe
+        scrollEnabled={false}
     />
 );
 

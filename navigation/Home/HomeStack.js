@@ -11,8 +11,7 @@ import Cart from '../../screens/Cart';
 const Stack = createNativeStackNavigator();
 
 export var HomeStack = () => (
-    // <Stack.Navigator initialRouteName="Home">
-    <Stack.Navigator initialRouteName="Cart">
+    <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
             name="Home"
             component={Home}

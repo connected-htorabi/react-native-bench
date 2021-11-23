@@ -36,7 +36,7 @@ const CardSection = () => {
             <Portal>
                 <Modalize
                     ref={modalizeRef}
-                    modalHeight={400}
+                    modalHeight={300}
                     flatListProps={{
                         data: dummyData2,
                         renderItem: ({ item, index }) => (
