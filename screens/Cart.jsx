@@ -61,10 +61,7 @@ const Cart = () => (
             <CardSection />
         </View>
         <View style={styles.bottomContainer}>
-            <Pressable
-                onPress={() => alert('placed order')}
-                style={{ position: 'absolute', bottom: 0, width: '100%' }}
-            >
+            <Pressable onPress={() => alert('placed order')}>
                 <Text style={styles.placeOrderText}>Place Order</Text>
             </Pressable>
         </View>
@@ -81,6 +78,7 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         flex: 1,
+        justifyContent: 'flex-end',
     },
     placeOrderText: {
         paddingVertical: 8,
