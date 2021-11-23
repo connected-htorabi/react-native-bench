@@ -1,14 +1,21 @@
-import React, { useRef } from 'react';
-import { StyleSheet, Text, TouchableHighlight } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, Text, TouchableHighlight, Pressable } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Portal } from 'react-native-portalize';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import BaseCardItem from './BaseCardItem';
-import CardList from './CardList';
+
+const dummyData2 = [
+    { type: 'visa', cardNumber: '****-****-1234' },
+    { type: 'mastercard', cardNumber: '****-****-1234' },
+    { type: 'amex', cardNumber: '****-****-1234' },
+];
 
 const dummyData = { type: 'visa', cardNumber: '****-****-1234' };
 
 const CardSection = () => {
+    const [selectedId, setSelectedId] = useState(0);
     const modalizeRef = useRef(null);
 
     const onOpen = () => {
@@ -27,9 +34,27 @@ const CardSection = () => {
                 </BaseCardItem>
             </TouchableHighlight>
             <Portal>
-                <Modalize ref={modalizeRef} adjustToContentHeight>
-                    <CardList />
-                </Modalize>
+                <Modalize
+                    ref={modalizeRef}
+                    modalHeight={400}
+                    flatListProps={{
+                        data: dummyData2,
+                        renderItem: ({ item, index }) => (
+                            <Pressable onPress={() => setSelectedId(index)}>
+                                <BaseCardItem {...item}>
+                                    {index === selectedId && (
+                                        <Icon name="check" color="green" />
+                                    )}
+                                </BaseCardItem>
+                            </Pressable>
+                        ),
+                        keyExtractor: (_, i) => i,
+                        contentContainerStyle: {
+                            width: '100%',
+                            height: '100%',
+                        },
+                    }}
+                />
             </Portal>
         </>
     );
