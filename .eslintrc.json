@@ -3,7 +3,12 @@
         "browser": true,
         "es2021": true
     },
-    "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "airbnb",
+        "prettier"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -25,8 +30,8 @@
             }
         ],
         "react/jsx-filename-extension": "warn",
-        "react/jsx-props-no-spreading": "warn",
-        "no-use-before-define": "warn",
+        "react/jsx-props-no-spreading": "off",
+        "no-use-before-define": "off",
         "camelcase": "warn",
         "import/no-cycle": "warn",
         "import/no-mutable-exports": "warn",
@@ -34,6 +39,10 @@
         "react/destructuring-assignment": "warn",
         "react/no-array-index-key": "warn",
         "no-shadow": "warn",
-        "react/no-unstable-nested-components": "warn"
+        "react/no-unstable-nested-components": "warn",
+        "react/require-default-props": [
+            1,
+            { "ignoreFunctionalComponents": true }
+        ]
     }
 }
