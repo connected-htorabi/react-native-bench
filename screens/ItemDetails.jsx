@@ -9,39 +9,11 @@ import {
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 
-import ImageHeader from '../components/ImageHeader';
-import DetailsHeader from '../components/DetailsHeader';
+import ListHeader from '../components/itemDetails/ListHeader';
+import QuantityControl from '../components/itemDetails/QuantityControl';
 import { itemOptions } from '../constants';
 
 const MINIMUM_QUANTITY = 1;
-
-const Header = ({ name, imageUrl, description }) => (
-    <>
-        <ImageHeader imageUrl={imageUrl} />
-        <View style={styles.detailsContainer}>
-            <DetailsHeader title={name} />
-            <Text>{description}</Text>
-        </View>
-    </>
-);
-
-const QuantityControl = ({ quantity, onIncrement, onDecrement }) => (
-    <View style={styles.quantityContainer}>
-        <TouchableOpacity
-            style={styles.changeQuantityButton}
-            onPress={onDecrement}
-        >
-            <Text>-</Text>
-        </TouchableOpacity>
-        <Text>{quantity}</Text>
-        <TouchableOpacity
-            style={styles.changeQuantityButton}
-            onPress={onIncrement}
-        >
-            <Text>+</Text>
-        </TouchableOpacity>
-    </View>
-);
 
 const renderSectionHeader = ({ section: { sectionName } }) => (
     <View style={styles.sectionHeaderContainer}>
@@ -73,7 +45,7 @@ const ItemDetails = ({ route }) => {
             <SectionList
                 style={styles.container}
                 ListHeaderComponent={
-                    <Header
+                    <ListHeader
                         name={details.name}
                         description={details.description}
                         imageUrl={details.image_url}
@@ -107,10 +79,6 @@ const styles = StyleSheet.create({
     container: {
         height: '90%',
         marginBottom: 10,
-    },
-    detailsContainer: {
-        paddingHorizontal: 20,
-        marginBottom: 20,
     },
     sectionHeaderContainer: {
         justifyContent: 'center',
@@ -151,21 +119,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontWeight: 'bold',
-    },
-    quantityContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 20,
-    },
-    changeQuantityButton: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 40,
-        width: 40,
-        borderRadius: 20,
-        backgroundColor: 'grey',
-        marginHorizontal: 15,
     },
 });
 
