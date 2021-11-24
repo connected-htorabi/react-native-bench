@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Host } from 'react-native-portalize';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { HomeStack } from './navigation/Home/HomeStack';
@@ -20,8 +21,9 @@ const IconMapping = {
 export default function App() {
     return (
         <NavigationContainer>
-            <AppStack />
-            {/* <Tab.Navigator
+            <Host>
+                <AppStack />
+                {/* <Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => {
           return {
@@ -47,6 +49,7 @@ export default function App() {
         <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
         <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
       </Tab.Navigator> */}
+            </Host>
         </NavigationContainer>
     );
 }
