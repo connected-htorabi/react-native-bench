@@ -8,44 +8,6 @@ import PaymentSection from '../components/cart/payment/PaymentSection';
 import NoteSection from '../components/cart/note/NoteSection';
 import CardSection from '../components/cart/card/CardSection';
 
-const dummyData = [
-    {
-        id: 1,
-        quantity: 1,
-        name: 'Burger',
-        description: 'Some Text Goes Here',
-        price: 12.34,
-    },
-    {
-        id: 2,
-        quantity: 2,
-        name: 'Burger',
-        description: 'Some Text Goes Here',
-        price: 12.34,
-    },
-    {
-        id: 3,
-        quantity: 3,
-        name: 'Burger',
-        description: 'Some Text Goes Here',
-        price: 12.34,
-    },
-    {
-        id: 4,
-        quantity: 4,
-        name: 'Burger',
-        description: 'Some Text Goes Here',
-        price: 12.34,
-    },
-    {
-        id: 5,
-        quantity: 5,
-        name: 'Burger',
-        description: 'Some Text Goes Here',
-        price: 12.34,
-    },
-];
-
 const Cart = () => {
     const [items, setItems] = useState([]);
 
