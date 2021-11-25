@@ -1,0 +1,32 @@
+{
+    "cart": [
+        {
+            "id": 1,
+            "quantity": 1,
+            "name": "Burger",
+            "description": "A delicious burger.",
+            "price": 5.75
+        },
+        {
+            "id": 2,
+            "quantity": 2,
+            "name": "Fries",
+            "description": "A delicious fries.",
+            "price": 3.5
+        },
+        {
+            "id": 3,
+            "quantity": 3,
+            "name": "Salad",
+            "description": "A delicious salad.",
+            "price": 3.25
+        },
+        {
+            "id": 4,
+            "quantity": 4,
+            "name": "Soda",
+            "description": "A delicious soda.",
+            "price": 1.25
+        }
+    ]
+}
