@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     SafeAreaView,
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import Checkbox from 'expo-checkbox';
 
 import ListHeader from '../components/itemDetails/ListHeader';
 import QuantityControl from '../components/itemDetails/QuantityControl';
@@ -23,9 +23,8 @@ const renderSectionHeader = ({ section: { sectionName } }) => (
 
 const renderSectionItem = ({ item }) => (
     <View style={styles.optionContainer}>
-        <CheckBox
+        <Checkbox
             disabled={false}
-            boxType="square"
             value
             onValueChange={(newValue) => console.log('checked')}
         />
