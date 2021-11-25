@@ -2,11 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import DetailsHeader from './DetailsHeader';
+
 export default function RestaurantInfo({ info }) {
     const { name, price, reviews, rating } = info;
     return (
         <>
-            <Text style={styles.restaurantName}>{name}</Text>
+            <DetailsHeader title={name} />
             <View style={styles.detailRow}>
                 <MaterialCommunityIcons name="star" size={25} />
                 <Text style={[styles.detailText, { marginLeft: 5 }]}>
@@ -23,12 +25,6 @@ export default function RestaurantInfo({ info }) {
 }
 
 const styles = StyleSheet.create({
-    restaurantName: {
-        marginTop: 20,
-        marginBottom: 10,
-        fontSize: 25,
-        fontWeight: '700',
-    },
     detailRow: {
         flexDirection: 'row',
         alignItems: 'center',
