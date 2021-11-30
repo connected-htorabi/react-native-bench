@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
     description: {
         color: 'grey',
         flex: 10,
-        textOverflow: 'ellipsis',
-        overflow: 'hidden',
     },
     priceContainer: {
         flex: 2,
