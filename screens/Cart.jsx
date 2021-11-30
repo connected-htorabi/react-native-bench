@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Pressable,
+    Text,
+    TouchableOpacity,
+} from 'react-native';
 import axios from 'axios';
 
 import SectionSeparator from '../components/cart/SectionSeparator';
@@ -13,7 +19,7 @@ const Cart = () => {
 
     useEffect(() => {
         axios
-            .get('http://www.localhost:9001/cart')
+            .get('http://localhost:9001/cart')
             .then(({ data }) => setItems(data));
     }, []);
 
@@ -33,9 +39,9 @@ const Cart = () => {
                 <CardSection />
             </View>
             <View style={styles.bottomContainer}>
-                <Pressable onPress={() => alert('placed order')}>
+                <TouchableOpacity onPress={() => alert('placed order')}>
                     <Text style={styles.placeOrderText}>Place Order</Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
         </View>
     );
