@@ -19,7 +19,8 @@ const Cart = () => {
 
     useEffect(() => {
         axios
-            .get('http://localhost:9001/cart')
+            // .get('http://localhost:9001/cart')
+            .get('cart')
             .then(({ data }) => setItems(data));
     }, []);
 

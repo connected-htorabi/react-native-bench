@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet, View, Image } from 'react-native';
 
 export default function MenuItem({ item }) {
-    const { name, image_url, price, calories, description, tags } = item;
+    const { name, imageUrl, price, calories, description, tags } = item;
     return (
         <View style={styles.container}>
             <View style={styles.leftContainer}>
@@ -21,7 +21,7 @@ export default function MenuItem({ item }) {
                 </View>
                 <Text>{description}</Text>
             </View>
-            <Image style={styles.image} source={{ uri: image_url }} />
+            <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>
     );
 }

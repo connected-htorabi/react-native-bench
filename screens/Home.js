@@ -1,19 +1,24 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { SafeAreaView, ScrollView, FlatList } from 'react-native';
 
 import RestaurantItem from '../components/RestaurantItem';
 import { localRestaurants } from '../constants';
+import { selectRestaurants } from '../redux/restaurants/selectors';
 
 export default function Home({ navigation }) {
+    const restaurants = useSelector(selectRestaurants);
+
     return (
         <SafeAreaView style={{ backgroundColor: '#eee', flex: 1 }}>
             <FlatList
                 keyExtractor={({ id }) => id}
-                data={localRestaurants}
+                // data={localRestaurants}
+                data={restaurants}
                 renderItem={({ item }) => (
                     <RestaurantItem
                         name={item.name}
-                        image_url={item.image_url}
+                        imageUrl={item.imageUrl}
                         rating={item.rating}
                         onPress={() =>
                             navigation.navigate('Restaurant Details', {

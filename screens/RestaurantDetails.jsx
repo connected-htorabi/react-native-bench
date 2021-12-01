@@ -9,9 +9,11 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 import MenuItem from '../components/MenuItem';
 import RestaurantInfo from '../components/RestaurantInfo';
 import ImageHeader from '../components/ImageHeader';
+import { selectRestaurants } from '../redux/restaurants/selectors';
 import {
     localRestaurants,
     restaurantItems,
@@ -19,14 +21,18 @@ import {
 } from '../constants';
 
 const RestaurantDetails = ({ navigation, route }) => {
-    const restaurantDetails = localRestaurants.find(
+    const restaurants = useSelector(selectRestaurants);
+    const restaurantDetails = restaurants.find(
         (item) => item.id === route.params.id
     );
+    // const restaurantDetails = localRestaurants.find(
+    //     (item) => item.id === route.params.id
+    // );
 
     const renderHeader = () => (
         <>
             <ImageHeader
-                imageUrl={restaurantDetails.image_url}
+                imageUrl={restaurantDetails.imageUrl}
                 parentPadding={CONTAINER_PADDING}
             />
             <RestaurantInfo info={restaurantDetails} />
