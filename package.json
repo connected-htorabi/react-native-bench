@@ -10,7 +10,8 @@
     "prepare": "husky install",
     "lint-check": "eslint './**/*.{js, jsx, ts, tsx}'",
     "lint-fix": "eslint './**/*.{js, jsx, ts, tsx}' --fix",
-    "start-server": "json-server --watch ./db/db.json --host 0.0.0.0 --port 9001"
+    "start-server": "yarn reset-server && json-server --watch ./db/db.json --host 0.0.0.0 --port 9001",
+    "reset-server": "cpy ./db/db_static.json ./db --rename=db.json"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.0.9",
@@ -44,6 +45,7 @@
     "@babel/core": "^7.12.9",
     "@types/react": "^17.0.35",
     "@types/react-native": "^0.66.5",
+    "cpy-cli": "^3.1.1",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-prettier": "^8.3.0",
