@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     ScrollView,
@@ -9,25 +9,28 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MenuItem from '../components/MenuItem';
 import RestaurantInfo from '../components/RestaurantInfo';
 import ImageHeader from '../components/ImageHeader';
-import { selectRestaurants } from '../redux/restaurants/selectors';
+import { selectRestaurantById } from '../redux/restaurants/selectors';
+import { selectDishes } from '../redux/menu/selectors';
 import {
     localRestaurants,
     restaurantItems,
     CONTAINER_PADDING,
 } from '../constants';
+import { fetchDishes } from '../redux/thunks/fetchDishes';
 
 const RestaurantDetails = ({ navigation, route }) => {
-    const restaurants = useSelector(selectRestaurants);
-    const restaurantDetails = restaurants.find(
-        (item) => item.id === route.params.id
-    );
-    // const restaurantDetails = localRestaurants.find(
-    //     (item) => item.id === route.params.id
-    // );
+    const restaurantId = route.params.id;
+    const dispatch = useDispatch();
+    const restaurantDetails = useSelector(selectRestaurantById(restaurantId));
+    const dishes = useSelector(selectDishes);
+
+    useEffect(() => {
+        dispatch(fetchDishes(restaurantId));
+    }, [dispatch, restaurantId]);
 
     const renderHeader = () => (
         <>
@@ -42,7 +45,12 @@ const RestaurantDetails = ({ navigation, route }) => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
-            onPress={() => navigation.navigate('Item Details', { item })}
+            onPress={() =>
+                navigation.navigate('Item Details', {
+                    restaurantId,
+                    dishId: item.id,
+                })
+            }
         >
             <MenuItem item={item} />
         </TouchableOpacity>
@@ -52,7 +60,7 @@ const RestaurantDetails = ({ navigation, route }) => {
         <FlatList
             style={styles.container}
             ListHeaderComponent={renderHeader}
-            data={restaurantItems}
+            data={dishes}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
         />

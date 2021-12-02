@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 
+import { useSelector } from 'react-redux';
+import { selectDishById } from '../redux/menu/selectors';
 import ListHeader from '../components/itemDetails/ListHeader';
 import QuantityControl from '../components/itemDetails/QuantityControl';
 import { itemOptions } from '../constants';
@@ -35,8 +37,8 @@ const renderSectionItem = ({ item }) => (
 const renderItemSeparator = () => <View style={styles.itemSeparator} />;
 
 const ItemDetails = ({ route }) => {
-    const { item: details } = route.params;
-
+    const { dishId } = route.params;
+    const dishDetails = useSelector(selectDishById(dishId));
     const [quantity, setQuantity] = useState(1);
 
     return (
@@ -45,9 +47,9 @@ const ItemDetails = ({ route }) => {
                 style={styles.container}
                 ListHeaderComponent={
                     <ListHeader
-                        name={details.name}
-                        description={details.description}
-                        imageUrl={details.imageUrl}
+                        name={dishDetails.name}
+                        description={dishDetails.description}
+                        imageUrl={dishDetails.imageUrl}
                     />
                 }
                 sections={itemOptions}
