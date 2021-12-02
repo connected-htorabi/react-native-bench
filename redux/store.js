@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import counterReducer from './counterSlice';
 import restaurantReducer from './restaurants/restaurantSlice';
+import cartReducer from './cart/cartSlice';
 
 export const store = configureStore({
     reducer: {
-        counter: counterReducer,
         restaurants: restaurantReducer,
+        cart: cartReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

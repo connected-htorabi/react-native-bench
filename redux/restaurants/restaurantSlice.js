@@ -41,6 +41,4 @@ export const { actions, reducer } = createSlice({
     },
 });
 
-export const { increment, decrement, incrementByAmount } = actions;
-
 export default reducer;
