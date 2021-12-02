@@ -8,6 +8,7 @@ import { Host } from 'react-native-portalize';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { fetchRestaurants } from './redux/thunks/fetchRestaurants';
+import { fetchCart } from './redux/thunks/fetchCart';
 import { store } from './redux/store';
 import { HomeStack } from './navigation/Home/HomeStack';
 import AppStack from './navigation/Home/AppStack';
@@ -22,11 +23,12 @@ const IconMapping = {
     Account: 'account',
 };
 
-export default function App() {
+const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchRestaurants());
+        dispatch(fetchCart());
     }, [dispatch]);
 
     return (
@@ -64,4 +66,6 @@ export default function App() {
             </NavigationContainer>
         </Provider>
     );
-}
+};
+
+export default App;
