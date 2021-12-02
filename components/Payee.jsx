@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     addButton: {
+        alignItems: 'center',
         borderWidth: 1,
         borderRadius: 2,
         paddingTop: 5,
