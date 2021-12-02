@@ -12,6 +12,7 @@ import { fetchCart } from './redux/thunks/fetchCart';
 import { store } from './redux/store';
 import { HomeStack } from './navigation/Home/HomeStack';
 import AppStack from './navigation/Home/AppStack';
+import { useGetPokemonByNameQuery } from './redux/services/restaurant';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +26,7 @@ const IconMapping = {
 
 const App = () => {
     const dispatch = useDispatch();
+    useGetPokemonByNameQuery('pikachu');
 
     useEffect(() => {
         dispatch(fetchRestaurants());
