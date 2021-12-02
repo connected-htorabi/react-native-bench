@@ -47,7 +47,7 @@ const ItemDetails = ({ route }) => {
                     <ListHeader
                         name={details.name}
                         description={details.description}
-                        imageUrl={details.imageUrl}
+                        imageUrl={details.image_url}
                     />
                 }
                 sections={itemOptions}
