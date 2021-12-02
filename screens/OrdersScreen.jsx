@@ -1,20 +1,19 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { orders, upcomingOrders } from '../constants';
 import Orders from '../components/Orders';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const OrdersScreen = () => (
     <Tab.Navigator
         initialRouteName="Upcoming"
         tabBarOptions={{
             labelStyle: {
-                fontSize: 20,
+                fontSize: 15,
             },
-            tabBarPosition: 'top',
         }}
         screenOptions={{
             tabBarActiveTintColor: 'black',
