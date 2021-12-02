@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Pressable, Button } from 'react-native';
+import {
+    StyleSheet,
+    SafeAreaView,
+    View,
+    Text,
+    Pressable,
+    Button,
+} from 'react-native';
 import Expandable from '../components/Expandable';
 import Header from '../components/Header';
 import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 
-const info = [
-    { header: 'Individuals', names: ['Henry', 'Bob', 'Sally'] },
-    { header: 'Groups', name: 'Second Note' },
-];
+const info = { header: 'Individuals', names: ['Henry', 'Bob', 'Sally'] };
 
 const names = ['Henry', 'Bob', 'Sally'];
 
@@ -17,40 +21,42 @@ const balance = 20;
 const pendingBalance = 10;
 
 const Wallet = ({ navigation }) => {
-    const [activeIndex, setActiveIndex] = useState(null);
+    const [isActive, setIsActive] = useState(false);
 
-    const onExpand = (index) => {
-        setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    const onExpand = () => {
+        setIsActive((prev) => setIsActive(!prev));
     };
 
     return (
-        <View style={styles.container}>
-            <Text
-                style={{ fontSize: 36, fontWeight: 'bold', marginBottom: 10 }}
-            >
-                Wallet
-            </Text>
-            <Balance balance={balance} />
-            <Pending pendingBalance={pendingBalance} />
-            <Text
-                style={{
-                    fontSize: 21,
-                    fontWeight: 'bold',
-                    marginBottom: 20,
-                    marginTop: 25,
-                }}
-            >
-                Send Money
-            </Text>
-            {info.map((item, index) => (
+        <SafeAreaView>
+            <View style={styles.container}>
+                <Text
+                    style={{
+                        fontSize: 36,
+                        fontWeight: 'bold',
+                        marginBottom: 10,
+                    }}
+                >
+                    Wallet
+                </Text>
+                <Balance balance={balance} />
+                <Pending pendingBalance={pendingBalance} />
+                <Text
+                    style={{
+                        fontSize: 21,
+                        fontWeight: 'bold',
+                        marginBottom: 20,
+                        marginTop: 25,
+                    }}
+                >
+                    Send Money
+                </Text>
                 <Expandable
-                    shouldExpand={index === activeIndex}
-                    onExpand={() => onExpand(index)}
-                    key={index}
+                    shouldExpand={isActive}
+                    onExpand={onExpand}
                     style={{ marginBottom: 20 }}
                 >
                     <Header
-                        dataIndex={index}
                         style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
@@ -60,7 +66,7 @@ const Wallet = ({ navigation }) => {
                             padding: 20,
                         }}
                     >
-                        <Text style={{ fontSize: 21 }}>{item.header}</Text>
+                        <Text style={{ fontSize: 21 }}>{info.header}</Text>
                         <Icon />
                     </Header>
 
@@ -77,14 +83,14 @@ const Wallet = ({ navigation }) => {
                                 paddingRight: 15,
                             }}
                         >
-                            {names.map((obj, i) => (
+                            {info.names.map((obj, i) => (
                                 <Payee name={obj} key={i} />
                             ))}
                         </View>
                     </Body>
                 </Expandable>
-            ))}
-        </View>
+            </View>
+        </SafeAreaView>
     );
 };
 
