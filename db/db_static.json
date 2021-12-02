@@ -71,7 +71,7 @@
             "price": 1.25
         }
     ],
-    "restaurantDishes": [
+    "dishes": [
         {
             "id": 1,
             "restaurantId": 1,

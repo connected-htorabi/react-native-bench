@@ -1,25 +1,12 @@
 import React, { useEffect } from 'react';
-import {
-    View,
-    ScrollView,
-    Image,
-    StyleSheet,
-    Text,
-    FlatList,
-    Dimensions,
-    TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import MenuItem from '../components/MenuItem';
 import RestaurantInfo from '../components/RestaurantInfo';
 import ImageHeader from '../components/ImageHeader';
 import { selectRestaurantById } from '../redux/restaurants/selectors';
 import { selectDishes } from '../redux/menu/selectors';
-import {
-    localRestaurants,
-    restaurantItems,
-    CONTAINER_PADDING,
-} from '../constants';
+import { CONTAINER_PADDING } from '../constants';
 import { fetchDishes } from '../redux/thunks/fetchDishes';
 
 const RestaurantDetails = ({ navigation, route }) => {
