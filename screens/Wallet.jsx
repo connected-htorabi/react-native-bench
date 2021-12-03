@@ -43,7 +43,9 @@ const Wallet = () => {
                     style={styles.expandable}
                 >
                     <Header style={styles.expandableHeader}>
-                        <Text style={{ fontSize: 21 }}>{info.header}</Text>
+                        <Text style={styles.expandableHeaderText}>
+                            {info.header}
+                        </Text>
                         <Icon />
                     </Header>
 
@@ -144,6 +146,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         padding: 20,
+    },
+    expandableHeaderText: {
+        fontSize: 21,
     },
     expandableBody: {
         flexDirection: 'column',
