@@ -1,18 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import OrderItem, { OrderItemPropTypes } from './OrderItem';
+import OrderItem from './OrderItem';
 import ItemSeparator from '../ItemSeparator';
+import { removeItemFromCart } from '../../../redux/thunks/removeItemFromCart';
+import { selectItems } from '../../../redux/cart/selectors';
 
 const DELETION_WIDTH = 80;
 
-const renderHiddenItem = (item) => (
+const renderHiddenItem = (item, onDelete) => (
     <View style={styles.container}>
         <Icon
-            onPress={() => alert('clicked delete')}
+            onPress={onDelete}
             name="trash"
             color="red"
             size={30}
@@ -35,21 +38,26 @@ const styles = StyleSheet.create({
     },
 });
 
-const OrderSection = ({ items = [] }) => (
-    <SwipeListView
-        data={items}
-        renderItem={({ item }) => <OrderItem {...item} />}
-        renderHiddenItem={({ item }) => renderHiddenItem(item)}
-        ItemSeparatorComponent={ItemSeparator}
-        rightOpenValue={-DELETION_WIDTH}
-        style={{ flexGrow: 0 }}
-        disableRightSwipe
-        scrollEnabled={false}
-    />
-);
+const OrderSection = () => {
+    const dispatch = useDispatch();
+    const items = useSelector(selectItems);
 
-OrderSection.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape(OrderItemPropTypes)),
+    return (
+        <SwipeListView
+            data={items}
+            renderItem={({ item }) => <OrderItem {...item} />}
+            renderHiddenItem={({ item }) =>
+                renderHiddenItem(item, () =>
+                    dispatch(removeItemFromCart(item.id))
+                )
+            }
+            ItemSeparatorComponent={ItemSeparator}
+            rightOpenValue={-DELETION_WIDTH}
+            style={{ flexGrow: 0 }}
+            disableRightSwipe
+            scrollEnabled={false}
+        />
+    );
 };
 
 export default OrderSection;
