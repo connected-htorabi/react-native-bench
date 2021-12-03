@@ -3,9 +3,12 @@ import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
 import axios from 'axios';
 import { Provider } from 'react-redux';
+import { ToastProvider } from 'react-native-styled-toast';
+import { ThemeProvider } from 'styled-components';
 
 import App from './App';
 import { store } from './redux/store';
+import theme from './theme';
 
 axios.defaults.baseURL = 'http://localhost:9001';
 
@@ -15,7 +18,11 @@ axios.defaults.baseURL = 'http://localhost:9001';
 
 const ProviderApp = () => (
     <Provider store={store}>
-        <App />
+        <ThemeProvider theme={theme}>
+            <ToastProvider>
+                <App />
+            </ToastProvider>
+        </ThemeProvider>
     </Provider>
 );
 
