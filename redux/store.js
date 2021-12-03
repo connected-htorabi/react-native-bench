@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
 
 import restaurantReducer from './restaurants/restaurantSlice';
 import cartReducer from './cart/cartSlice';
@@ -12,5 +13,8 @@ export const store = configureStore({
         menu: menuReducer,
         [restaurantApi.reducerPath]: restaurantApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(restaurantApi.middleware),
 });
+
+setupListeners(store.dispatch);

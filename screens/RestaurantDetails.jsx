@@ -8,6 +8,7 @@ import { selectRestaurantById } from '../redux/restaurants/selectors';
 import { selectDishes } from '../redux/menu/selectors';
 import { CONTAINER_PADDING } from '../constants';
 import { fetchDishes } from '../redux/thunks/fetchDishes';
+import { useGetRestaurantDishesQuery } from '../redux/services/restaurant';
 
 const RestaurantDetails = ({ navigation, route }) => {
     const restaurantId = route.params.id;
@@ -15,9 +16,11 @@ const RestaurantDetails = ({ navigation, route }) => {
     const restaurantDetails = useSelector(selectRestaurantById(restaurantId));
     const dishes = useSelector(selectDishes);
 
-    useEffect(() => {
-        dispatch(fetchDishes(restaurantId));
-    }, [dispatch, restaurantId]);
+    useGetRestaurantDishesQuery(restaurantId);
+
+    // useEffect(() => {
+    //     dispatch(fetchDishes(restaurantId));
+    // }, [dispatch, restaurantId]);
 
     const renderHeader = () => (
         <>

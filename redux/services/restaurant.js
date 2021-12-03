@@ -21,11 +21,31 @@ const axiosBaseQuery =
 export const restaurantApi = createApi({
     reducerPath: 'restaurantApi',
     baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:9001/' }),
+    tagTypes: ['Cart'],
     endpoints: (builder) => ({
-        getPokemonByName: builder.query({
-            query: (name) => ({ url: `pokemon/${name}`, method: 'get' }),
+        getRestaurants: builder.query({
+            query: () => ({ url: 'restaurants', method: 'get' }),
+        }),
+        getRestaurantDishes: builder.query({
+            query: (restaurantId) => ({
+                url: `restaurants/${restaurantId}/dishes`,
+                method: 'get',
+            }),
+        }),
+        getCart: builder.query({
+            query: () => ({ url: 'cart', method: 'get' }),
+            providesTags: ['Cart'],
+        }),
+        removeItemFromCart: builder.mutation({
+            query: (id) => ({ url: `cart/${id}`, method: 'delete' }),
+            invalidatesTags: ['Cart'],
         }),
     }),
 });
 
-export const { useGetPokemonByNameQuery } = restaurantApi;
+export const {
+    useGetRestaurantsQuery,
+    useGetCartQuery,
+    useGetRestaurantDishesQuery,
+    useRemoveItemFromCartMutation,
+} = restaurantApi;
