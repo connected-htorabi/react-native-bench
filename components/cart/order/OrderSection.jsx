@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
 const OrderSection = () => {
     // const items = useSelector(selectItems);
     // const { data: items } = useGetCartQuery();
-    // const { data: items } = useGetCartQuery();
     const { items } = useGetCartQuery(undefined, {
         selectFromResult: ({ data }) => ({ items: data }),
     });
