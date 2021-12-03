@@ -155,3 +155,7 @@ export const upcomingOrders = [
         date: '2 Dec 2021, 22:41',
     },
 ];
+
+export const ORDER_STATUSES = {
+    COMPLETED: 'completed',
+};
