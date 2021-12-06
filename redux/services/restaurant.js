@@ -23,29 +23,29 @@ export const restaurantApi = createApi({
     baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:9001/' }),
     tagTypes: ['Cart'],
     endpoints: (builder) => ({
-        getRestaurants: builder.query({
-            query: () => ({ url: 'restaurants', method: 'get' }),
-        }),
-        getRestaurantDishes: builder.query({
-            query: (restaurantId) => ({
-                url: `restaurants/${restaurantId}/dishes`,
-                method: 'get',
-            }),
-        }),
         getCart: builder.query({
             query: () => ({ url: 'cart', method: 'get' }),
-            providesTags: ['Cart'],
         }),
         removeItemFromCart: builder.mutation({
             query: (id) => ({ url: `cart/${id}`, method: 'delete' }),
-            invalidatesTags: ['Cart'],
+            onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
+                // optimistic update
+                const patchResult = dispatch(
+                    restaurantApi.util.updateQueryData(
+                        'getCart',
+                        undefined,
+                        (draft) =>
+                            draft.filter((cartItem) => cartItem.id !== id)
+                    )
+                );
+                try {
+                    await queryFulfilled;
+                } catch {
+                    patchResult.undo();
+                }
+            },
         }),
     }),
 });
 
-export const {
-    useGetRestaurantsQuery,
-    useGetCartQuery,
-    useGetRestaurantDishesQuery,
-    useRemoveItemFromCartMutation,
-} = restaurantApi;
+export const { useGetCartQuery, useRemoveItemFromCartMutation } = restaurantApi;
