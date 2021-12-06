@@ -8,10 +8,10 @@ import { Host } from 'react-native-portalize';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { fetchRestaurants } from './redux/thunks/fetchRestaurants';
-import { fetchCart } from './redux/thunks/fetchCart';
 import { store } from './redux/store';
 import { HomeStack } from './navigation/Home/HomeStack';
 import AppStack from './navigation/Home/AppStack';
+import { useGetCartQuery } from './redux/services/restaurant';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,10 +25,10 @@ const IconMapping = {
 
 const App = () => {
     const dispatch = useDispatch();
+    useGetCartQuery();
 
     useEffect(() => {
         dispatch(fetchRestaurants());
-        dispatch(fetchCart());
     }, [dispatch]);
 
     return (
