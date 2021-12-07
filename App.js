@@ -12,6 +12,7 @@ import { store } from './redux/store';
 import { HomeStack } from './navigation/Home/HomeStack';
 import AppStack from './navigation/Home/AppStack';
 import { useGetCartQuery } from './redux/services/restaurant';
+import { fetchUser } from './redux/thunks/fetchUser';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,6 +30,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(fetchRestaurants());
+        dispatch(fetchUser(1));
     }, [dispatch]);
 
     return (
