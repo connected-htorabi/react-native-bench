@@ -26,6 +26,7 @@ export const restaurantApi = createApi({
         getCart: builder.query({
             query: () => ({ url: 'cart', method: 'get' }),
             transformResponse: (response) => {
+                // format the results as would normally be received from backend
                 const subtotal = response
                     .map(({ price }) => price)
                     .reduce((acc, curr) => acc + curr, 0);
@@ -41,22 +42,7 @@ export const restaurantApi = createApi({
         }),
         removeItemFromCart: builder.mutation({
             query: (id) => ({ url: `cart/${id}`, method: 'delete' }),
-            onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
-                // optimistic update
-                const patchResult = dispatch(
-                    restaurantApi.util.updateQueryData(
-                        'getCart',
-                        undefined,
-                        (draft) =>
-                            draft.filter((cartItem) => cartItem.id !== id)
-                    )
-                );
-                try {
-                    await queryFulfilled;
-                } catch {
-                    patchResult.undo();
-                }
-            },
+            invalidatesTags: ['Cart'],
         }),
         placeOrder: builder.mutation({
             queryFn: () => true,
