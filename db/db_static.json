@@ -147,5 +147,48 @@
             "items": ["Wrap", "Coffee"],
             "date": "2 Dec 2021, 22:41"
         }
+    ],
+
+    "users": [
+        {
+            "id": 1,
+            "name": "Tyler",
+            "address": "101 Test St, Toronto, ON",
+            "creditBalance": 20.0,
+            "email": "tyler@test.com",
+            "friends": [2, 3, 4]
+        },
+        {
+            "id": 2,
+            "name": "Madhu",
+            "address": "102 Test St, Toronto, ON",
+            "creditBalance": 30.0,
+            "email": "madhu@test.com",
+            "friends": [1, 4]
+        },
+        {
+            "id": 3,
+            "name": "Navdeep",
+            "address": "103 Test St, Toronto, ON",
+            "creditBalance": 25.0,
+            "email": "navdeep@test.com",
+            "friends": [1]
+        },
+        {
+            "id": 4,
+            "name": "Hossein",
+            "address": "104 Test St, Toronto, ON",
+            "creditBalance": 40.0,
+            "email": "hossein@test.com",
+            "friends": [1, 2]
+        },
+        {
+            "id": 5,
+            "name": "Haydn",
+            "address": "105 Test St, Toronto, ON",
+            "creditBalance": 30.0,
+            "email": "haydn@test.com",
+            "friends": []
+        }
     ]
 }
