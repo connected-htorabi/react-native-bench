@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { HomeStack } from './HomeStack';
 import AppStack from './AppStack';
+import OrdersScreen from '../../screens/OrdersScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +39,7 @@ const TabNavigator = () => (
             options={{ headerShown: false }}
         />
         <Tab.Screen name="Browse" component={() => <Text>Browse</Text>} />
-        <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
+        <Tab.Screen name="Orders" component={OrdersScreen} />
         <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
     </Tab.Navigator>
 );
