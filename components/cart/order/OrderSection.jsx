@@ -1,15 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import OrderItem from './OrderItem';
+import OrderItem, { OrderItemPropTypes } from './OrderItem';
 import ItemSeparator from '../ItemSeparator';
-import {
-    useGetCartQuery,
-    useRemoveItemFromCartMutation,
-} from '../../../redux/services/restaurant';
+import { useRemoveItemFromCartMutation } from '../../../redux/services/restaurant';
 
 const DELETION_WIDTH = 80;
 
@@ -39,10 +37,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const OrderSection = () => {
-    const { items } = useGetCartQuery(undefined, {
-        selectFromResult: ({ data }) => ({ items: data }),
-    });
+const OrderSection = ({ items }) => {
     const [removeItemFromCart] = useRemoveItemFromCartMutation();
 
     return (
@@ -59,6 +54,10 @@ const OrderSection = () => {
             scrollEnabled={false}
         />
     );
+};
+
+OrderSection.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape(OrderItemPropTypes)),
 };
 
 export default OrderSection;

@@ -25,6 +25,7 @@ export const restaurantApi = createApi({
     endpoints: (builder) => ({
         getCart: builder.query({
             query: () => ({ url: 'cart', method: 'get' }),
+            providesTags: ['Cart'],
         }),
         removeItemFromCart: builder.mutation({
             query: (id) => ({ url: `cart/${id}`, method: 'delete' }),
@@ -45,7 +46,28 @@ export const restaurantApi = createApi({
                 }
             },
         }),
+        placeOrder: builder.mutation({
+            queryFn: () => true,
+            onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+                try {
+                    await queryFulfilled;
+                    dispatch(
+                        restaurantApi.util.updateQueryData(
+                            'getCart',
+                            undefined,
+                            () => []
+                        )
+                    );
+                } catch {
+                    console.error('Could not place order');
+                }
+            },
+        }),
     }),
 });
 
-export const { useGetCartQuery, useRemoveItemFromCartMutation } = restaurantApi;
+export const {
+    useGetCartQuery,
+    useRemoveItemFromCartMutation,
+    usePlaceOrderMutation,
+} = restaurantApi;
