@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchUser } from '../thunks/fetchUser';
+import { sendCredit } from '../thunks/sendCredit';
 
 const initialState = {
     user: [],
@@ -11,6 +12,10 @@ export const { actions, reducer } = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
+            state.user = payload;
+        });
+
+        builder.addCase(sendCredit.fulfilled, (state, { payload }) => {
             state.user = payload;
         });
     },
