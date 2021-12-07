@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { useToast } from 'react-native-styled-toast';
 
 import { useDispatch, useSelector } from 'react-redux';
