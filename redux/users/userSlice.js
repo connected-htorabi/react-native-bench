@@ -15,9 +15,12 @@ export const { actions, reducer } = createSlice({
             state.user = payload;
         });
 
-        builder.addCase(sendCredit.fulfilled, (state, { payload }) => {
-            state.user = payload;
-        });
+        builder.addCase(
+            sendCredit.fulfilled,
+            (state, { payload: { creditBalance } }) => {
+                state.user = { ...state.user, creditBalance };
+            }
+        );
     },
 });
 
