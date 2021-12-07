@@ -15,8 +15,20 @@ import CardSection from '../components/cart/card/CardSection';
 
 const Cart = () => {
     const [placeOrder] = usePlaceOrderMutation();
-    const { items } = useGetCartQuery(undefined, {
-        selectFromResult: ({ data }) => ({ items: data }),
+    const { items, subtotal, tax, total } = useGetCartQuery(undefined, {
+        selectFromResult: ({
+            data: {
+                subtotal: cartSubtotal,
+                tax: cartTax,
+                items: cartItems,
+                total: cartTotal,
+            },
+        }) => ({
+            subtotal: cartSubtotal,
+            tax: cartTax,
+            items: cartItems,
+            total: cartTotal,
+        }),
     });
     return (
         <View style={styles.container}>
@@ -28,9 +40,9 @@ const Cart = () => {
                         <NoteSection />
                         <SectionSeparator />
                         <PaymentSection
-                            subtotalValue={10.39}
-                            taxValue={3.45}
-                            totalValue={9.99}
+                            subtotalValue={subtotal}
+                            taxValue={tax}
+                            totalValue={total}
                         />
                         <SectionSeparator />
                         <CardSection />

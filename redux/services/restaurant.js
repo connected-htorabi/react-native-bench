@@ -25,6 +25,18 @@ export const restaurantApi = createApi({
     endpoints: (builder) => ({
         getCart: builder.query({
             query: () => ({ url: 'cart', method: 'get' }),
+            transformResponse: (response) => {
+                const subtotal = response
+                    .map(({ price }) => price)
+                    .reduce((acc, curr) => acc + curr, 0);
+                const tax = subtotal * 0.13;
+                return {
+                    subtotal,
+                    tax,
+                    total: subtotal + tax,
+                    items: response,
+                };
+            },
             providesTags: ['Cart'],
         }),
         removeItemFromCart: builder.mutation({

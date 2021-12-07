@@ -21,7 +21,9 @@ const OrderItem = ({ quantity, name, description, price }) => (
             )}
         </View>
         <View style={styles.priceContainer}>
-            <Text style={styles.price}>${parseFloat(price).toFixed(2)}</Text>
+            <Text style={styles.price}>{`$${parseFloat(price).toFixed(
+                2
+            )}`}</Text>
         </View>
     </View>
 );
@@ -56,5 +58,6 @@ const styles = StyleSheet.create({
     },
     price: {
         fontWeight: 'bold',
+        textAlign: 'end',
     },
 });
