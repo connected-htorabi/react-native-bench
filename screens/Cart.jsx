@@ -48,7 +48,7 @@ const Cart = () => {
                         <CardSection />
                     </View>
                     <View style={styles.bottomContainer}>
-                        <TouchableOpacity onPress={placeOrder}>
+                        <TouchableOpacity onPress={() => placeOrder()}>
                             <Text style={styles.placeOrderText}>
                                 Place Order
                             </Text>

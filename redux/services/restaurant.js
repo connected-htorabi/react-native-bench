@@ -40,26 +40,41 @@ export const restaurantApi = createApi({
             },
             providesTags: ['Cart'],
         }),
+        addItemToCart: builder.mutation({
+            query: (item) => ({ url: 'cart', method: 'post', data: item }),
+            invalidatesTags: ['Cart'],
+        }),
         removeItemFromCart: builder.mutation({
             query: (id) => ({ url: `cart/${id}`, method: 'delete' }),
             invalidatesTags: ['Cart'],
         }),
         placeOrder: builder.mutation({
-            queryFn: () => true,
-            onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+            // TODO - add query to place an order
+            // query: () => ({ url: 'cart', method: 'delete' }),
+            queryFn: () => ({ data: null }),
+            onQueryStarted: async (_arg, { getState, queryFulfilled }) => {
                 try {
-                    await queryFulfilled;
-                    dispatch(
-                        restaurantApi.util.updateQueryData(
-                            'getCart',
-                            undefined,
-                            () => []
-                        )
-                    );
+                    /**
+                     * deleting each item in the cart
+                     * json-server delete /cart doesn't set to empty array - this is a workaround
+                     */
+                    const state = getState();
+                    const selectCartData =
+                        restaurantApi.endpoints.getCart.select();
+                    const {
+                        data: { items },
+                    } = selectCartData(state);
+                    const ids = items.map(({ id }) => id);
+
+                    const removeItem = (id) => axios.delete(`cart/${id}`);
+                    const removeItems = ids.map((id) => removeItem(id));
+                    await Promise.all([...removeItems, queryFulfilled]);
                 } catch {
-                    console.error('Could not place order');
+                    // eslint-disable-next-line no-console
+                    console.error('placing order failed');
                 }
             },
+            invalidatesTags: ['Cart'],
         }),
     }),
 });
