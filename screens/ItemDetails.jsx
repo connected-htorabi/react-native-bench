@@ -8,10 +8,10 @@ import {
     SafeAreaView,
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useSelector } from 'react-redux';
 import { selectDishById } from '../redux/menu/selectors';
-import { useAddItemToCartMutation } from '../redux/services/restaurant';
+import { addItem } from '../redux/cart/cartSlice';
 import ListHeader from '../components/itemDetails/ListHeader';
 import QuantityControl from '../components/itemDetails/QuantityControl';
 import { itemOptions } from '../constants';
@@ -40,8 +40,19 @@ const renderItemSeparator = () => <View style={styles.itemSeparator} />;
 const ItemDetails = ({ route }) => {
     const { dishId } = route.params;
     const dishDetails = useSelector(selectDishById(dishId));
-    const [addItemToCart] = useAddItemToCartMutation();
     const [quantity, setQuantity] = useState(1);
+    const dispatch = useDispatch();
+    const addItemToCart = () => {
+        dispatch(
+            addItem({
+                id: dishId,
+                quantity,
+                name: dishDetails.name,
+                description: dishDetails.description,
+                price: dishDetails.price,
+            })
+        );
+    };
 
     return (
         <SafeAreaView>

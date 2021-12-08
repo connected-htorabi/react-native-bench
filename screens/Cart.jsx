@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { usePlaceOrderMutation } from '../redux/services/restaurant';
 import {
-    useGetCartQuery,
-    usePlaceOrderMutation,
-} from '../redux/services/restaurant';
+    selectAllCartItems,
+    selectCartSubtotal,
+    selectCartTax,
+    selectCartTotal,
+} from '../redux/cart/selectors';
+import { resetCart } from '../redux/cart/cartSlice';
 
 import EmptyCart from '../components/cart/empty/EmptyCart';
 import SectionSeparator from '../components/cart/SectionSeparator';
@@ -15,21 +20,12 @@ import CardSection from '../components/cart/card/CardSection';
 
 const Cart = () => {
     const [placeOrder] = usePlaceOrderMutation();
-    const { items, subtotal, tax, total } = useGetCartQuery(undefined, {
-        selectFromResult: ({
-            data: {
-                subtotal: cartSubtotal,
-                tax: cartTax,
-                items: cartItems,
-                total: cartTotal,
-            },
-        }) => ({
-            subtotal: cartSubtotal,
-            tax: cartTax,
-            items: cartItems,
-            total: cartTotal,
-        }),
-    });
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllCartItems);
+    const subtotal = useSelector(selectCartSubtotal);
+    const tax = useSelector(selectCartTax);
+    const total = useSelector(selectCartTotal);
+
     return (
         <View style={styles.container}>
             {items.length ? (
@@ -48,7 +44,13 @@ const Cart = () => {
                         <CardSection />
                     </View>
                     <View style={styles.bottomContainer}>
-                        <TouchableOpacity onPress={() => placeOrder()}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                placeOrder()
+                                    .unwrap()
+                                    .then(() => dispatch(resetCart()));
+                            }}
+                        >
                             <Text style={styles.placeOrderText}>
                                 Place Order
                             </Text>
