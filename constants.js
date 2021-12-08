@@ -156,6 +156,7 @@ export const upcomingOrders = [
     },
 ];
 
-export const ORDER_STATUSES = {
+export const ORDER_STATUS = {
     COMPLETED: 'completed',
+    UPCOMING: 'upcoming',
 };

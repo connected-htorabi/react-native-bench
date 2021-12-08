@@ -11,6 +11,7 @@ import Checkbox from 'expo-checkbox';
 
 import { useSelector } from 'react-redux';
 import { selectDishById } from '../redux/menu/selectors';
+import { useAddItemToCartMutation } from '../redux/services/restaurant';
 import ListHeader from '../components/itemDetails/ListHeader';
 import QuantityControl from '../components/itemDetails/QuantityControl';
 import { itemOptions } from '../constants';
@@ -27,7 +28,7 @@ const renderSectionItem = ({ item }) => (
     <View style={styles.optionContainer}>
         <Checkbox
             disabled={false}
-            value
+            value={false}
             onValueChange={(newValue) => console.log('checked')}
         />
         <Text style={styles.optionName}>{item}</Text>
@@ -39,6 +40,7 @@ const renderItemSeparator = () => <View style={styles.itemSeparator} />;
 const ItemDetails = ({ route }) => {
     const { dishId } = route.params;
     const dishDetails = useSelector(selectDishById(dishId));
+    const [addItemToCart] = useAddItemToCartMutation();
     const [quantity, setQuantity] = useState(1);
 
     return (
@@ -69,7 +71,10 @@ const ItemDetails = ({ route }) => {
                     />
                 }
             />
-            <TouchableOpacity style={styles.addToCartButton}>
+            <TouchableOpacity
+                style={styles.addToCartButton}
+                onPress={() => addItemToCart({ id: dishId, quantity })}
+            >
                 <Text style={styles.buttonText}>Add to cart</Text>
             </TouchableOpacity>
         </SafeAreaView>

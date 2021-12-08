@@ -21,10 +21,10 @@ const axiosBaseQuery =
 export const restaurantApi = createApi({
     reducerPath: 'restaurantApi',
     baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:9001/' }),
-    tagTypes: ['Cart'],
+    tagTypes: ['CartItems'],
     endpoints: (builder) => ({
         getCart: builder.query({
-            query: () => ({ url: 'cart', method: 'get' }),
+            query: () => ({ url: 'cartItems', method: 'get' }),
             transformResponse: (response) => {
                 // format the results as would normally be received from backend
                 const subtotal = response
@@ -38,19 +38,23 @@ export const restaurantApi = createApi({
                     items: response,
                 };
             },
-            providesTags: ['Cart'],
+            providesTags: ['CartItems'],
         }),
         addItemToCart: builder.mutation({
-            query: (item) => ({ url: 'cart', method: 'post', data: item }),
-            invalidatesTags: ['Cart'],
+            /**
+             * @param {String} item.id
+             * @param {Number} item.quantity
+             */
+            query: (item) => ({ url: 'cartItems', method: 'post', data: item }),
+            invalidatesTags: ['CartItems'],
         }),
         removeItemFromCart: builder.mutation({
-            query: (id) => ({ url: `cart/${id}`, method: 'delete' }),
-            invalidatesTags: ['Cart'],
+            query: (id) => ({ url: `cartItems/${id}`, method: 'delete' }),
+            invalidatesTags: ['CartItems'],
         }),
         placeOrder: builder.mutation({
             // TODO - add query to place an order
-            // query: () => ({ url: 'cart', method: 'delete' }),
+            // query: (items) => ({ url: 'CartItems', method: 'post', data: items }),
             queryFn: () => ({ data: null }),
             onQueryStarted: async (_arg, { getState, queryFulfilled }) => {
                 try {
@@ -66,7 +70,7 @@ export const restaurantApi = createApi({
                     } = selectCartData(state);
                     const ids = items.map(({ id }) => id);
 
-                    const removeItem = (id) => axios.delete(`cart/${id}`);
+                    const removeItem = (id) => axios.delete(`cartItems/${id}`);
                     const removeItems = ids.map((id) => removeItem(id));
                     await Promise.all([...removeItems, queryFulfilled]);
                 } catch {
@@ -74,13 +78,14 @@ export const restaurantApi = createApi({
                     console.error('placing order failed');
                 }
             },
-            invalidatesTags: ['Cart'],
+            invalidatesTags: ['CartItems'],
         }),
     }),
 });
 
 export const {
     useGetCartQuery,
+    useAddItemToCartMutation,
     useRemoveItemFromCartMutation,
     usePlaceOrderMutation,
 } = restaurantApi;

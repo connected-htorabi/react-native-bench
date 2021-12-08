@@ -3,9 +3,11 @@ import React, { useEffect } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { upcomingOrders } from '../constants';
 import Orders from '../components/Orders';
-import { selectOrders } from '../redux/orders/selectors';
+import {
+    selectHistoryOrders,
+    selectUpcomingOrders,
+} from '../redux/orders/selectors';
 import { fetchOrders } from '../redux/thunks/fetchOrders';
 
 const Tab = createMaterialTopTabNavigator();
@@ -17,7 +19,8 @@ const OrdersScreen = () => {
         dispatch(fetchOrders());
     }, [dispatch]);
 
-    const orders = useSelector(selectOrders);
+    const upcomingOrders = useSelector(selectUpcomingOrders);
+    const historyOrders = useSelector(selectHistoryOrders);
 
     return (
         <Tab.Navigator
@@ -41,7 +44,7 @@ const OrdersScreen = () => {
             <Tab.Screen
                 name="History"
                 title="History"
-                component={() => <Orders orders={orders} />}
+                component={() => <Orders orders={historyOrders} />}
             />
         </Tab.Navigator>
     );

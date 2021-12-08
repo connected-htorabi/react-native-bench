@@ -58,6 +58,5 @@ const styles = StyleSheet.create({
     },
     price: {
         fontWeight: 'bold',
-        textAlign: 'end',
     },
 });
