@@ -5,14 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 export default function RestaurantItem({ imageUrl, name, rating, onPress }) {
     return (
-        <TouchableOpacity
-            activeOpacity={0.5}
-            style={{ marginBottom: 30 }}
-            onPress={onPress}
-        >
-            <View
-                style={{ marginTop: 10, padding: 15, backgroundColor: 'white' }}
-            >
+        <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+            <View style={{ padding: 15, backgroundColor: 'white' }}>
                 <RestaurantImage image={imageUrl} />
                 <RestaurantInfo name={name} rating={rating} />
             </View>

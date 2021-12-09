@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import PaymentItem from './PaymentItem';
-import ItemSeparator from '../ItemSeparator';
+import { DefaultItemSeparator } from '../../common/Separator';
 
 const PaymentSection = ({ subtotalValue, taxValue, totalValue }) => (
     <>
         <PaymentItem label="Subtotal" value={subtotalValue} />
         <PaymentItem label="Tax" value={taxValue} />
-        <ItemSeparator />
+        <DefaultItemSeparator />
         <PaymentItem label="Total" value={totalValue} isTotal />
     </>
 );

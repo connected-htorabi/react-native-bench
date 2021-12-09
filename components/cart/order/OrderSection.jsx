@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { removeItem } from '../../../redux/cart/cartSlice';
 import OrderItem, { OrderItemPropTypes } from './OrderItem';
-import ItemSeparator from '../ItemSeparator';
+import { DefaultItemSeparator } from '../../common/Separator';
 
 const DELETION_WIDTH = 80;
 
@@ -48,7 +48,7 @@ const OrderSection = ({ items }) => {
             renderHiddenItem={({ item }) =>
                 renderHiddenItem(() => dispatch(removeItem(item.id)))
             }
-            ItemSeparatorComponent={ItemSeparator}
+            ItemSeparatorComponent={DefaultItemSeparator}
             rightOpenValue={-DELETION_WIDTH}
             style={{ flexGrow: 0 }}
             disableRightSwipe
