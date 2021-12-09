@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Pressable } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { useToast } from 'react-native-styled-toast';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { sendCredit } from '../redux/thunks/sendCredit';
+import { selectUser } from '../redux/users/selectors';
 import Expandable from '../components/Expandable';
 import Header from '../components/Header';
 import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 
-const info = { header: 'Individuals', names: ['Henry', 'Bob', 'Sally'] };
-
-let balance = 20;
-const pendingBalance = 10;
-
 const Wallet = () => {
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
     const [isSendMoneyActive, setIsSendMoneyActive] = useState(false);
     const { toast } = useToast();
 
@@ -21,10 +21,23 @@ const Wallet = () => {
         setIsSendMoneyActive((prev) => setIsSendMoneyActive(!prev));
     };
 
-    const sendMoney = (amount, name) => {
-        balance -= amount;
+    const sendMoney = (
+        amount,
+        recipientId,
+        recipientBalance,
+        recipientName
+    ) => {
+        dispatch(
+            sendCredit({
+                senderId: user.id,
+                recipientId,
+                senderBalance: user.creditBalance,
+                recipientBalance,
+                amount,
+            })
+        );
         toast({
-            message: `$${amount} sent to ${name}`,
+            message: `$${amount} sent to ${recipientName}`,
         });
     };
 
@@ -32,8 +45,7 @@ const Wallet = () => {
         <SafeAreaView>
             <View style={styles.container}>
                 <Text style={styles.pageHeader}>Wallet</Text>
-                <Balance balance={balance} />
-                <Pending pendingBalance={pendingBalance} />
+                <Balance balance={user.creditBalance} />
                 <Text style={[styles.sectionHeader, { marginBottom: 20 }]}>
                     Send Money
                 </Text>
@@ -43,23 +55,28 @@ const Wallet = () => {
                     style={styles.expandable}
                 >
                     <Header style={styles.expandableHeader}>
-                        <Text style={styles.expandableHeaderText}>
-                            {info.header}
-                        </Text>
+                        <Text style={styles.expandableHeaderText}>Friends</Text>
                         <Icon />
                     </Header>
 
                     <Body>
                         <View style={styles.expandableBody}>
-                            {info.names.map((name, i) => (
-                                <Payee
-                                    name={name}
-                                    key={i}
-                                    onSendMoney={(amount) =>
-                                        sendMoney(amount, name)
-                                    }
-                                />
-                            ))}
+                            {user.friends.map(
+                                ({ name, id, creditBalance }, i) => (
+                                    <Payee
+                                        name={name}
+                                        key={i}
+                                        onSendMoney={(amount) =>
+                                            sendMoney(
+                                                amount,
+                                                id,
+                                                creditBalance,
+                                                name
+                                            )
+                                        }
+                                    />
+                                )
+                            )}
                         </View>
                     </Body>
                 </Expandable>
@@ -72,20 +89,6 @@ const Balance = ({ balance }) => (
     <View style={styles.balanceContainer}>
         <Text style={styles.balanceText}>Balance</Text>
         <Text style={styles.balanceText}>${balance}</Text>
-    </View>
-);
-
-const Pending = ({ pendingBalance }) => (
-    <View>
-        <Text style={styles.sectionHeader}>Pending</Text>
-        <View style={styles.pendingTransferContainer}>
-            <Text>${pendingBalance} from Henry</Text>
-            <Pressable style={styles.pendingTransferAcceptButton}>
-                <Text style={styles.pendingTransferAcceptButtonText}>
-                    Accept
-                </Text>
-            </Pressable>
-        </View>
     </View>
 );
 
