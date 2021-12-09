@@ -13,7 +13,7 @@ import {
 import { resetCart } from '../redux/cart/cartSlice';
 
 import EmptyCart from '../components/cart/empty/EmptyCart';
-import SectionSeparator from '../components/cart/SectionSeparator';
+import { DefaultSectionSeparator } from '../components/common/Separator';
 import OrderSection from '../components/cart/order/OrderSection';
 import PaymentSection from '../components/cart/payment/PaymentSection';
 import NoteSection from '../components/cart/note/NoteSection';
@@ -34,15 +34,15 @@ const Cart = () => {
                 <>
                     <View style={styles.topContainer}>
                         <OrderSection items={items} />
-                        <SectionSeparator />
+                        <DefaultSectionSeparator />
                         <NoteSection />
-                        <SectionSeparator />
+                        <DefaultSectionSeparator />
                         <PaymentSection
                             subtotalValue={subtotal}
                             taxValue={tax}
                             totalValue={total}
                         />
-                        <SectionSeparator />
+                        <DefaultSectionSeparator />
                         <CardSection />
                     </View>
                     <View style={styles.bottomContainer}>

@@ -22,7 +22,7 @@ const axiosBaseQuery =
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:9001/' }),
-    tagTypes: ['Orders'],
+    tagTypes: ['Orders', 'Users'],
     endpoints: (builder) => ({
         getOrders: builder.query({
             query: () => ({ url: 'orders?_expand=restaurant' }),
@@ -36,7 +36,49 @@ export const api = createApi({
             }),
             invalidatesTags: ['Orders'],
         }),
+        getUser: builder.query({
+            // Note: userId will be passed an arg
+            query: () => ({ url: 'users' }),
+            transformResponse: (response, _meta, { originalArgs: userId }) => {
+                const myData = response.find((person) => person.id === userId);
+                const friends = response.filter((person) =>
+                    myData.friends.includes(person.id)
+                );
+                return { ...myData, friends };
+            },
+            providesTags: ['Users'],
+        }),
+        sendCredits: builder.mutation({
+            query: ({ senderId, senderBalance, amount }) => ({
+                url: `users/${senderId}`,
+                method: 'patch',
+                data: { creditBalance: senderBalance - amount },
+            }),
+            onQueryStarted: async (
+                { recipientId, recipientBalance, amount },
+                { queryFulfilled }
+            ) => {
+                const updateRecipientCredit = axios.patch(
+                    `users/${recipientId}`,
+                    {
+                        creditBalance: recipientBalance - amount,
+                    }
+                );
+                try {
+                    await Promise.all([updateRecipientCredit, queryFulfilled]);
+                } catch {
+                    // eslint-disable-next-line no-console
+                    console.error('Failed to send money');
+                }
+            },
+            invalidatesTags: ['Users'],
+        }),
     }),
 });
 
-export const { useGetOrdersQuery, usePlaceOrderMutation } = api;
+export const {
+    useGetOrdersQuery,
+    usePlaceOrderMutation,
+    useGetUserQuery,
+    useSendCreditsMutation,
+} = api;

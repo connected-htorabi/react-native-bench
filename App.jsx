@@ -6,9 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Host } from 'react-native-portalize';
 
 import { fetchRestaurants } from './redux/thunks/fetchRestaurants';
-import { store } from './redux/store';
 import AppStack from './navigation/Home/AppStack';
-import { fetchUser } from './redux/thunks/fetchUser';
+import { useGetUserQuery } from './redux/services/restaurant';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,10 +21,10 @@ const IconMapping = {
 
 const App = () => {
     const dispatch = useDispatch();
+    useGetUserQuery(1);
 
     useEffect(() => {
         dispatch(fetchRestaurants());
-        dispatch(fetchUser(1));
     }, [dispatch]);
 
     return (

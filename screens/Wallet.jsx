@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { useToast } from 'react-native-styled-toast';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { sendCredit } from '../redux/thunks/sendCredit';
+import { useSelector } from 'react-redux';
+import { useSendCreditsMutation } from '../redux/services/restaurant';
 import { selectUser } from '../redux/users/selectors';
 import Expandable from '../components/Expandable';
 import Header from '../components/Header';
@@ -12,7 +12,8 @@ import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 
 const Wallet = () => {
-    const dispatch = useDispatch();
+    const [sendCredits] = useSendCreditsMutation();
+
     const user = useSelector(selectUser);
     const [isSendMoneyActive, setIsSendMoneyActive] = useState(false);
     const { toast } = useToast();
@@ -27,18 +28,19 @@ const Wallet = () => {
         recipientBalance,
         recipientName
     ) => {
-        dispatch(
-            sendCredit({
-                senderId: user.id,
-                recipientId,
-                senderBalance: user.creditBalance,
-                recipientBalance,
-                amount,
-            })
-        );
-        toast({
-            message: `$${amount} sent to ${recipientName}`,
-        });
+        sendCredits({
+            senderId: user.id,
+            recipientId,
+            senderBalance: user.creditBalance,
+            recipientBalance,
+            amount,
+        })
+            .unwrap()
+            .then(() => {
+                toast({
+                    message: `$${amount} sent to ${recipientName}`,
+                });
+            });
     };
 
     return (
