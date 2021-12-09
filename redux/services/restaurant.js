@@ -22,7 +22,7 @@ const axiosBaseQuery =
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:9001/' }),
-    tagTypes: ['Orders'],
+    tagTypes: ['Orders', 'Users'],
     endpoints: (builder) => ({
         getOrders: builder.query({
             query: () => ({ url: 'orders?_expand=restaurant' }),
@@ -37,15 +37,28 @@ export const api = createApi({
             invalidatesTags: ['Orders'],
         }),
         getUser: builder.query({
-            query: (userId) => ({ url: 'users' }),
-            transformResponse: (response, meta, arg, error) => {
-                console.log('response:', response);
-                console.log('meta:', meta);
-                console.log('arg:', arg);
-                console.log('error:', error);
-                return response;
+            // Note: userId will be passed an arg
+            query: () => ({ url: 'users' }),
+            transformResponse: (response, _meta, { originalArgs: userId }) => {
+                const myData = response.find((person) => person.id === userId);
+                const friends = response.filter((person) =>
+                    myData.friends.includes(person.id)
+                );
+                return { ...myData, friends };
             },
-            providesTags: ['User'],
+            providesTags: ['Users'],
+        }),
+        sendCredits: builder.mutation({
+            /**
+             * args.senderId
+             * args.recipientId
+             * args.senderBalance
+             * args.recipientBalance
+             * args.amount
+             */
+            query: ({ senderId, senderBalance, amount }) => ({
+                url: `users/${senderId}`,
+            }),
         }),
     }),
 });
