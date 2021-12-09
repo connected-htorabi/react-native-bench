@@ -49,13 +49,6 @@ export const api = createApi({
             providesTags: ['Users'],
         }),
         sendCredits: builder.mutation({
-            /**
-             * args.senderId
-             * args.recipientId
-             * args.senderBalance
-             * args.recipientBalance
-             * args.amount
-             */
             query: ({ senderId, senderBalance, amount }) => ({
                 url: `users/${senderId}`,
                 method: 'patch',
