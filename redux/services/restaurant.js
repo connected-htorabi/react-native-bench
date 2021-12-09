@@ -36,7 +36,19 @@ export const api = createApi({
             }),
             invalidatesTags: ['Orders'],
         }),
+        getUser: builder.query({
+            query: (userId) => ({ url: 'users' }),
+            transformResponse: (response, meta, arg, error) => {
+                console.log('response:', response);
+                console.log('meta:', meta);
+                console.log('arg:', arg);
+                console.log('error:', error);
+                return response;
+            },
+            providesTags: ['User'],
+        }),
     }),
 });
 
-export const { useGetOrdersQuery, usePlaceOrderMutation } = api;
+export const { useGetOrdersQuery, usePlaceOrderMutation, useGetUserQuery } =
+    api;
