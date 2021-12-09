@@ -56,7 +56,7 @@ const ItemDetails = ({ route }) => {
     };
 
     return (
-        <SafeAreaView>
+        <>
             <SectionList
                 style={styles.container}
                 ListHeaderComponent={
@@ -89,7 +89,7 @@ const ItemDetails = ({ route }) => {
             >
                 <Text style={styles.buttonText}>Add to cart</Text>
             </TouchableOpacity>
-        </SafeAreaView>
+        </>
     );
 };
 
