@@ -9,7 +9,6 @@ import {
     selectUpcomingOrders,
 } from '../redux/orders/selectors';
 import { useGetOrdersQuery } from '../redux/services/restaurant';
-import { fetchOrders } from '../redux/thunks/fetchOrders';
 
 const Tab = createMaterialTopTabNavigator();
 

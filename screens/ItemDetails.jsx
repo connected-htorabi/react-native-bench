@@ -5,12 +5,16 @@ import {
     SectionList,
     StyleSheet,
     TouchableOpacity,
-    SafeAreaView,
+    Alert,
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectDishById } from '../redux/menu/selectors';
+import {
+    selectRestaurantId,
+    selectNumCartItems,
+} from '../redux/cart/selectors';
 import { addItem } from '../redux/cart/cartSlice';
 import ListHeader from '../components/itemDetails/ListHeader';
 import QuantityControl from '../components/itemDetails/QuantityControl';
@@ -39,10 +43,13 @@ const renderItemSeparator = () => <View style={styles.itemSeparator} />;
 
 const ItemDetails = ({ route }) => {
     const { dishId, restaurantId } = route.params;
+    const currentCartRestaurantId = useSelector(selectRestaurantId);
+    const numCartItems = useSelector(selectNumCartItems);
     const dishDetails = useSelector(selectDishById(dishId));
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
-    const addItemToCart = () => {
+
+    const dispatchAddItem = () =>
         dispatch(
             addItem({
                 id: dishId,
@@ -53,6 +60,26 @@ const ItemDetails = ({ route }) => {
                 price: dishDetails.price,
             })
         );
+
+    const showAlert = () =>
+        Alert.alert(
+            'Replace cart contents',
+            'You are attempting to add an item from a new restaurant. Your current cart contents will be replaced. Continue?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                { text: 'OK', onPress: () => dispatchAddItem() },
+            ]
+        );
+
+    const addItemToCart = () => {
+        if (restaurantId !== currentCartRestaurantId && numCartItems) {
+            showAlert();
+        } else {
+            dispatchAddItem();
+        }
     };
 
     return (

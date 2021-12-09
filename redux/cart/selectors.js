@@ -3,9 +3,10 @@ import { round } from 'lodash';
 
 import { cartAdapter } from './cartSlice';
 
-export const { selectAll: selectAllCartItems } = cartAdapter.getSelectors(
-    (state) => state.cart
-);
+export const {
+    selectAll: selectAllCartItems,
+    selectTotal: selectNumCartItems,
+} = cartAdapter.getSelectors((state) => state.cart);
 export const selectCartSubtotal = createSelector(
     [selectAllCartItems],
     (items) =>
