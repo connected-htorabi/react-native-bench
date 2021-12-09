@@ -2,9 +2,9 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import OrderItem from './OrderItem';
 
-const Orders = ({ orders }) => {
-    const renderItem = ({ item }) => <OrderItem order={item} />;
+const renderItem = ({ item }) => <OrderItem order={item} />;
 
+const Orders = ({ orders }) => {
     return (
         <FlatList
             data={orders}

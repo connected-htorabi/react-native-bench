@@ -14,10 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import restaurantReducer from './restaurants/restaurantSlice';
 import menuReducer from './menu/menuSlice';
-import orderReducer from './orders/orderSlice';
 import userReducer from './users/userSlice';
 import cartReducer from './cart/cartSlice';
-import { restaurantApi } from './services/restaurant';
+import { api } from './services/restaurant';
 
 const cartPersistConfig = {
     key: 'cart',
@@ -28,8 +27,7 @@ export const store = configureStore({
     reducer: {
         restaurants: restaurantReducer,
         menu: menuReducer,
-        [restaurantApi.reducerPath]: restaurantApi.reducer,
-        orders: orderReducer,
+        [api.reducerPath]: api.reducer,
         user: userReducer,
         cart: persistReducer(cartPersistConfig, cartReducer),
     },
@@ -45,7 +43,7 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        }).concat(restaurantApi.middleware),
+        }).concat(api.middleware),
 });
 
 export const persistor = persistStore(store);

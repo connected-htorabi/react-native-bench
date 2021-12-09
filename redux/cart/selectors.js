@@ -18,3 +18,5 @@ export const selectCartTotal = createSelector(
     [selectCartSubtotal, selectCartTax],
     (subtotal, tax) => subtotal + tax
 );
+
+export const selectRestaurantId = (state) => state.cart.restaurantId;

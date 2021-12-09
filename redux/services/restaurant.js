@@ -4,7 +4,7 @@ import { resetCart } from '../cart/cartSlice';
 
 const axiosBaseQuery =
     ({ baseUrl } = { baseUrl: '' }) =>
-    async ({ url, method, data }) => {
+    async ({ url, method = 'get', data }) => {
         try {
             const result = await axios({ url: baseUrl + url, method, data });
             return { data: result.data };
@@ -19,18 +19,24 @@ const axiosBaseQuery =
         }
     };
 
-export const restaurantApi = createApi({
-    reducerPath: 'restaurantApi',
+export const api = createApi({
+    reducerPath: 'api',
     baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:9001/' }),
-    tagTypes: ['CartItems'],
+    tagTypes: ['Orders'],
     endpoints: (builder) => ({
+        getOrders: builder.query({
+            query: () => ({ url: 'orders?_expand=restaurant' }),
+            providesTags: ['Orders'],
+        }),
         placeOrder: builder.mutation({
-            // TODO - add query to place an order
-            // query: (items) => ({ url: 'CartItems', method: 'post', data: items }),
-            queryFn: () => ({ data: null }),
-            invalidatesTags: ['CartItems'],
+            query: (order) => ({
+                url: 'orders',
+                method: 'post',
+                data: { ...order, date: Date.now(), status: 'upcoming' },
+            }),
+            invalidatesTags: ['Orders'],
         }),
     }),
 });
 
-export const { usePlaceOrderMutation } = restaurantApi;
+export const { useGetOrdersQuery, usePlaceOrderMutation } = api;

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { usePlaceOrderMutation } from '../redux/services/restaurant';
 import {
+    selectRestaurantId,
     selectAllCartItems,
     selectCartSubtotal,
     selectCartTax,
@@ -21,6 +22,7 @@ import CardSection from '../components/cart/card/CardSection';
 const Cart = () => {
     const [placeOrder] = usePlaceOrderMutation();
     const dispatch = useDispatch();
+    const restaurantId = useSelector(selectRestaurantId);
     const items = useSelector(selectAllCartItems);
     const subtotal = useSelector(selectCartSubtotal);
     const tax = useSelector(selectCartTax);
@@ -46,7 +48,7 @@ const Cart = () => {
                     <View style={styles.bottomContainer}>
                         <TouchableOpacity
                             onPress={() => {
-                                placeOrder()
+                                placeOrder({ restaurantId, items, total })
                                     .unwrap()
                                     .then(() => dispatch(resetCart()));
                             }}

@@ -38,7 +38,7 @@ const renderSectionItem = ({ item }) => (
 const renderItemSeparator = () => <View style={styles.itemSeparator} />;
 
 const ItemDetails = ({ route }) => {
-    const { dishId } = route.params;
+    const { dishId, restaurantId } = route.params;
     const dishDetails = useSelector(selectDishById(dishId));
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
@@ -46,6 +46,7 @@ const ItemDetails = ({ route }) => {
         dispatch(
             addItem({
                 id: dishId,
+                restaurantId,
                 quantity,
                 name: dishDetails.name,
                 description: dishDetails.description,

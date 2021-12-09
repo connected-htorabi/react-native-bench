@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -8,16 +8,13 @@ import {
     selectHistoryOrders,
     selectUpcomingOrders,
 } from '../redux/orders/selectors';
+import { useGetOrdersQuery } from '../redux/services/restaurant';
 import { fetchOrders } from '../redux/thunks/fetchOrders';
 
 const Tab = createMaterialTopTabNavigator();
 
 const OrdersScreen = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchOrders());
-    }, [dispatch]);
+    useGetOrdersQuery();
 
     const upcomingOrders = useSelector(selectUpcomingOrders);
     const historyOrders = useSelector(selectHistoryOrders);

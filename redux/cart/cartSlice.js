@@ -4,12 +4,24 @@ export const cartAdapter = createEntityAdapter();
 
 const { actions, reducer } = createSlice({
     name: 'cart',
-    initialState: cartAdapter.getInitialState(),
+    initialState: cartAdapter.getInitialState({
+        restaurantId: null,
+    }),
     reducers: {
         addItem: (
             state,
-            { payload: { id, quantity, name, description, price } }
+            {
+                payload: {
+                    id,
+                    restaurantId,
+                    quantity,
+                    name,
+                    description,
+                    price,
+                },
+            }
         ) => {
+            state.restaurantId = restaurantId;
             const currentEntity = state.entities[id];
             const exists = !!currentEntity;
             if (exists) {
