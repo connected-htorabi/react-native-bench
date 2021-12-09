@@ -58,10 +58,34 @@ export const api = createApi({
              */
             query: ({ senderId, senderBalance, amount }) => ({
                 url: `users/${senderId}`,
+                method: 'patch',
+                data: { creditBalance: senderBalance - amount },
             }),
+            onQueryStarted: async (
+                { recipientId, recipientBalance, amount },
+                { queryFulfilled }
+            ) => {
+                const updateRecipientCredit = axios.patch(
+                    `users/${recipientId}`,
+                    {
+                        creditBalance: recipientBalance - amount,
+                    }
+                );
+                try {
+                    await Promise.all([updateRecipientCredit, queryFulfilled]);
+                } catch {
+                    // eslint-disable-next-line no-console
+                    console.error('Failed to send money');
+                }
+            },
+            invalidatesTags: ['Users'],
         }),
     }),
 });
 
-export const { useGetOrdersQuery, usePlaceOrderMutation, useGetUserQuery } =
-    api;
+export const {
+    useGetOrdersQuery,
+    usePlaceOrderMutation,
+    useGetUserQuery,
+    useSendCreditsMutation,
+} = api;

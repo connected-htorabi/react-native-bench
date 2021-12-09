@@ -12,5 +12,5 @@ Separator.propTypes = {
 };
 export default Separator;
 
-export const DefaultItemSeparator = <Separator />;
-export const DefaultSectionSeparator = <Separator marginVertical={5} />;
+export const DefaultItemSeparator = () => <Separator />;
+export const DefaultSectionSeparator = () => <Separator marginVertical={5} />;
