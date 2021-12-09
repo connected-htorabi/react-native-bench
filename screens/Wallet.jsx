@@ -38,7 +38,6 @@ const Wallet = () => {
             .unwrap()
             .then(() => {
                 toast({
-                    duration: 0,
                     message: `$${amount} sent to ${recipientName}`,
                 });
             });
