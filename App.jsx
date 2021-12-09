@@ -8,7 +8,6 @@ import { Host } from 'react-native-portalize';
 import { fetchRestaurants } from './redux/thunks/fetchRestaurants';
 import { store } from './redux/store';
 import AppStack from './navigation/Home/AppStack';
-import { useGetCartQuery } from './redux/services/restaurant';
 import { fetchUser } from './redux/thunks/fetchUser';
 
 const Tab = createBottomTabNavigator();
@@ -23,7 +22,6 @@ const IconMapping = {
 
 const App = () => {
     const dispatch = useDispatch();
-    useGetCartQuery();
 
     useEffect(() => {
         dispatch(fetchRestaurants());
@@ -31,11 +29,10 @@ const App = () => {
     }, [dispatch]);
 
     return (
-        <Provider store={store}>
-            <NavigationContainer>
-                <Host>
-                    <AppStack />
-                    {/* <Tab.Navigator
+        <NavigationContainer>
+            <Host>
+                <AppStack />
+                {/* <Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => {
           return {
@@ -61,9 +58,8 @@ const App = () => {
         <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
         <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
       </Tab.Navigator> */}
-                </Host>
-            </NavigationContainer>
-        </Provider>
+            </Host>
+        </NavigationContainer>
     );
 };
 

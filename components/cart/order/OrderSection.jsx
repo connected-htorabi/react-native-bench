@@ -1,19 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import OrderItem from './OrderItem';
+import { removeItem } from '../../../redux/cart/cartSlice';
+import OrderItem, { OrderItemPropTypes } from './OrderItem';
 import ItemSeparator from '../ItemSeparator';
-import {
-    useGetCartQuery,
-    useRemoveItemFromCartMutation,
-} from '../../../redux/services/restaurant';
 
 const DELETION_WIDTH = 80;
 
-const renderHiddenItem = (item, onDelete) => (
+const renderHiddenItem = (onDelete) => (
     <View style={styles.container}>
         <Icon
             onPress={onDelete}
@@ -39,18 +38,15 @@ const styles = StyleSheet.create({
     },
 });
 
-const OrderSection = () => {
-    const { items } = useGetCartQuery(undefined, {
-        selectFromResult: ({ data }) => ({ items: data }),
-    });
-    const [removeItemFromCart] = useRemoveItemFromCartMutation();
+const OrderSection = ({ items }) => {
+    const dispatch = useDispatch();
 
     return (
         <SwipeListView
             data={items}
             renderItem={({ item }) => <OrderItem {...item} />}
             renderHiddenItem={({ item }) =>
-                renderHiddenItem(item, () => removeItemFromCart(item.id))
+                renderHiddenItem(() => dispatch(removeItem(item.id)))
             }
             ItemSeparatorComponent={ItemSeparator}
             rightOpenValue={-DELETION_WIDTH}
@@ -59,6 +55,10 @@ const OrderSection = () => {
             scrollEnabled={false}
         />
     );
+};
+
+OrderSection.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape(OrderItemPropTypes)),
 };
 
 export default OrderSection;

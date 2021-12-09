@@ -1,22 +1,25 @@
 import React from 'react';
+import { format } from 'date-fns';
 import { Text, StyleSheet, View, Image, Pressable } from 'react-native';
 
 const OrderItem = ({ order }) => {
-    const { name, image_url, price, items, date } = order;
+    const { name, restaurant, total, items, date } = order;
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={{ uri: image_url }} />
+            <Image style={styles.image} source={{ uri: restaurant.imageUrl }} />
             <Text style={styles.boldText}>{name}</Text>
 
-            <Text style={styles.text}>{date}</Text>
-            {items.map((item) => (
-                <View style={styles.rowContainer}>
-                    <Text style={styles.text}>1</Text>
-                    <Text style={styles.text}>{item}</Text>
+            <Text style={styles.text}>
+                {format(new Date(date), 'd MMM yyyy')}
+            </Text>
+            {items.map(({ id, name, quantity }) => (
+                <View key={id} style={styles.rowContainer}>
+                    <Text style={styles.text}>{quantity}</Text>
+                    <Text style={styles.text}>{name}</Text>
                 </View>
             ))}
             <View style={styles.totalRowContainer}>
-                <Text style={styles.boldText}>Total: {price}</Text>
+                <Text style={styles.boldText}>Total: ${total}</Text>
                 <Pressable>
                     <Text style={styles.buttonText}>REORDER</Text>
                 </Pressable>
