@@ -2,14 +2,19 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { replaceCart } from '../redux/cart/cartSlice';
 
 const OrderItem = ({ order }) => {
     const { name, restaurant, total, items, date } = order;
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
-    const onReorder = () => dispatch(replaceCart(items));
+    const onReorder = () => {
+        dispatch(replaceCart(items));
+        navigation.navigate('Cart');
+    };
 
     return (
         <View style={styles.container}>
