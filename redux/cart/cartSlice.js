@@ -54,8 +54,12 @@ const { actions, reducer } = createSlice({
         resetRestaurantId: (state) => {
             state.restaurantId = initialState.restaurantId;
         },
+        replaceCart: (state, { payload: items }) => {
+            state.restaurantId = items[0].restaurantId;
+            cartAdapter.setAll(state, items);
+        },
     },
 });
 
-export const { addItem, removeItem, resetCart } = actions;
+export const { addItem, removeItem, resetCart, replaceCart } = actions;
 export default reducer;
