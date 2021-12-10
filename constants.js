@@ -86,11 +86,13 @@ export const itemOptions = [
     {
         id: 1,
         sectionName: 'Choice of Size',
+        isMultiSelect: false,
         data: ['Regular', 'Deluxe'],
     },
     {
         id: 2,
         sectionName: 'Choice of Cheese',
+        isMultiSelect: true,
         data: [
             'American Cheese',
             'Swiss Cheese',
@@ -101,6 +103,7 @@ export const itemOptions = [
     {
         id: 3,
         sectionName: 'Choice of Add ons',
+        isMultiSelect: true,
         data: ['Raw onions', 'Fried onions'],
     },
 ];

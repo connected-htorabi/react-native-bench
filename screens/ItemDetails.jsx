@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     View,
     Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useSelector, useDispatch } from 'react-redux';
+import { clone } from 'lodash';
 
 import { selectDishById } from '../redux/menu/selectors';
 import {
@@ -22,9 +23,11 @@ import { itemOptions } from '../constants';
 
 const MINIMUM_QUANTITY = 1;
 
-const renderSectionHeader = ({ section: { sectionName } }) => (
+const renderSectionHeader = ({ section: { sectionName, isMultiSelect } }) => (
     <View style={styles.sectionHeaderContainer}>
-        <Text style={styles.sectionHeaderText}>{sectionName}</Text>
+        <Text style={styles.sectionHeaderText}>
+            {sectionName} {!isMultiSelect && '(Select 1)'}
+        </Text>
     </View>
 );
 
@@ -46,6 +49,20 @@ const ItemDetails = ({ route }) => {
     const currentCartRestaurantId = useSelector(selectRestaurantId);
     const numCartItems = useSelector(selectNumCartItems);
     const dishDetails = useSelector(selectDishById(dishId));
+    const [sectionData, setSectionData] = useState(() =>
+        itemOptions.reduce((accSection, currSection) => {
+            accSection[currSection.id] = {
+                isMultiSelect: currSection.isMultiSelect,
+                data: currSection.data.reduce((accItem, currItem) => {
+                    const name = currItem;
+                    const value = false;
+                    accItem[name] = value;
+                    return accItem;
+                }, {}),
+            };
+            return accSection;
+        }, {})
+    );
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
 
@@ -82,6 +99,23 @@ const ItemDetails = ({ route }) => {
         }
     };
 
+    // TODO: Implement onChange
+    const onChange = (sectionId, itemId) => {
+        const newSectionData = clone(sectionData);
+        const { isMultiSelect } = newSectionData[sectionId];
+        const name = itemId;
+        const value = newSectionData[sectionId].data[name];
+
+        if (!isMultiSelect) {
+            const keys = Object.keys(newSectionData[sectionId].data);
+            keys.forEach((key) => {
+                newSectionData[sectionId].data[key] = false;
+            });
+        }
+        newSectionData[sectionId].data[name] = !value;
+        setSectionData(newSectionData);
+    };
+
     return (
         <>
             <SectionList
@@ -93,7 +127,7 @@ const ItemDetails = ({ route }) => {
                         imageUrl={dishDetails.imageUrl}
                     />
                 }
-                sections={itemOptions}
+                sections={sectionData}
                 keyExtractor={(item, index) => item + index}
                 renderItem={renderSectionItem}
                 renderSectionHeader={renderSectionHeader}
