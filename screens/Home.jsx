@@ -4,6 +4,9 @@ import { SafeAreaView, FlatList } from 'react-native';
 
 import RestaurantItem from '../components/RestaurantItem';
 import { selectRestaurants } from '../redux/restaurants/selectors';
+import Separator from '../components/common/Separator';
+
+const ItemSeparator = () => <Separator marginVertical={5} />;
 
 const Home = ({ navigation }) => {
     const restaurants = useSelector(selectRestaurants);
@@ -13,6 +16,7 @@ const Home = ({ navigation }) => {
             <FlatList
                 keyExtractor={({ id }) => id}
                 data={restaurants}
+                ItemSeparatorComponent={ItemSeparator}
                 renderItem={({ item }) => (
                     <RestaurantItem
                         name={item.name}

@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react';
-import { Text } from 'react-native';
 import { Provider, useDispatch } from 'react-redux';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Host } from 'react-native-portalize';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { fetchRestaurants } from './redux/thunks/fetchRestaurants';
-import { store } from './redux/store';
-import { HomeStack } from './navigation/Home/HomeStack';
 import AppStack from './navigation/Home/AppStack';
-import { useGetCartQuery } from './redux/services/restaurant';
-import { fetchUser } from './redux/thunks/fetchUser';
+import { useGetUserQuery } from './redux/services/restaurant';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,19 +21,17 @@ const IconMapping = {
 
 const App = () => {
     const dispatch = useDispatch();
-    useGetCartQuery();
+    useGetUserQuery(1);
 
     useEffect(() => {
         dispatch(fetchRestaurants());
-        dispatch(fetchUser(1));
     }, [dispatch]);
 
     return (
-        <Provider store={store}>
-            <NavigationContainer>
-                <Host>
-                    <AppStack />
-                    {/* <Tab.Navigator
+        <NavigationContainer>
+            <Host>
+                <AppStack />
+                {/* <Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => {
           return {
@@ -64,9 +57,8 @@ const App = () => {
         <Tab.Screen name="Orders" component={() => <Text>Orders</Text>} />
         <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
       </Tab.Navigator> */}
-                </Host>
-            </NavigationContainer>
-        </Provider>
+            </Host>
+        </NavigationContainer>
     );
 };
 

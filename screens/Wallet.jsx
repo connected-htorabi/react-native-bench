@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Pressable } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { useToast } from 'react-native-styled-toast';
 
+import { useSelector } from 'react-redux';
+import { useSendCreditsMutation } from '../redux/services/restaurant';
+import { selectUser } from '../redux/users/selectors';
 import Expandable from '../components/Expandable';
 import Header from '../components/Header';
 import Body from '../components/Body';
@@ -9,14 +12,13 @@ import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 import WalletHistory from '../components/WalletHistory';
 
-const info = { header: 'Individuals', names: ['Henry', 'Bob', 'Sally'] };
-
-let balance = 20;
-
 const Wallet = () => {
-    const [isSendMoneyActive, setIsSendMoneyActive] = useState(true);
+    const [sendCredits] = useSendCreditsMutation();
     const [isTransferHistoryActive, setIsTransferHistoryActive] =
         useState(true);
+
+    const user = useSelector(selectUser);
+    const [isSendMoneyActive, setIsSendMoneyActive] = useState(true);
     const { toast } = useToast();
 
     const onExpand = () => {
@@ -27,18 +29,32 @@ const Wallet = () => {
         setIsTransferHistoryActive((prev) => setIsTransferHistoryActive(!prev));
     };
 
-    const sendMoney = (amount, name) => {
-        balance -= amount;
-        toast({
-            message: `$${amount} sent to ${name}`,
-        });
+    const sendMoney = (
+        amount,
+        recipientId,
+        recipientBalance,
+        recipientName
+    ) => {
+        sendCredits({
+            senderId: user.id,
+            recipientId,
+            senderBalance: user.creditBalance,
+            recipientBalance,
+            amount,
+        })
+            .unwrap()
+            .then(() => {
+                toast({
+                    message: `$${amount} sent to ${recipientName}`,
+                });
+            });
     };
 
     return (
         <SafeAreaView>
             <View style={styles.container}>
                 <Text style={styles.pageHeader}>Wallet</Text>
-                <Balance balance={balance} />
+                <Balance balance={user.creditBalance} />
                 <Expandable
                     shouldExpand={isSendMoneyActive}
                     onExpand={onExpand}
@@ -53,12 +69,17 @@ const Wallet = () => {
 
                     <Body>
                         <View style={styles.expandableBody}>
-                            {info.names.map((name, i) => (
+                            {user.friends.map(({ name, id, creditBalance }) => (
                                 <Payee
                                     name={name}
-                                    key={i}
+                                    key={id}
                                     onSendMoney={(amount) =>
-                                        sendMoney(amount, name)
+                                        sendMoney(
+                                            amount,
+                                            id,
+                                            creditBalance,
+                                            name
+                                        )
                                     }
                                 />
                             ))}
@@ -79,8 +100,12 @@ const Wallet = () => {
 
                     <Body>
                         <View style={styles.expandableBody}>
-                            {info.names.map((name, i) => (
-                                <WalletHistory name={name} key={i} />
+                            {user.friends.map(({ name, id, creditBalance }) => (
+                                <WalletHistory
+                                    name={name}
+                                    key={id}
+                                    creditBalance={creditBalance}
+                                />
                             ))}
                         </View>
                     </Body>

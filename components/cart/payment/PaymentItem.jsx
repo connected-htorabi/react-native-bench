@@ -8,7 +8,7 @@ const PaymentItem = ({ label, value, isTotal = false }) => (
             {label}
         </Text>
         <Text style={[styles.value, isTotal && styles.valueTotal]}>
-            ${value}
+            {`$${parseFloat(value).toFixed(2)}`}
         </Text>
     </View>
 );

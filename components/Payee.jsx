@@ -16,7 +16,7 @@ const Payee = ({ name, onSendMoney = (amount) => {} }) => {
     const [amount, setAmount] = useState('');
 
     const sendMoney = () => {
-        onSendMoney(amount);
+        onSendMoney(Number(amount));
         toggle();
         setAmount('');
     };

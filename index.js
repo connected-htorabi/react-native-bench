@@ -3,11 +3,12 @@ import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
 import axios from 'axios';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { ToastProvider } from 'react-native-styled-toast';
 import { ThemeProvider } from 'styled-components';
 
 import App from './App';
-import { store } from './redux/store';
+import { store, persistor } from './redux/store';
 import theme from './theme';
 
 axios.defaults.baseURL = 'http://localhost:9001';
@@ -18,11 +19,13 @@ axios.defaults.baseURL = 'http://localhost:9001';
 
 const ProviderApp = () => (
     <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <ToastProvider>
-                <App />
-            </ToastProvider>
-        </ThemeProvider>
+        <PersistGate persistor={persistor}>
+            <ThemeProvider theme={theme}>
+                <ToastProvider>
+                    <App />
+                </ToastProvider>
+            </ThemeProvider>
+        </PersistGate>
     </Provider>
 );
 
