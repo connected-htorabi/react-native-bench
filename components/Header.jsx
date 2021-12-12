@@ -1,12 +1,25 @@
 import React, { useContext } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-
+import {
+    LayoutAnimation,
+    Platform,
+    UIManager,
+    Pressable,
+    StyleSheet,
+} from 'react-native';
 import { ExpandableContext } from './Expandable';
+
+if (
+    Platform.OS === 'android' &&
+    UIManager.setLayoutAnimationEnabledExperimental
+) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 const Header = ({ children, title, ...otherProps }) => {
     const { toggle } = useContext(ExpandableContext);
 
     const func = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         toggle();
     };
 

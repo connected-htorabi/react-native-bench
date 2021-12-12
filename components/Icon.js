@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { Text } from 'react-native';
 import { ExpandableContext } from './Expandable';
 
-const Icon = ({ children }) => {
+const Icon = ({ children, ...otherProps }) => {
     const { expanded } = useContext(ExpandableContext);
 
-    return expanded ? (
-        <Text style={{ fontSize: 21, fontWeight: 'bold' }}>-</Text>
-    ) : (
-        <Text style={{ fontSize: 21, fontWeight: 'bold' }}>+</Text>
+    return (
+        <Text style={{ fontSize: 21, fontWeight: 'bold' }} {...otherProps}>
+            {expanded ? '-' : '+'}
+        </Text>
     );
 };
 

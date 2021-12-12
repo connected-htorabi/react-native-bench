@@ -7,18 +7,24 @@ import Header from '../components/Header';
 import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
+import WalletHistory from '../components/WalletHistory';
 
 const info = { header: 'Individuals', names: ['Henry', 'Bob', 'Sally'] };
 
 let balance = 20;
-const pendingBalance = 10;
 
 const Wallet = () => {
-    const [isSendMoneyActive, setIsSendMoneyActive] = useState(false);
+    const [isSendMoneyActive, setIsSendMoneyActive] = useState(true);
+    const [isTransferHistoryActive, setIsTransferHistoryActive] =
+        useState(true);
     const { toast } = useToast();
 
     const onExpand = () => {
         setIsSendMoneyActive((prev) => setIsSendMoneyActive(!prev));
+    };
+
+    const onHistoryExpand = () => {
+        setIsTransferHistoryActive((prev) => setIsTransferHistoryActive(!prev));
     };
 
     const sendMoney = (amount, name) => {
@@ -33,10 +39,6 @@ const Wallet = () => {
             <View style={styles.container}>
                 <Text style={styles.pageHeader}>Wallet</Text>
                 <Balance balance={balance} />
-                <Pending pendingBalance={pendingBalance} />
-                <Text style={[styles.sectionHeader, { marginBottom: 20 }]}>
-                    Send Money
-                </Text>
                 <Expandable
                     shouldExpand={isSendMoneyActive}
                     onExpand={onExpand}
@@ -44,9 +46,9 @@ const Wallet = () => {
                 >
                     <Header style={styles.expandableHeader}>
                         <Text style={styles.expandableHeaderText}>
-                            {info.header}
+                            Transfer Money
                         </Text>
-                        <Icon />
+                        <Icon style={styles.expandableHeaderIcon} />
                     </Header>
 
                     <Body>
@@ -63,6 +65,26 @@ const Wallet = () => {
                         </View>
                     </Body>
                 </Expandable>
+                <Expandable
+                    shouldExpand={isTransferHistoryActive}
+                    onExpand={onHistoryExpand}
+                    style={styles.expandable}
+                >
+                    <Header style={styles.expandableHeader}>
+                        <Text style={styles.expandableHeaderText}>
+                            Transfer History
+                        </Text>
+                        <Icon style={styles.expandableHeaderIcon} />
+                    </Header>
+
+                    <Body>
+                        <View style={styles.expandableBody}>
+                            {info.names.map((name, i) => (
+                                <WalletHistory name={name} key={i} />
+                            ))}
+                        </View>
+                    </Body>
+                </Expandable>
             </View>
         </SafeAreaView>
     );
@@ -72,20 +94,6 @@ const Balance = ({ balance }) => (
     <View style={styles.balanceContainer}>
         <Text style={styles.balanceText}>Balance</Text>
         <Text style={styles.balanceText}>${balance}</Text>
-    </View>
-);
-
-const Pending = ({ pendingBalance }) => (
-    <View>
-        <Text style={styles.sectionHeader}>Pending</Text>
-        <View style={styles.pendingTransferContainer}>
-            <Text>${pendingBalance} from Henry</Text>
-            <Pressable style={styles.pendingTransferAcceptButton}>
-                <Text style={styles.pendingTransferAcceptButtonText}>
-                    Accept
-                </Text>
-            </Pressable>
-        </View>
     </View>
 );
 
@@ -103,12 +111,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
     },
-    sectionHeader: {
-        fontSize: 21,
-        fontWeight: 'bold',
-        marginTop: 25,
-        marginBottom: 20,
-    },
     balanceContainer: {
         marginTop: 10,
         marginBottom: 10,
@@ -118,47 +120,38 @@ const styles = StyleSheet.create({
     balanceText: {
         fontSize: 21,
     },
-    pendingTransferContainer: {
-        marginBottom: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    pendingTransferAcceptButton: {
-        alignItems: 'center',
-        borderColor: '#4BAA00',
-        borderWidth: 1,
-        borderRadius: 2,
-        paddingTop: 5,
-        paddingBottom: 5,
-        width: 100,
-    },
-    pendingTransferAcceptButtonText: {
-        color: '#4BAA00',
-    },
     expandable: {
-        marginBottom: 20,
+        marginVertical: 20,
     },
     expandableHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 20,
+        color: 'white',
+        backgroundColor: '#0374a8',
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
+        padding: 12,
     },
     expandableHeaderText: {
+        color: 'white',
+        fontSize: 21,
+    },
+    expandableHeaderIcon: {
+        color: 'white',
         fontSize: 21,
     },
     expandableBody: {
         flexDirection: 'column',
         justifyContent: 'space-between',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingTop: 5,
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
+        paddingTop: 20,
         paddingLeft: 15,
         paddingBottom: 5,
         paddingRight: 15,
+        borderWidth: 1,
+        borderColor: '#0374a8',
     },
 });
 
