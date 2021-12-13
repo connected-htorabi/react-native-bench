@@ -4,6 +4,12 @@ export const cartAdapter = createEntityAdapter();
 
 const initialState = {
     restaurantId: null,
+    selectedCreditCardId: 0,
+    creditCards: [
+        { type: 'visa', cardNumber: '****-****-1234' },
+        { type: 'mastercard', cardNumber: '****-****-1234' },
+        { type: 'amex', cardNumber: '****-****-1234' },
+    ],
 };
 
 const { actions, reducer } = createSlice({
@@ -41,8 +47,12 @@ const { actions, reducer } = createSlice({
             state.restaurantId = items[0].restaurantId;
             cartAdapter.setAll(state, items);
         },
+        selectCreditCard: (state, { payload: creditCardId }) => {
+            state.selectedCreditCardId = creditCardId;
+        },
     },
 });
 
-export const { addItem, removeItem, resetCart, replaceCart } = actions;
+export const { addItem, removeItem, resetCart, replaceCart, selectCreditCard } =
+    actions;
 export default reducer;

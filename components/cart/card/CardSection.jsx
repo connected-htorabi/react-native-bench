@@ -1,21 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, Text, TouchableHighlight, Pressable } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Portal } from 'react-native-portalize';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import BaseCardItem from './BaseCardItem';
-
-const dummyData2 = [
-    { type: 'visa', cardNumber: '****-****-1234' },
-    { type: 'mastercard', cardNumber: '****-****-1234' },
-    { type: 'amex', cardNumber: '****-****-1234' },
-];
-
-const dummyData = { type: 'visa', cardNumber: '****-****-1234' };
+import {
+    selectSelectedCreditCard,
+    selectCreditCards,
+    selectSelectedCreditCardId,
+} from '../../../redux/cart/selectors';
+import { selectCreditCard } from '../../../redux/cart/cartSlice';
 
 const CardSection = () => {
-    const [selectedId, setSelectedId] = useState(0);
+    const dispatch = useDispatch();
+    const selectedCreditCard = useSelector(selectSelectedCreditCard);
+    const creditCards = useSelector(selectCreditCards);
+    const selectedCreditCardId = useSelector(selectSelectedCreditCardId);
     const modalizeRef = useRef(null);
 
     const onOpen = () => {
@@ -26,8 +28,8 @@ const CardSection = () => {
         <>
             <TouchableHighlight onPress={onOpen}>
                 <BaseCardItem
-                    type={dummyData.type}
-                    cardNumber={dummyData.cardNumber}
+                    type={selectedCreditCard.type}
+                    cardNumber={selectedCreditCard.cardNumber}
                     isList={false}
                 >
                     <Text style={styles.change}>Change</Text>
@@ -38,11 +40,16 @@ const CardSection = () => {
                     ref={modalizeRef}
                     modalHeight={300}
                     flatListProps={{
-                        data: dummyData2,
+                        data: creditCards,
                         renderItem: ({ item, index }) => (
-                            <Pressable onPress={() => setSelectedId(index)}>
+                            <Pressable
+                                onPress={() => {
+                                    dispatch(selectCreditCard(index));
+                                    modalizeRef.current?.close();
+                                }}
+                            >
                                 <BaseCardItem {...item}>
-                                    {index === selectedId && (
+                                    {index === selectedCreditCardId && (
                                         <Icon name="check" color="green" />
                                     )}
                                 </BaseCardItem>

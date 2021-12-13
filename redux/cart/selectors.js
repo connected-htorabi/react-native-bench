@@ -29,3 +29,11 @@ export const selectCartTotal = createSelector(
 );
 
 export const selectRestaurantId = (state) => state.cart.restaurantId;
+
+export const selectSelectedCreditCardId = (state) =>
+    state.cart.selectedCreditCardId;
+export const selectCreditCards = (state) => state.cart.creditCards;
+export const selectSelectedCreditCard = createSelector(
+    [selectSelectedCreditCardId, selectCreditCards],
+    (cardId, cards) => cards[cardId]
+);
