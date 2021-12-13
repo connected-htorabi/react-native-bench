@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -31,16 +31,17 @@ const renderSectionHeader = ({ section: { sectionName, isMultiSelect } }) => (
     </View>
 );
 
-const renderSectionItem = ({ item }) => (
-    <View style={styles.optionContainer}>
-        <Checkbox
-            disabled={false}
-            value={false}
-            onValueChange={(newValue) => console.log('checked')}
-        />
-        <Text style={styles.optionName}>{item}</Text>
-    </View>
-);
+const renderSectionItem = ({ item, value, price, onToggle }) => {
+    return (
+        <View style={styles.optionContainer}>
+            <Checkbox value={value} onValueChange={onToggle} />
+            <View style={styles.optionContainerText}>
+                <Text style={styles.optionName}>{item}</Text>
+                <Text style={styles.optionPrice}>+${price}</Text>
+            </View>
+        </View>
+    );
+};
 
 const renderItemSeparator = () => <View style={styles.itemSeparator} />;
 
@@ -49,20 +50,21 @@ const ItemDetails = ({ route }) => {
     const currentCartRestaurantId = useSelector(selectRestaurantId);
     const numCartItems = useSelector(selectNumCartItems);
     const dishDetails = useSelector(selectDishById(dishId));
-    const [sectionData, setSectionData] = useState(() =>
-        itemOptions.reduce((accSection, currSection) => {
+    const [sectionData, setSectionData] = useState(() => {
+        const options = itemOptions.reduce((accSection, currSection) => {
             accSection[currSection.id] = {
                 isMultiSelect: currSection.isMultiSelect,
                 data: currSection.data.reduce((accItem, currItem) => {
-                    const name = currItem;
+                    const { id } = currItem;
                     const value = false;
-                    accItem[name] = value;
+                    accItem[id] = value;
                     return accItem;
                 }, {}),
             };
             return accSection;
-        }, {})
-    );
+        }, {});
+        return options;
+    });
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
 
@@ -127,9 +129,18 @@ const ItemDetails = ({ route }) => {
                         imageUrl={dishDetails.imageUrl}
                     />
                 }
-                sections={sectionData}
+                sections={itemOptions}
                 keyExtractor={(item, index) => item + index}
-                renderItem={renderSectionItem}
+                renderItem={({ item, section }) => {
+                    const value = sectionData[section.id].data[item.id];
+                    const onToggle = () => onChange(section.id, item.id);
+                    return renderSectionItem({
+                        item: item.name,
+                        value,
+                        onToggle,
+                        price: item.price,
+                    });
+                }}
                 renderSectionHeader={renderSectionHeader}
                 ItemSeparatorComponent={renderItemSeparator}
                 ListFooterComponent={
@@ -183,9 +194,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginVertical: 10,
     },
+    optionContainerText: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        width: '100%',
+    },
     optionName: {
         marginLeft: 20,
     },
+    optionPrice: { marginRight: 10 },
     addToCartButton: {
         justifyContent: 'center',
         alignSelf: 'center',
