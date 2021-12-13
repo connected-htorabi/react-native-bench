@@ -34,6 +34,7 @@ const RestaurantDetails = ({ navigation, route }) => {
         <TouchableOpacity
             onPress={() =>
                 navigation.navigate('Item Details', {
+                    itemName: item.name,
                     restaurantId,
                     dishId: item.id,
                 })

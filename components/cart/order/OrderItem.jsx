@@ -5,19 +5,31 @@ import { Text, View, StyleSheet } from 'react-native';
 export const OrderItemPropTypes = {
     quantity: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string,
+    options: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            price: PropTypes.number.isRequired,
+        })
+    ).isRequired,
     itemSubtotal: PropTypes.number.isRequired,
 };
 
-const OrderItem = ({ quantity, name, description, itemSubtotal }) => (
+const OrderItem = ({ quantity, name, options, itemSubtotal }) => (
     <View style={styles.container}>
         <View style={styles.quantityContainer}>
             <Text style={styles.quantity}>{quantity}x</Text>
         </View>
         <View style={styles.infoContainer}>
             <Text>{name}</Text>
-            {description && (
-                <Text style={styles.description}>{description}</Text>
+            {options && (
+                <View>
+                    {options.map(({ id, name: optionName, price }) => (
+                        <Text key={id} style={styles.description}>
+                            {optionName} (${price.toFixed(2)})
+                        </Text>
+                    ))}
+                </View>
             )}
         </View>
         <View style={styles.priceContainer}>
@@ -37,7 +49,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: 'white',
-        alignItems: 'center',
         padding: 10,
     },
     quantityContainer: {
@@ -46,7 +57,6 @@ const styles = StyleSheet.create({
     quantity: {
         color: 'green',
         fontWeight: 'bold',
-        flex: 1,
     },
     infoContainer: { flex: 10 },
     description: {

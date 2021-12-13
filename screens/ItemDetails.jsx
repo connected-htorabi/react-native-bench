@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useSelector, useDispatch } from 'react-redux';
-import { clone, round, flatten } from 'lodash';
+import { clone, round, flatten, sumBy } from 'lodash';
 
 import { selectDishById } from '../redux/menu/selectors';
 import {
@@ -79,7 +79,7 @@ const ItemDetails = ({ route }) => {
                     // eslint-disable-next-line no-shadow
                     ([sectionId, sectionData]) => {
                         const { data } = sectionData;
-                        const something = Object.entries(data)
+                        return Object.entries(data)
                             .filter((option) => option[1]) // option is selected
                             .map(([optionId]) => {
                                 const section = itemOptions.find((sect) => {
@@ -92,14 +92,19 @@ const ItemDetails = ({ route }) => {
                                 );
                                 return { id: optionId, name, price };
                             });
-                        return something;
                     }
                 )
             ),
         [sectionData]
     );
 
-    const itemSubtotal = ;
+    const selectedSubtotal = useMemo(
+        () =>
+            (dishDetails.price +
+                sumBy(selectedOptionsArr, (option) => option.price)) *
+            quantity,
+        [dishDetails.price, quantity, selectedOptionsArr]
+    );
 
     const dispatchAddItem = () =>
         dispatch(
@@ -192,7 +197,9 @@ const ItemDetails = ({ route }) => {
                 style={styles.addToCartButton}
                 onPress={() => addItemToCart({ id: dishId, quantity })}
             >
-                <Text style={styles.buttonText}>Add to cart</Text>
+                <Text style={styles.buttonText}>
+                    Add to cart (${selectedSubtotal.toFixed(2)})
+                </Text>
             </TouchableOpacity>
         </>
     );
