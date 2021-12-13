@@ -214,22 +214,6 @@
             ],
             "date": 1633306790000,
             "status": "completed"
-        },
-        {
-            "id": 5,
-            "restaurantId": 4,
-            "total": 22,
-            "items": [
-                {
-                    "id": 1,
-                    "quantity": 1,
-                    "name": "Burger",
-                    "description": "A delicious burger.",
-                    "price": 5.0
-                }
-            ],
-            "date": 1633133990000,
-            "status": "upcoming"
         }
     ],
     "users": [
