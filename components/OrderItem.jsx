@@ -1,9 +1,21 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
-import { Text, StyleSheet, View, Image, Pressable } from 'react-native';
+import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import { replaceCart } from '../redux/cart/cartSlice';
 
 const OrderItem = ({ order }) => {
     const { name, restaurant, total, items, date } = order;
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+
+    const onReorder = () => {
+        dispatch(replaceCart(items));
+        navigation.navigate('Cart');
+    };
+
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={{ uri: restaurant.imageUrl }} />
@@ -20,9 +32,9 @@ const OrderItem = ({ order }) => {
             ))}
             <View style={styles.totalRowContainer}>
                 <Text style={styles.boldText}>Total: ${total}</Text>
-                <Pressable>
+                <TouchableOpacity onPress={onReorder}>
                     <Text style={styles.buttonText}>REORDER</Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
         </View>
     );

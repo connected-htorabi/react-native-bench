@@ -2,11 +2,13 @@ import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 export const cartAdapter = createEntityAdapter();
 
+const initialState = {
+    restaurantId: null,
+};
+
 const { actions, reducer } = createSlice({
     name: 'cart',
-    initialState: cartAdapter.getInitialState({
-        restaurantId: null,
-    }),
+    initialState: cartAdapter.getInitialState(initialState),
     reducers: {
         addItem: (
             state,
@@ -21,6 +23,9 @@ const { actions, reducer } = createSlice({
                 },
             }
         ) => {
+            if (restaurantId !== state.restaurantId) {
+                cartAdapter.removeAll(state);
+            }
             state.restaurantId = restaurantId;
             const currentEntity = state.entities[id];
             const exists = !!currentEntity;
@@ -43,10 +48,18 @@ const { actions, reducer } = createSlice({
             cartAdapter.removeOne(state, id);
         },
         resetCart: (state) => {
+            state.restaurantId = initialState.restaurantId;
             cartAdapter.removeAll(state);
+        },
+        resetRestaurantId: (state) => {
+            state.restaurantId = initialState.restaurantId;
+        },
+        replaceCart: (state, { payload: items }) => {
+            state.restaurantId = items[0].restaurantId;
+            cartAdapter.setAll(state, items);
         },
     },
 });
 
-export const { addItem, removeItem, resetCart } = actions;
+export const { addItem, removeItem, resetCart, replaceCart } = actions;
 export default reducer;
