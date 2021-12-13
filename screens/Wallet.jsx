@@ -10,16 +10,23 @@ import Header from '../components/Header';
 import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
+import WalletHistory from '../components/WalletHistory';
 
 const Wallet = () => {
     const [sendCredits] = useSendCreditsMutation();
+    const [isTransferHistoryActive, setIsTransferHistoryActive] =
+        useState(true);
 
     const user = useSelector(selectUser);
-    const [isSendMoneyActive, setIsSendMoneyActive] = useState(false);
+    const [isSendMoneyActive, setIsSendMoneyActive] = useState(true);
     const { toast } = useToast();
 
     const onExpand = () => {
         setIsSendMoneyActive((prev) => setIsSendMoneyActive(!prev));
+    };
+
+    const onHistoryExpand = () => {
+        setIsTransferHistoryActive((prev) => setIsTransferHistoryActive(!prev));
     };
 
     const sendMoney = (
@@ -48,37 +55,58 @@ const Wallet = () => {
             <View style={styles.container}>
                 <Text style={styles.pageHeader}>Wallet</Text>
                 <Balance balance={user.creditBalance} />
-                <Text style={[styles.sectionHeader, { marginBottom: 20 }]}>
-                    Send Money
-                </Text>
                 <Expandable
                     shouldExpand={isSendMoneyActive}
                     onExpand={onExpand}
                     style={styles.expandable}
                 >
                     <Header style={styles.expandableHeader}>
-                        <Text style={styles.expandableHeaderText}>Friends</Text>
-                        <Icon />
+                        <Text style={styles.expandableHeaderText}>
+                            Transfer Money
+                        </Text>
+                        <Icon style={styles.expandableHeaderIcon} />
                     </Header>
 
                     <Body>
                         <View style={styles.expandableBody}>
-                            {user.friends.map(
-                                ({ name, id, creditBalance }, i) => (
-                                    <Payee
-                                        name={name}
-                                        key={i}
-                                        onSendMoney={(amount) =>
-                                            sendMoney(
-                                                amount,
-                                                id,
-                                                creditBalance,
-                                                name
-                                            )
-                                        }
-                                    />
-                                )
-                            )}
+                            {user.friends.map(({ name, id, creditBalance }) => (
+                                <Payee
+                                    name={name}
+                                    key={id}
+                                    onSendMoney={(amount) =>
+                                        sendMoney(
+                                            amount,
+                                            id,
+                                            creditBalance,
+                                            name
+                                        )
+                                    }
+                                />
+                            ))}
+                        </View>
+                    </Body>
+                </Expandable>
+                <Expandable
+                    shouldExpand={isTransferHistoryActive}
+                    onExpand={onHistoryExpand}
+                    style={styles.expandable}
+                >
+                    <Header style={styles.expandableHeader}>
+                        <Text style={styles.expandableHeaderText}>
+                            Transfer History
+                        </Text>
+                        <Icon style={styles.expandableHeaderIcon} />
+                    </Header>
+
+                    <Body>
+                        <View style={styles.expandableBody}>
+                            {user.friends.map(({ name, id, creditBalance }) => (
+                                <WalletHistory
+                                    name={name}
+                                    key={id}
+                                    creditBalance={creditBalance}
+                                />
+                            ))}
                         </View>
                     </Body>
                 </Expandable>
@@ -108,12 +136,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
     },
-    sectionHeader: {
-        fontSize: 21,
-        fontWeight: 'bold',
-        marginTop: 25,
-        marginBottom: 20,
-    },
     balanceContainer: {
         marginTop: 10,
         marginBottom: 10,
@@ -123,47 +145,38 @@ const styles = StyleSheet.create({
     balanceText: {
         fontSize: 21,
     },
-    pendingTransferContainer: {
-        marginBottom: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    pendingTransferAcceptButton: {
-        alignItems: 'center',
-        borderColor: '#4BAA00',
-        borderWidth: 1,
-        borderRadius: 2,
-        paddingTop: 5,
-        paddingBottom: 5,
-        width: 100,
-    },
-    pendingTransferAcceptButtonText: {
-        color: '#4BAA00',
-    },
     expandable: {
-        marginBottom: 20,
+        marginVertical: 20,
     },
     expandableHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 20,
+        color: 'white',
+        backgroundColor: '#0374a8',
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
+        padding: 12,
     },
     expandableHeaderText: {
+        color: 'white',
+        fontSize: 21,
+    },
+    expandableHeaderIcon: {
+        color: 'white',
         fontSize: 21,
     },
     expandableBody: {
         flexDirection: 'column',
         justifyContent: 'space-between',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingTop: 5,
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
+        paddingTop: 20,
         paddingLeft: 15,
         paddingBottom: 5,
         paddingRight: 15,
+        borderWidth: 1,
+        borderColor: '#0374a8',
     },
 });
 
