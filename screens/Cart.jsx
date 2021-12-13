@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { usePlaceOrderMutation } from '../redux/services/restaurant';
 import {
     selectRestaurantId,
-    selectAllCartItems,
+    selectAllCartItemsWithOptions,
     selectCartSubtotal,
     selectCartTax,
     selectCartTotal,
@@ -23,7 +23,7 @@ const Cart = () => {
     const [placeOrder] = usePlaceOrderMutation();
     const dispatch = useDispatch();
     const restaurantId = useSelector(selectRestaurantId);
-    const items = useSelector(selectAllCartItems);
+    const items = useSelector(selectAllCartItemsWithOptions);
     const subtotal = useSelector(selectCartSubtotal);
     const tax = useSelector(selectCartTax);
     const total = useSelector(selectCartTotal);

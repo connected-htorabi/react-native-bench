@@ -36,6 +36,10 @@ export const HomeStack = () => (
             options={{ headerRight: null }}
         />
         <Stack.Screen name="Restaurant Details" component={RestaurantDetails} />
-        <Stack.Screen name="Item Details" component={ItemDetails} />
+        <Stack.Screen
+            name="Item Details"
+            component={ItemDetails}
+            options={({ route }) => ({ title: route.params.itemName })}
+        />
     </Stack.Navigator>
 );

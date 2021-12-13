@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     View,
     Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useSelector, useDispatch } from 'react-redux';
+import { clone, round, flatten, sumBy } from 'lodash';
 
 import { selectDishById } from '../redux/menu/selectors';
 import {
@@ -22,22 +23,29 @@ import { itemOptions } from '../constants';
 
 const MINIMUM_QUANTITY = 1;
 
-const renderSectionHeader = ({ section: { sectionName } }) => (
+const renderSectionHeader = ({ section: { sectionName, isMultiSelect } }) => (
     <View style={styles.sectionHeaderContainer}>
-        <Text style={styles.sectionHeaderText}>{sectionName}</Text>
+        <Text style={styles.sectionHeaderText}>
+            {sectionName} {!isMultiSelect && '(Select 1)'}
+        </Text>
     </View>
 );
 
-const renderSectionItem = ({ item }) => (
-    <View style={styles.optionContainer}>
-        <Checkbox
-            disabled={false}
-            value={false}
-            onValueChange={(newValue) => console.log('checked')}
-        />
-        <Text style={styles.optionName}>{item}</Text>
-    </View>
-);
+const renderSectionItem = ({ item, value, price, onToggle }) => {
+    return (
+        <View style={styles.optionContainer}>
+            <Checkbox value={value} onValueChange={onToggle} />
+            <View style={styles.optionContainerText}>
+                <Text style={styles.optionName}>{item}</Text>
+                {price !== 0 && (
+                    <Text style={styles.optionPrice}>
+                        +${round(price, 2).toFixed(2)}
+                    </Text>
+                )}
+            </View>
+        </View>
+    );
+};
 
 const renderItemSeparator = () => <View style={styles.itemSeparator} />;
 
@@ -46,8 +54,57 @@ const ItemDetails = ({ route }) => {
     const currentCartRestaurantId = useSelector(selectRestaurantId);
     const numCartItems = useSelector(selectNumCartItems);
     const dishDetails = useSelector(selectDishById(dishId));
+    const [sectionData, setSectionData] = useState(() => {
+        const options = itemOptions.reduce((accSection, currSection) => {
+            accSection[currSection.id] = {
+                isMultiSelect: currSection.isMultiSelect,
+                data: currSection.data.reduce((accItem, currItem) => {
+                    const { id } = currItem;
+                    const value = false;
+                    accItem[id] = value;
+                    return accItem;
+                }, {}),
+            };
+            return accSection;
+        }, {});
+        return options;
+    });
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
+
+    const selectedOptionsArr = useMemo(
+        () =>
+            flatten(
+                Object.entries(sectionData).map(
+                    // eslint-disable-next-line no-shadow
+                    ([sectionId, sectionData]) => {
+                        const { data } = sectionData;
+                        return Object.entries(data)
+                            .filter((option) => option[1]) // option is selected
+                            .map(([optionId]) => {
+                                const section = itemOptions.find((sect) => {
+                                    // eslint-disable-next-line eqeqeq
+                                    return sect.id == sectionId;
+                                });
+                                const { name, price } = section.data.find(
+                                    // eslint-disable-next-line eqeqeq
+                                    (option) => option.id == optionId
+                                );
+                                return { id: optionId, name, price };
+                            });
+                    }
+                )
+            ),
+        [sectionData]
+    );
+
+    const selectedSubtotal = useMemo(
+        () =>
+            (dishDetails.price +
+                sumBy(selectedOptionsArr, (option) => option.price)) *
+            quantity,
+        [dishDetails.price, quantity, selectedOptionsArr]
+    );
 
     const dispatchAddItem = () =>
         dispatch(
@@ -56,8 +113,8 @@ const ItemDetails = ({ route }) => {
                 restaurantId,
                 quantity,
                 name: dishDetails.name,
-                description: dishDetails.description,
                 price: dishDetails.price,
+                options: selectedOptionsArr,
             })
         );
 
@@ -82,6 +139,23 @@ const ItemDetails = ({ route }) => {
         }
     };
 
+    // TODO: Implement onChange
+    const onChange = (sectionId, itemId) => {
+        const newSectionData = clone(sectionData);
+        const { isMultiSelect } = newSectionData[sectionId];
+        const name = itemId;
+        const value = newSectionData[sectionId].data[name];
+
+        if (!isMultiSelect) {
+            const keys = Object.keys(newSectionData[sectionId].data);
+            keys.forEach((key) => {
+                newSectionData[sectionId].data[key] = false;
+            });
+        }
+        newSectionData[sectionId].data[name] = !value;
+        setSectionData(newSectionData);
+    };
+
     return (
         <>
             <SectionList
@@ -95,7 +169,16 @@ const ItemDetails = ({ route }) => {
                 }
                 sections={itemOptions}
                 keyExtractor={(item, index) => item + index}
-                renderItem={renderSectionItem}
+                renderItem={({ item, section }) => {
+                    const value = sectionData[section.id].data[item.id];
+                    const onToggle = () => onChange(section.id, item.id);
+                    return renderSectionItem({
+                        item: item.name,
+                        value,
+                        onToggle,
+                        price: item.price,
+                    });
+                }}
                 renderSectionHeader={renderSectionHeader}
                 ItemSeparatorComponent={renderItemSeparator}
                 ListFooterComponent={
@@ -114,7 +197,9 @@ const ItemDetails = ({ route }) => {
                 style={styles.addToCartButton}
                 onPress={() => addItemToCart({ id: dishId, quantity })}
             >
-                <Text style={styles.buttonText}>Add to cart</Text>
+                <Text style={styles.buttonText}>
+                    Add to cart (${selectedSubtotal.toFixed(2)})
+                </Text>
             </TouchableOpacity>
         </>
     );
@@ -149,9 +234,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginVertical: 10,
     },
+    optionContainerText: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        width: '100%',
+    },
     optionName: {
         marginLeft: 20,
     },
+    optionPrice: { marginRight: 10 },
     addToCartButton: {
         justifyContent: 'center',
         alignSelf: 'center',
