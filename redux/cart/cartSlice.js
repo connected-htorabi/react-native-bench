@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, nanoid } from '@reduxjs/toolkit';
 
 export const cartAdapter = createEntityAdapter();
 
@@ -18,22 +18,14 @@ const { actions, reducer } = createSlice({
                 cartAdapter.removeAll(state);
             }
             state.restaurantId = restaurantId;
-            const currentEntity = state.entities[id];
-            const exists = !!currentEntity;
-            if (exists) {
-                cartAdapter.updateOne(state, {
-                    id,
-                    changes: { quantity: currentEntity.quantity + quantity },
-                });
-            } else {
-                cartAdapter.addOne(state, {
-                    id,
-                    quantity,
-                    name,
-                    price,
-                    options,
-                });
-            }
+            cartAdapter.addOne(state, {
+                id: nanoid(),
+                itemId: id,
+                quantity,
+                name,
+                price,
+                options,
+            });
         },
         removeItem: (state, { payload: id }) => {
             cartAdapter.removeOne(state, id);

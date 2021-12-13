@@ -26,7 +26,7 @@ const OrderItem = ({ quantity, name, options, itemSubtotal }) => (
                 <View>
                     {options.map(({ id, name: optionName, price }) => (
                         <Text key={id} style={styles.description}>
-                            {optionName} (${price.toFixed(2)})
+                            {optionName} {!!price && `($${price.toFixed(2)})`}
                         </Text>
                     ))}
                 </View>
