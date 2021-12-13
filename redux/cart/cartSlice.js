@@ -12,16 +12,7 @@ const { actions, reducer } = createSlice({
     reducers: {
         addItem: (
             state,
-            {
-                payload: {
-                    id,
-                    restaurantId,
-                    quantity,
-                    name,
-                    description,
-                    price,
-                },
-            }
+            { payload: { id, restaurantId, quantity, name, price, options } }
         ) => {
             if (restaurantId !== state.restaurantId) {
                 cartAdapter.removeAll(state);
@@ -39,8 +30,8 @@ const { actions, reducer } = createSlice({
                     id,
                     quantity,
                     name,
-                    description,
                     price,
+                    options,
                 });
             }
         },

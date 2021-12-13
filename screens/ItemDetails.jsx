@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     View,
     Text,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useSelector, useDispatch } from 'react-redux';
-import { clone } from 'lodash';
+import { clone, round, flatten } from 'lodash';
 
 import { selectDishById } from '../redux/menu/selectors';
 import {
@@ -37,7 +37,11 @@ const renderSectionItem = ({ item, value, price, onToggle }) => {
             <Checkbox value={value} onValueChange={onToggle} />
             <View style={styles.optionContainerText}>
                 <Text style={styles.optionName}>{item}</Text>
-                <Text style={styles.optionPrice}>+${price}</Text>
+                {price !== 0 && (
+                    <Text style={styles.optionPrice}>
+                        +${round(price, 2).toFixed(2)}
+                    </Text>
+                )}
             </View>
         </View>
     );
@@ -68,6 +72,33 @@ const ItemDetails = ({ route }) => {
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
 
+    const selectedOptionsArr = useMemo(
+        () =>
+            flatten(
+                Object.entries(sectionData).map(
+                    // eslint-disable-next-line no-shadow
+                    ([sectionId, sectionData]) => {
+                        const { data } = sectionData;
+                        const something = Object.entries(data)
+                            .filter((option) => option[1]) // option is selected
+                            .map(([optionId]) => {
+                                const section = itemOptions.find((sect) => {
+                                    // eslint-disable-next-line eqeqeq
+                                    return sect.id == sectionId;
+                                });
+                                const { name, price } = section.data.find(
+                                    // eslint-disable-next-line eqeqeq
+                                    (option) => option.id == optionId
+                                );
+                                return { id: optionId, name, price };
+                            });
+                        return something;
+                    }
+                )
+            ),
+        [sectionData]
+    );
+
     const dispatchAddItem = () =>
         dispatch(
             addItem({
@@ -75,8 +106,8 @@ const ItemDetails = ({ route }) => {
                 restaurantId,
                 quantity,
                 name: dishDetails.name,
-                description: dishDetails.description,
                 price: dishDetails.price,
+                options: selectedOptionsArr,
             })
         );
 

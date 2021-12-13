@@ -91,7 +91,7 @@ export const itemOptions = [
             {
                 id: 1,
                 name: 'Regular',
-                price: 0,
+                price: 0.0,
             },
             {
                 id: 2,
@@ -106,13 +106,13 @@ export const itemOptions = [
         isMultiSelect: true,
         data: [
             {
-                id: 1,
+                id: 3,
                 name: 'American Cheese',
                 price: 0,
             },
-            { id: 2, name: 'Swiss Cheese', price: 0.5 },
-            { id: 3, name: 'Cheddar Cheese', price: 0.75 },
-            { id: 4, name: 'Mozarella Cheese', price: 1 },
+            { id: 4, name: 'Swiss Cheese', price: 0.5 },
+            { id: 5, name: 'Cheddar Cheese', price: 0.75 },
+            { id: 6, name: 'Mozarella Cheese', price: 1 },
         ],
     },
     {
@@ -120,8 +120,8 @@ export const itemOptions = [
         sectionName: 'Choice of Add ons',
         isMultiSelect: true,
         data: [
-            { id: 1, name: 'Raw Onions', price: 0 },
-            { id: 2, name: 'Fried Onions', price: 1.5 },
+            { id: 7, name: 'Raw Onions', price: 0 },
+            { id: 8, name: 'Fried Onions', price: 1.5 },
         ],
     },
 ];

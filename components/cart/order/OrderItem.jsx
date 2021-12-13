@@ -6,10 +6,10 @@ export const OrderItemPropTypes = {
     quantity: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
-    price: PropTypes.number.isRequired,
+    itemSubtotal: PropTypes.number.isRequired,
 };
 
-const OrderItem = ({ quantity, name, description, price }) => (
+const OrderItem = ({ quantity, name, description, itemSubtotal }) => (
     <View style={styles.container}>
         <View style={styles.quantityContainer}>
             <Text style={styles.quantity}>{quantity}x</Text>
@@ -21,7 +21,7 @@ const OrderItem = ({ quantity, name, description, price }) => (
             )}
         </View>
         <View style={styles.priceContainer}>
-            <Text style={styles.price}>{`$${parseFloat(price).toFixed(
+            <Text style={styles.price}>{`$${parseFloat(itemSubtotal).toFixed(
                 2
             )}`}</Text>
         </View>

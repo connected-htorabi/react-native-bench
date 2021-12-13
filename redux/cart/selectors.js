@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { round } from 'lodash';
+import { round, sumBy } from 'lodash';
 
 import { cartAdapter } from './cartSlice';
 
@@ -7,10 +7,18 @@ export const {
     selectAll: selectAllCartItems,
     selectTotal: selectNumCartItems,
 } = cartAdapter.getSelectors((state) => state.cart);
-export const selectCartSubtotal = createSelector(
+export const selectAllCartItemsWithOptions = createSelector(
     [selectAllCartItems],
-    (items) =>
-        items.reduce((acc, { price, quantity }) => acc + price * quantity, 0)
+    (cartItems) =>
+        cartItems.map((item) => ({
+            ...item,
+            itemSubtotal:
+                item.price + sumBy(item.options || [], (o) => o.price),
+        }))
+);
+export const selectCartSubtotal = createSelector(
+    [selectAllCartItemsWithOptions],
+    (items) => sumBy(items, (item) => item.itemSubtotal * item.quantity)
 );
 export const selectCartTax = createSelector([selectCartSubtotal], (subtotal) =>
     round(subtotal * 0.13, 2)
