@@ -99,6 +99,8 @@ const ItemDetails = ({ route }) => {
         [sectionData]
     );
 
+    const itemSubtotal = ;
+
     const dispatchAddItem = () =>
         dispatch(
             addItem({
