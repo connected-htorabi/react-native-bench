@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import Browse from '../../screens/Browse';
 import { HomeStack } from './HomeStack';
 import AppStack from './AppStack';
 import OrdersScreen from '../../screens/OrdersScreen';
@@ -24,6 +24,7 @@ const TabNavigator = () => (
         screenOptions={({ route }) => ({
             tabBarActiveTintColor: 'black',
             headerTitleAlign: 'center',
+            headerShown:false,
             tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                     name={IconMapping[route.name]}
@@ -38,7 +39,7 @@ const TabNavigator = () => (
             component={HomeStack}
             options={{ headerShown: false }}
         />
-        <Tab.Screen name="Browse" component={() => <Text>Browse</Text>} />
+        <Tab.Screen name="Browse" component={Browse} />
         <Tab.Screen name="Orders" component={OrdersScreen} />
         <Tab.Screen name="Account" component={() => <Text>Account</Text>} />
     </Tab.Navigator>

@@ -25,12 +25,13 @@ const ResultsList = ({ title, results, navigation }) => {
         data={results}
         keyExtractor={result => result.id}
         renderItem={({ item }) => {
+            
           return (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('ResultsShow', { id: item.id })
               }>
-                  <RestaurantItem image_url={item.image_url} name= {item.name} rating={item.rating}/>
+                  <RestaurantItem imageUrl={item.image_url} name= {item.name} rating={item.rating}/>
              
             </TouchableOpacity>
           );

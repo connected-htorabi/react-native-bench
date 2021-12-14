@@ -8,7 +8,7 @@ import Home from '../../screens/Home';
 import RestaurantDetails from '../../screens/RestaurantDetails';
 import ItemDetails from '../../screens/ItemDetails';
 import Cart from '../../screens/Cart';
-
+import ResultsShow from '../../screens/ResultsShow';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => (
@@ -37,5 +37,6 @@ export const HomeStack = () => (
         />
         <Stack.Screen name="Restaurant Details" component={RestaurantDetails} />
         <Stack.Screen name="Item Details" component={ItemDetails} />
+        <Stack.Screen name="Results Show" component={ResultsShow}/>
     </Stack.Navigator>
 );

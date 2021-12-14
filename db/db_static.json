@@ -35,6 +35,15 @@
             "numReviews": 700,
             "rating": 4.9,
             "category": "Indian"
+        },
+        {
+            "id": 4,
+            "name": "Breka Cafe",
+            "imageUrl": "https://s3-media0.fl.yelpcdn.com/bphoto/kPJ_-HvDtutY3HDXuzz42A/o.jpg",
+            "price": "$5.00",
+            "numReviews": 700,
+            "rating": 4.9,
+            "category": "Coffee"
         }
     ],
     "cartItems": [
