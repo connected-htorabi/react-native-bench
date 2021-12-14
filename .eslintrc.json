@@ -22,7 +22,7 @@
         "no-param-reassign": "off",
         "react/prop-types": "warn",
         "no-unused-vars": "warn",
-        "import/no-unresolved": "warn",
+        "import/no-unresolved": "off",
         "react/function-component-definition": [
             "warn",
             {

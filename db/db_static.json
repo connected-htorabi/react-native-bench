@@ -4,37 +4,41 @@
             "id": 1,
             "name": "Starbucks (Yonge & Finch)",
             "imageUrl": "https://d1ralsognjng37.cloudfront.net/d03651d4-988d-4cf9-b101-29e49b50ea08.jpeg",
-            "price": "$0.99",
+            "price": 0.99,
             "numReviews": 1000,
             "rating": 4.9,
-            "category": "Coffee"
+            "category": "Coffee",
+            "deliveryTime": "30 - 40 min"
         },
         {
             "id": 2,
             "name": "Beachside Bar",
             "imageUrl": "https://static.onecms.io/wp-content/uploads/sites/9/2020/04/24/ppp-why-wont-anyone-rescue-restaurants-FT-BLOG0420.jpg",
-            "price": "$3.20",
+            "price": 3.2,
             "numReviews": 1244,
             "rating": 4.5,
-            "category": "Mexican"
+            "category": "Mexican",
+            "deliveryTime": "20 - 25 min"
         },
         {
             "id": 3,
             "name": "Benihana",
             "imageUrl": "https://ichef.bbci.co.uk/news/976/cpsprodpb/11ADE/production/_110541427_chinesefood.jpg",
-            "price": "$10.50",
-            "numReviews": 1244,
+            "price": 10.5,
+            "numReviews": 78,
             "rating": 3.7,
-            "category": "Japanese"
+            "category": "Japanese",
+            "deliveryTime": "10 - 15 min"
         },
         {
             "id": 4,
             "name": "India's Grill",
             "imageUrl": "https://d1ralsognjng37.cloudfront.net/f41159d2-cdfd-48dc-86d5-af4088d30774.jpeg",
-            "price": "$2.00",
+            "price": 2.0,
             "numReviews": 700,
             "rating": 4.9,
-            "category": "Indian"
+            "category": "Indian",
+            "deliveryTime": "5 - 20 min"
         }
     ],
     "cartItems": [
@@ -219,18 +223,18 @@
     "users": [
         {
             "id": 1,
-            "name": "Tyler",
+            "name": "Madhu",
             "address": "101 Test St, Toronto",
             "creditBalance": 20.0,
-            "email": "tyler@test.com",
+            "email": "madhu@test.com",
             "friends": [2, 3, 4]
         },
         {
             "id": 2,
-            "name": "Madhu",
+            "name": "Tyler",
             "address": "102 Test St, Toronto",
             "creditBalance": 30.0,
-            "email": "madhu@test.com",
+            "email": "tyler@test.com",
             "friends": [1, 4]
         },
         {
