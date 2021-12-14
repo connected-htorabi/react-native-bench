@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchTransfers = createAsyncThunk(
-    'user/fetchTransfers',
+    'transfers/fetchTransfers',
     async () => {
-        const { data } = await axios.get(`transferHistory`);
+        const { data } = await axios.get(`transfers`);
         return data;
     }
 );
