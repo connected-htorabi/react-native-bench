@@ -22,6 +22,8 @@ const Home = ({ navigation }) => {
                         name={item.name}
                         imageUrl={item.imageUrl}
                         rating={item.rating}
+                        deliveryTime={item.deliveryTime}
+                        price={item.price}
                         onPress={() =>
                             navigation.navigate('Restaurant Details', {
                                 id: item.id,
