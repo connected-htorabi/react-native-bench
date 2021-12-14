@@ -1,6 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import axios from 'axios';
-import { resetCart } from '../cart/cartSlice';
 
 const axiosBaseQuery =
     ({ baseUrl } = { baseUrl: '' }) =>
