@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { omit } from 'lodash';
 import { Text, StyleSheet, View, Image } from 'react-native';
 
 import { propTypes } from './RestaurantItem';
@@ -30,7 +31,7 @@ const MenuItem = ({ item }) => {
 };
 
 MenuItem.propTypes = {
-    item: PropTypes.shape(propTypes),
+    item: PropTypes.shape(omit(propTypes, ['deliveryTime'])),
 };
 
 export default MenuItem;

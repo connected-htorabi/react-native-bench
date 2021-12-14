@@ -6,12 +6,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 export const propTypes = {
     imageUrl: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    onPress: PropTypes.func.isRequired,
     price: PropTypes.number.isRequired,
     deliveryTime: PropTypes.string.isRequired,
     numReviews: PropTypes.number,
-    category: PropTypes.string.isRequired,
 };
 
 const RestaurantItem = ({
@@ -22,24 +19,26 @@ const RestaurantItem = ({
     price,
     deliveryTime,
     numReviews = 0,
-    category,
 }) => (
     <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
         <View style={{ padding: 15, backgroundColor: 'white' }}>
             <RestaurantImage image={imageUrl} />
-            <RestaurantInfo
+            <RestaurantItemInfo
                 name={name}
                 rating={rating}
                 price={price}
                 deliveryTime={deliveryTime}
                 numReviews={numReviews}
-                category={category}
             />
         </View>
     </TouchableOpacity>
 );
 
-RestaurantItem.propTypes = propTypes;
+RestaurantItem.propTypes = {
+    ...propTypes,
+    rating: PropTypes.number.isRequired,
+    onPress: PropTypes.func.isRequired,
+};
 
 export default RestaurantItem;
 
@@ -64,7 +63,7 @@ RestaurantImage.propTypes = {
     image: propTypes.imageUrl,
 };
 
-const RestaurantInfo = ({ name, deliveryTime, price, rating }) => (
+const RestaurantItemInfo = ({ name, deliveryTime, price, rating }) => (
     <View
         style={{
             flexDirection: 'row',
@@ -107,8 +106,8 @@ const RestaurantInfo = ({ name, deliveryTime, price, rating }) => (
     </View>
 );
 
-RestaurantInfo.propTypes = {
-    rating: propTypes.rating,
+RestaurantItemInfo.propTypes = {
+    rating: PropTypes.number.isRequired,
     name: propTypes.name,
     price: propTypes.price,
     deliveryTime: propTypes.deliveryTime,

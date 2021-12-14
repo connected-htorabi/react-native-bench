@@ -27,7 +27,11 @@ const RestaurantInfo = ({ info }) => {
 };
 
 RestaurantInfo.propTypes = {
-    info: PropTypes.shape(propTypes),
+    info: PropTypes.shape({
+        ...propTypes,
+        category: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+    }),
 };
 
 export default RestaurantInfo;
