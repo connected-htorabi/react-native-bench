@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const propTypes = {
+export const propTypes = {
     imageUrl: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     onPress: PropTypes.func.isRequired,
     price: PropTypes.number.isRequired,
     deliveryTime: PropTypes.string.isRequired,
+    numReviews: PropTypes.number,
+    category: PropTypes.string.isRequired,
 };
 
 const RestaurantItem = ({
@@ -19,6 +21,8 @@ const RestaurantItem = ({
     onPress,
     price,
     deliveryTime,
+    numReviews = 0,
+    category,
 }) => (
     <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
         <View style={{ padding: 15, backgroundColor: 'white' }}>
@@ -28,6 +32,8 @@ const RestaurantItem = ({
                 rating={rating}
                 price={price}
                 deliveryTime={deliveryTime}
+                numReviews={numReviews}
+                category={category}
             />
         </View>
     </TouchableOpacity>
@@ -83,7 +89,7 @@ const RestaurantInfo = ({ name, deliveryTime, price, rating }) => (
                     size={15}
                     color="green"
                 />{' '}
-                • ${price} Delivery Fee • {deliveryTime}
+                • ${price.toFixed(2)} Delivery Fee • {deliveryTime}
             </Text>
         </View>
         <View
