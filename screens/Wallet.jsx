@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { useToast } from 'react-native-styled-toast';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchTransfers } from '../redux/thunks/fetchTransfers';
 import { useSendCreditsMutation } from '../redux/services/restaurant';
 import { selectUser } from '../redux/users/selectors';
 import Expandable from '../components/Expandable';
@@ -11,8 +12,10 @@ import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 import WalletHistory from '../components/WalletHistory';
+import { selectTransfersByUserId } from '../redux/transfers/selectors';
 
 const Wallet = () => {
+    const dispatch = useDispatch();
     const [sendCredits] = useSendCreditsMutation();
     const [isTransferHistoryActive, setIsTransferHistoryActive] =
         useState(true);
@@ -28,6 +31,12 @@ const Wallet = () => {
     const onHistoryExpand = () => {
         setIsTransferHistoryActive((prev) => setIsTransferHistoryActive(!prev));
     };
+
+    useEffect(() => {
+        dispatch(fetchTransfers());
+    }, [dispatch]);
+
+    const transfersHistory = useSelector(selectTransfersByUserId(user.id));
 
     const sendMoney = (
         amount,
@@ -100,13 +109,22 @@ const Wallet = () => {
 
                     <Body>
                         <View style={styles.expandableBody}>
-                            {user.friends.map(({ name, id, creditBalance }) => (
-                                <WalletHistory
-                                    name={name}
-                                    key={id}
-                                    creditBalance={creditBalance}
-                                />
-                            ))}
+                            {transfersHistory.map(
+                                ({
+                                    senderId,
+                                    receiverId,
+                                    transferId,
+                                    amount,
+                                }) => (
+                                    <WalletHistory
+                                        senderId={senderId}
+                                        receiverId={receiverId}
+                                        key={transferId}
+                                        amount={amount}
+                                        userId={user.id}
+                                    />
+                                )
+                            )}
                         </View>
                     </Body>
                 </Expandable>

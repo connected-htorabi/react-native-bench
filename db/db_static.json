@@ -257,5 +257,19 @@
             "email": "haydn@test.com",
             "friends": []
         }
+    ],
+    "transferHistory": [
+        {
+            "transferId": 1,
+            "senderId": 2,
+            "receiverId": 1,
+            "amount": 12
+        },
+        {
+            "transferId": 2,
+            "senderId": 2,
+            "receiverId": 3,
+            "amount": 5
+        }
     ]
 }
