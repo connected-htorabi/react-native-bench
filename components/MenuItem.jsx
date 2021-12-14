@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Text, StyleSheet, View, Image } from 'react-native';
 
-export default function MenuItem({ item }) {
-    const { name, imageUrl, price, calories, description, tags } = item;
+import { propTypes } from './RestaurantItem';
+
+const MenuItem = ({ item }) => {
+    const { name, imageUrl, price, calories, description } = item;
     return (
         <View style={styles.container}>
             <View style={styles.leftContainer}>
@@ -17,14 +20,20 @@ export default function MenuItem({ item }) {
                 </Text>
                 <View style={styles.innerContainer}>
                     <Text>${price}</Text>
-                    <Text>{calories} Cal.</Text>
+                    <Text> {calories} Cal.</Text>
                 </View>
                 <Text>{description}</Text>
             </View>
             <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>
     );
-}
+};
+
+MenuItem.propTypes = {
+    item: PropTypes.shape(propTypes),
+};
+
+export default MenuItem;
 
 const styles = StyleSheet.create({
     container: {

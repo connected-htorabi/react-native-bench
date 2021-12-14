@@ -1,28 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { propTypes } from './RestaurantItem';
 import DetailsHeader from './DetailsHeader';
 
-export default function RestaurantInfo({ info }) {
-    const { name, price, reviews, rating } = info;
+const RestaurantInfo = ({ info }) => {
+    const { name, price, rating, deliveryTime, numReviews, category } = info;
     return (
         <>
             <DetailsHeader title={name} />
             <View style={styles.detailRow}>
                 <MaterialCommunityIcons name="star" size={25} />
                 <Text style={[styles.detailText, { marginLeft: 5 }]}>
-                    {rating} ({reviews}+ Ratings) • Coffee
+                    {rating} ({numReviews} Ratings) • {category}
                 </Text>
             </View>
             <View style={styles.detailRow}>
                 <Text style={styles.detailText}>
-                    15 - 20 min • {price} Delivery Fee
+                    {deliveryTime} • ${price.toFixed(2)} Delivery Fee
                 </Text>
             </View>
         </>
     );
-}
+};
+
+RestaurantInfo.propTypes = {
+    info: PropTypes.shape(propTypes),
+};
+
+export default RestaurantInfo;
 
 const styles = StyleSheet.create({
     detailRow: {
