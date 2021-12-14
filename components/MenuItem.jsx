@@ -20,7 +20,7 @@ const MenuItem = ({ item }) => {
                     {name}
                 </Text>
                 <View style={styles.innerContainer}>
-                    <Text>${price}</Text>
+                    <Text>${price.toFixed(2)}</Text>
                     <Text> {calories} Cal.</Text>
                 </View>
                 <Text>{description}</Text>

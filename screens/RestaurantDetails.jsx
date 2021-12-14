@@ -20,7 +20,7 @@ const Header = ({ restaurantDetails }) => (
     </>
 );
 
-const renderItem = (item, onPress) => (
+const Item = ({ item, onPress }) => (
     <TouchableOpacity onPress={onPress}>
         <MenuItem item={item} />
     </TouchableOpacity>
@@ -44,15 +44,18 @@ const RestaurantDetails = ({ navigation, route }) => {
             }
             data={dishes}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) =>
-                renderItem(item, () =>
-                    navigation.navigate('Item Details', {
-                        itemName: item.name,
-                        restaurantId,
-                        dishId: item.id,
-                    })
-                )
-            }
+            renderItem={({ item }) => (
+                <Item
+                    item={item}
+                    onPress={() =>
+                        navigation.navigate('Item Details', {
+                            itemName: item.name,
+                            restaurantId,
+                            dishId: item.id,
+                        })
+                    }
+                />
+            )}
         />
     );
 };
