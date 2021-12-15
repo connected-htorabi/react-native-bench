@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     SafeAreaView,
     ScrollView,
-    FlatList,
     Text,
     View,
     StyleSheet,
@@ -17,10 +16,10 @@ import ResultsList from '../components/ResultsList';
 import CategoryItem from '../components/CategoryItem';
 import { selectRestaurants } from '../redux/restaurants/selectors';
 
-export default function Browse({ navigation, route }) {
+const Browse = ({ navigation }) => {
     const restaurants = useSelector(selectRestaurants);
     const [term, setTerm] = useState('');
-    const [searchApi, results, errorMessage] = useResults();
+    const [searchApi, results] = useResults();
 
     const filterResultsByPrice = (price) => {
         // price === '$' || '$$' || '$$$'
@@ -60,7 +59,6 @@ export default function Browse({ navigation, route }) {
                             backgroundColor: '#C0C0C0',
                             paddingBottom: 8,
                             paddingTop: 8,
-                            paddingLeft: 20,
                             paddingLeft: 36,
                             paddingRight: 20,
                         })
@@ -128,7 +126,10 @@ export default function Browse({ navigation, route }) {
             )}
         </SafeAreaView>
     );
-}
+};
+
+export default Browse;
+
 const styles = StyleSheet.create({
     input: {
         borderColor: '#F3F3F3',
