@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -11,6 +12,20 @@ export const HeaderLeft = () => {
             onPress={() => navigation.openDrawer()}
             size={40}
         />
+    );
+};
+
+export const TempHeaderLeft = ({ style }) => {
+    const navigation = useNavigation();
+
+    return (
+        <View style={style}>
+            <Ionicons
+                name="menu"
+                onPress={() => navigation.openDrawer()}
+                size={40}
+            />
+        </View>
     );
 };
 
