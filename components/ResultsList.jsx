@@ -6,11 +6,13 @@ import {
     FlatList,
     TouchableOpacity,
 } from 'react-native';
-import { withNavigation } from './withNavigation';
+import { useNavigation } from '@react-navigation/native';
 
 import RestaurantItem from './RestaurantItem';
 
-const ResultsList = ({ title, results, navigation }) => {
+const ResultsList = ({ title, results }) => {
+    const navigation = useNavigation();
+
     if (!results.length) {
         return null;
     }
@@ -32,22 +34,15 @@ const ResultsList = ({ title, results, navigation }) => {
                         item.price = 3.0;
                     }
                     return (
-                        <TouchableOpacity
-                            onPress={() =>
-                                navigation.navigate('ResultsShow', {
-                                    id: item.id,
-                                })
-                            }
-                        >
-                            <RestaurantItem
-                                imageUrl={item.image_url}
-                                name={item.name}
-                                price={item.price}
-                                numReviews={item.review_count}
-                                rating={item.rating}
-                                deliveryTime="10 - 15 min"
-                            />
-                        </TouchableOpacity>
+                        <RestaurantItem
+                            imageUrl={item.image_url}
+                            name={item.name}
+                            price={item.price}
+                            numReviews={item.review_count}
+                            rating={item.rating}
+                            deliveryTime="10 - 15 min"
+                            onPress={() => {}}
+                        />
                     );
                 }}
             />
@@ -67,4 +62,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default withNavigation(ResultsList);
+export default ResultsList;

@@ -22,9 +22,7 @@ const Browse = ({ navigation }) => {
         <>
             <View
                 style={{
-                    marginTop: 2,
-                    marginBottom: 1,
-                    marginRight: 4,
+                    margin: 4,
                     position: 'relative',
                     justifyContent: 'center',
                 }}
