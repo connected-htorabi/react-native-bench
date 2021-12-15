@@ -40,6 +40,7 @@ const AppStack = () => (
                     size={size}
                 />
             ),
+            headerLeft: HeaderLeft,
         })}
         style={{ borderBottomColor: '#995d9a', borderBottomWidth: 0.3 }}
     >
@@ -50,41 +51,11 @@ const AppStack = () => (
                 headerShown: false,
             }}
         />
-        <Drawer.Screen
-            name="Favorites"
-            component={Favourites}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
-        />
-        <Drawer.Screen
-            name="Wallet"
-            component={Wallet}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
-        />
-        <Drawer.Screen
-            name="Help"
-            component={Help}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
-        />
-        <Drawer.Screen
-            name="Promotions"
-            component={Promotions}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
-        />
-        <Drawer.Screen
-            name="Gift"
-            component={Gift}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
-        />
+        <Drawer.Screen name="Favorites" component={Favourites} />
+        <Drawer.Screen name="Wallet" component={Wallet} />
+        <Drawer.Screen name="Help" component={Help} />
+        <Drawer.Screen name="Promotions" component={Promotions} />
+        <Drawer.Screen name="Gift" component={Gift} />
     </Drawer.Navigator>
 );
 

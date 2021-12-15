@@ -1,8 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { HeaderRight, HeaderLeft } from '../../components/NavHeader';
-import Wallet from '../../screens/Wallet';
+import { HeaderRight, TempHeaderLeft } from '../../components/NavHeader';
 import HomeScreen from '../../screens/HomeScreen';
 import RestaurantDetails from '../../screens/RestaurantDetails';
 import ItemDetails from '../../screens/ItemDetails';
@@ -14,21 +13,18 @@ const Stack = createNativeStackNavigator();
 export const HomeStack = () => (
     <Stack.Navigator
         initialRouteName="Home"
-        screenOptions={({ route, navigation }) => ({
+        screenOptions={{
             headerTitleAlign: 'center',
-            headerRight: () => (
-                <HeaderRight navigation={navigation} route={route} />
-            ),
-        })}
+            headerRight: HeaderRight,
+        }}
     >
         <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
+            options={{
+                headerLeft: TempHeaderLeft,
+            }}
         />
-        <Stack.Screen name="Wallet" component={Wallet} />
         <Stack.Screen
             name="Cart"
             component={Cart}

@@ -40,23 +40,23 @@ const TabNavigator = () => (
         <Tab.Screen
             name="Browse"
             component={Browse}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
+            options={{
+                headerLeft: HeaderLeft,
+            }}
         />
         <Tab.Screen
             name="Orders"
             component={OrdersScreen}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
+            options={{
+                headerLeft: HeaderLeft,
+            }}
         />
         <Tab.Screen
             name="Account"
             component={AccountScreen}
-            options={({ navigation }) => ({
-                headerLeft: () => <HeaderLeft navigation={navigation} />,
-            })}
+            options={{
+                headerLeft: HeaderLeft,
+            }}
         />
     </Tab.Navigator>
 );
