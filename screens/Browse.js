@@ -8,14 +8,15 @@ import {
     StyleSheet,
     TextInput,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
 import { PageHeader } from '../components/PageHeader';
 import { meals } from '../components/CategoryData';
 import useResults from '../hooks/useResults';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useSelector } from 'react-redux';
 import ResultsList from '../components/ResultsList';
 import CategoryItem from '../components/CategoryItem';
 import { selectRestaurants } from '../redux/restaurants/selectors';
+
 export default function Browse({ navigation, route }) {
     const restaurants = useSelector(selectRestaurants);
     const [term, setTerm] = useState('');
