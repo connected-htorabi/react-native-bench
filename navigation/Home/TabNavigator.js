@@ -5,6 +5,7 @@ import Browse from '../../screens/Browse';
 import { HomeStack } from './HomeStack';
 import OrdersScreen from '../../screens/OrdersScreen';
 import AccountScreen from '../../screens/AccountScreen';
+import Browse from '../../screens/Browse';
 import { HeaderLeft } from '../../components/NavHeader';
 
 const Tab = createBottomTabNavigator();

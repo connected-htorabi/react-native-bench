@@ -8,7 +8,7 @@ import Separator from '../components/common/Separator';
 
 const ItemSeparator = () => <Separator marginVertical={5} />;
 
-const Home = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
     const restaurants = useSelector(selectRestaurants);
 
     return (
@@ -35,4 +35,4 @@ const Home = ({ navigation }) => {
     );
 };
 
-export default Home;
+export default HomeScreen;
