@@ -81,6 +81,7 @@ const Browse = ({ navigation }) => {
                             <CategoryItem
                                 title={title}
                                 image={image}
+                                key={id}
                                 id={id}
                                 onPress={() =>
                                     // TODO - remove 'results show' and show the 'category' as the header title

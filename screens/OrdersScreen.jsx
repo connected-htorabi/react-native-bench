@@ -12,11 +12,19 @@ import { useGetOrdersQuery } from '../redux/services/restaurant';
 
 const Tab = createMaterialTopTabNavigator();
 
+const HistoryOrders = () => {
+    const historyOrders = useSelector(selectHistoryOrders);
+    return <Orders orders={historyOrders} />;
+};
+
+const UpcomingOrders = () => {
+    const upcomingOrders = useSelector(selectUpcomingOrders);
+
+    return <Orders orders={upcomingOrders} />;
+};
+
 const OrdersScreen = () => {
     useGetOrdersQuery();
-
-    const upcomingOrders = useSelector(selectUpcomingOrders);
-    const historyOrders = useSelector(selectHistoryOrders);
 
     return (
         <Tab.Navigator
@@ -35,12 +43,12 @@ const OrdersScreen = () => {
             <Tab.Screen
                 name="Upcoming"
                 title="Upcoming"
-                component={() => <Orders orders={upcomingOrders} />}
+                component={UpcomingOrders}
             />
             <Tab.Screen
                 name="History"
                 title="History"
-                component={() => <Orders orders={historyOrders} />}
+                component={HistoryOrders}
             />
         </Tab.Navigator>
     );

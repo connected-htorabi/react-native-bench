@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { HeaderRight, HeaderLeft } from '../../components/NavHeader';
 import Wallet from '../../screens/Wallet';
-import Home from '../../screens/Home';
+import HomeScreen from '../../screens/HomeScreen';
 import RestaurantDetails from '../../screens/RestaurantDetails';
 import ItemDetails from '../../screens/ItemDetails';
 import Cart from '../../screens/Cart';
@@ -22,7 +22,7 @@ export const HomeStack = () => (
     >
         <Stack.Screen
             name="Home"
-            component={Home}
+            component={HomeScreen}
             options={({ navigation }) => ({
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
