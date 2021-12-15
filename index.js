@@ -13,7 +13,7 @@ import { store, persistor } from './redux/store';
 import theme from './theme';
 
 axios.defaults.baseURL = 'http://localhost:9001';
-LogBox.ignoreAllLogs(); // hide notifications
+// LogBox.ignoreAllLogs(); // hide notifications
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,
