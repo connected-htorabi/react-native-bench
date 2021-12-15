@@ -1,13 +1,15 @@
 import React from 'react';
-import { Image, Text, Dimensions, StyleSheet } from 'react-native';
+import { Image, Dimensions, StyleSheet } from 'react-native';
 
-const ImageHeader = ({ imageUrl, parentPadding = 0 }) => (
-    <Image
-        resizeMode="cover"
-        style={[styles.headerImage, { marginHorizontal: -parentPadding }]}
-        source={{ uri: imageUrl }}
-    />
-);
+const ImageHeader = ({ imageUrl, parentPadding = 0 }) => {
+    return (
+        <Image
+            resizeMode="cover"
+            style={[styles.headerImage, { marginHorizontal: -parentPadding }]}
+            source={{ uri: imageUrl }}
+        />
+    );
+};
 
 const styles = StyleSheet.create({
     headerImage: {

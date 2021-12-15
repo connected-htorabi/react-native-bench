@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { HeaderRight, HeaderLeft } from '../../components/NavHeader';
@@ -24,7 +23,7 @@ export const HomeStack = () => (
         <Stack.Screen
             name="Home"
             component={Home}
-            options={({ route, navigation }) => ({
+            options={({ navigation }) => ({
                 headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
@@ -36,7 +35,11 @@ export const HomeStack = () => (
             options={{ headerRight: null }}
         />
         <Stack.Screen name="Restaurant Details" component={RestaurantDetails} />
-        <Stack.Screen name="Item Details" component={ItemDetails} />
+        <Stack.Screen
+            name="Item Details"
+            component={ItemDetails}
+            options={({ route }) => ({ title: route.params.itemName })}
+        />
         <Stack.Screen name="Results Show" component={ResultsShow}/>
     </Stack.Navigator>
 );

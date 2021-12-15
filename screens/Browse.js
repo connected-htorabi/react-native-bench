@@ -12,6 +12,7 @@ export default function Browse({ navigation, route }) {
     const restaurants = useSelector(selectRestaurants);
     const [term, setTerm] = useState("");
     const [searchApi, results, errorMessage] = useResults();
+
     const filterResultsByPrice = price => {
         // price === '$' || '$$' || '$$$'
        

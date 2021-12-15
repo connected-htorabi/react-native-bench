@@ -11,10 +11,11 @@
     "lint-check": "eslint './**/*.{js, jsx, ts, tsx}'",
     "lint-fix": "eslint './**/*.{js, jsx, ts, tsx}' --fix",
     "start-server": "yarn reset-server && json-server --watch ./db/db.json --host 0.0.0.0 --port 9001",
-    "reset-server": "cpy ./db/db_static.json ./db --rename=db.json"
+    "reset-server": "cpy ./db/db_static.json ./db --rename=db.json",
+    "check-unimported": "unimported"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "react-native-community/async-storage",
+    "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/material-top-tabs": "^6.0.6",
@@ -67,7 +68,8 @@
     "husky": "^7.0.0",
     "json-server": "^0.17.0",
     "lint-staged": "^12.0.2",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "unimported": "^1.19.1"
   },
   "private": true
 }

@@ -5,7 +5,7 @@ import {
     TextInput,
     Button,
     StyleSheet,
-    Pressable,
+    TouchableOpacity,
 } from 'react-native';
 import useExpanded from '../hooks/useExpanded';
 
@@ -24,9 +24,14 @@ const Payee = ({ name, onSendMoney = (amount) => {} }) => {
         <View>
             <View style={styles.firstRow}>
                 <Text style={{ fontSize: 21 }}>{name}</Text>
-                <Pressable style={styles.addButton} onPress={toggle}>
-                    <Text>{expanded ? 'Cancel' : 'Add'}</Text>
-                </Pressable>
+                <TouchableOpacity
+                    style={addButtonStyle(expanded)}
+                    onPress={toggle}
+                >
+                    <Text style={styles.addButtonText}>
+                        {expanded ? 'Cancel' : 'Add'}
+                    </Text>
+                </TouchableOpacity>
             </View>
             {expanded && (
                 <View>
@@ -37,12 +42,27 @@ const Payee = ({ name, onSendMoney = (amount) => {} }) => {
                             value={amount}
                             style={styles.textInput}
                         />
-                        <Button
+                        <TouchableOpacity
                             color="green"
                             disabled={!isNormalInteger(amount)}
                             onPress={sendMoney}
-                            title="Send"
-                        />
+                            style={[
+                                styles.sendButton,
+                                isNormalInteger(amount)
+                                    ? styles.sendButtonActive
+                                    : styles.sendButtonDisabled,
+                            ]}
+                        >
+                            <Text
+                                style={
+                                    isNormalInteger(amount)
+                                        ? styles.sendButtonTextActive
+                                        : styles.sendButtonTextDisabled
+                                }
+                            >
+                                Send
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             )}
@@ -50,11 +70,26 @@ const Payee = ({ name, onSendMoney = (amount) => {} }) => {
     );
 };
 
+const addButtonStyle = (expanded) => ({
+    backgroundColor: expanded ? '#ad2f2f' : '#0374a8',
+    alignItems: 'center',
+    borderRadius: 2,
+    paddingTop: 5,
+    paddingBottom: 5,
+    width: 100,
+    textAlign: 'center',
+});
 const styles = StyleSheet.create({
     textInput: {
-        height: 40,
+        height: 30,
+        width: 70,
         display: 'flex',
-        padding: 10,
+        padding: 6,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        marginRight: 12,
+        flexGrow: 0,
     },
     firstRow: {
         display: 'flex',
@@ -67,15 +102,29 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        marginBottom: 10,
     },
-    addButton: {
-        alignItems: 'center',
+    addButtonText: {
+        color: 'white',
+    },
+    sendButton: {
         borderWidth: 1,
-        borderRadius: 2,
-        paddingTop: 5,
-        paddingBottom: 5,
-        width: 100,
-        textAlign: 'center',
+        padding: 6,
+        borderRadius: 4,
+    },
+    sendButtonActive: {
+        borderColor: 'green',
+        backgroundColor: 'green',
+    },
+    sendButtonDisabled: {
+        borderColor: '#e3e2de',
+        backgroundColor: '#e3e2de',
+    },
+    sendButtonTextActive: {
+        color: 'white',
+    },
+    sendButtonTextDisabled: {
+        color: 'gray',
     },
 });
 

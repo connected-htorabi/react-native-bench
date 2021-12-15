@@ -1,0 +1,30 @@
+{
+    "entry": ["index.js"],
+    "extensions": [".js", ".jsx"],
+    "ignorePatterns": [
+        "**/node_modules/**",
+        "**/*.tests.{js,jsx,ts,tsx}",
+        "**/*.test.{js,jsx,ts,tsx}",
+        "**/*.spec.{js,jsx,ts,tsx}",
+        "**/tests/**",
+        "**/__tests__/**",
+        "**/*.d.ts"
+    ],
+    "ignoreUnimported": ["babel.config.js", "metro.config.js"],
+    "ignoreUnused": [
+        "react",
+        "react-dom",
+        "react-native",
+        "expo-cli",
+        "expo-splash-screen",
+        "expo-status-bar",
+        "expo-updates",
+        "global",
+        "react-native-web"
+    ],
+    "ignoreUnresolved": [
+        "react-native-vector-icons/MaterialCommunityIcons",
+        "react-native-vector-icons/Ionicons",
+        "react-native-vector-icons/FontAwesome"
+    ]
+}

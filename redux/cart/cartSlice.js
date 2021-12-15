@@ -1,9 +1,15 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, nanoid } from '@reduxjs/toolkit';
 
 export const cartAdapter = createEntityAdapter();
 
 const initialState = {
     restaurantId: null,
+    selectedCreditCardId: 0,
+    creditCards: [
+        { type: 'visa', cardNumber: '****-****-1234' },
+        { type: 'mastercard', cardNumber: '****-****-1234' },
+        { type: 'amex', cardNumber: '****-****-1234' },
+    ],
 };
 
 const { actions, reducer } = createSlice({
@@ -12,37 +18,20 @@ const { actions, reducer } = createSlice({
     reducers: {
         addItem: (
             state,
-            {
-                payload: {
-                    id,
-                    restaurantId,
-                    quantity,
-                    name,
-                    description,
-                    price,
-                },
-            }
+            { payload: { id, restaurantId, quantity, name, price, options } }
         ) => {
             if (restaurantId !== state.restaurantId) {
                 cartAdapter.removeAll(state);
             }
             state.restaurantId = restaurantId;
-            const currentEntity = state.entities[id];
-            const exists = !!currentEntity;
-            if (exists) {
-                cartAdapter.updateOne(state, {
-                    id,
-                    changes: { quantity: currentEntity.quantity + quantity },
-                });
-            } else {
-                cartAdapter.addOne(state, {
-                    id,
-                    quantity,
-                    name,
-                    description,
-                    price,
-                });
-            }
+            cartAdapter.addOne(state, {
+                id: nanoid(),
+                itemId: id,
+                quantity,
+                name,
+                price,
+                options,
+            });
         },
         removeItem: (state, { payload: id }) => {
             cartAdapter.removeOne(state, id);
@@ -58,8 +47,12 @@ const { actions, reducer } = createSlice({
             state.restaurantId = items[0].restaurantId;
             cartAdapter.setAll(state, items);
         },
+        selectCreditCard: (state, { payload: creditCardId }) => {
+            state.selectedCreditCardId = creditCardId;
+        },
     },
 });
 
-export const { addItem, removeItem, resetCart, replaceCart } = actions;
+export const { addItem, removeItem, resetCart, replaceCart, selectCreditCard } =
+    actions;
 export default reducer;

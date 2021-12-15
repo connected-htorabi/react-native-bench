@@ -19,7 +19,10 @@ const renderItem = ({ item }) => {
     <RestaurantItem
     name={item.name}
     imageUrl={item.imageUrl}
+    price={item.price}
     rating={item.rating}
+    numReviews= {item.numReviews}
+    deliveryTime = {item.deliveryTime}
     onPress={() =>
         navigation.navigate('Restaurant Details', {
             id: item.id,
