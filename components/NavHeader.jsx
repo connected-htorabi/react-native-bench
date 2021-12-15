@@ -15,11 +15,13 @@ export const HeaderLeft = () => {
     );
 };
 
-export const TempHeaderLeft = ({ style }) => {
+// marginLeft added to to issue with ReactNavigation screens
+// https://github.com/software-mansion/react-native-screens/issues/619
+export const TempHeaderLeft = () => {
     const navigation = useNavigation();
 
     return (
-        <View style={style}>
+        <View style={{ marginLeft: -16 }}>
             <Ionicons
                 name="menu"
                 onPress={() => navigation.openDrawer()}

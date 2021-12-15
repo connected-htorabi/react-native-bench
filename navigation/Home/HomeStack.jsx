@@ -1,11 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import {
-    HeaderRight,
-    TempHeaderLeft,
-    // HeaderLeft,
-} from '../../components/NavHeader';
+import { HeaderRight, TempHeaderLeft } from '../../components/NavHeader';
 import HomeScreen from '../../screens/HomeScreen';
 import RestaurantDetails from '../../screens/RestaurantDetails';
 import ItemDetails from '../../screens/ItemDetails';
@@ -26,11 +22,7 @@ export const HomeStack = () => (
             name="Home"
             component={HomeScreen}
             options={{
-                // due marginLeft added to to issue with ReactNavigation screens
-                // https://github.com/software-mansion/react-native-screens/issues/619
-                headerLeft: () => (
-                    <TempHeaderLeft style={{ marginLeft: -16 }} />
-                ),
+                headerLeft: TempHeaderLeft,
             }}
         />
         <Stack.Screen
