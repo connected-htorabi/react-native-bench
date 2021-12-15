@@ -38,7 +38,14 @@ const TabNavigator = () => (
             component={HomeStack}
             options={{ headerShown: false }}
         />
-        <Tab.Screen name="Browse" component={Browse} />
+        <Tab.Screen
+            name="Browse"
+            component={Browse}
+            options={({ navigation }) => ({
+                headerTitleAlign: 'center',
+                headerLeft: () => <HeaderLeft navigation={navigation} />,
+            })}
+        />
         <Tab.Screen
             name="Orders"
             component={OrdersScreen}
