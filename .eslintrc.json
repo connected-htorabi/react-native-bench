@@ -20,9 +20,9 @@
     "rules": {
         "import/prefer-default-export": "off",
         "no-param-reassign": "off",
-        "react/prop-types": "warn",
+        "react/prop-types": "off",
         "no-unused-vars": "warn",
-        "import/no-unresolved": "warn",
+        "import/no-unresolved": "off",
         "react/function-component-definition": [
             "warn",
             {

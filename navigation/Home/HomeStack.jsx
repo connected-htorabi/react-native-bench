@@ -7,7 +7,7 @@ import Home from '../../screens/Home';
 import RestaurantDetails from '../../screens/RestaurantDetails';
 import ItemDetails from '../../screens/ItemDetails';
 import Cart from '../../screens/Cart';
-
+import ResultsShow from '../../screens/ResultsShow';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => (
@@ -24,7 +24,6 @@ export const HomeStack = () => (
             name="Home"
             component={Home}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
@@ -40,5 +39,6 @@ export const HomeStack = () => (
             component={ItemDetails}
             options={({ route }) => ({ title: route.params.itemName })}
         />
+        <Stack.Screen name="Results Show" component={ResultsShow} />
     </Stack.Navigator>
 );

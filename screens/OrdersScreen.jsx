@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import Orders from '../components/Orders';
 import {
     selectHistoryOrders,
     selectUpcomingOrders,
 } from '../redux/orders/selectors';
+
 import { useGetOrdersQuery } from '../redux/services/restaurant';
 
 const Tab = createMaterialTopTabNavigator();
