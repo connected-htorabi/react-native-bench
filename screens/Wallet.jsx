@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { useToast } from 'react-native-styled-toast';
-
 import { useSelector } from 'react-redux';
+
 import { useSendCreditsMutation } from '../redux/services/restaurant';
 import { selectUser } from '../redux/users/selectors';
 import Expandable from '../components/Expandable';
@@ -11,8 +11,8 @@ import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 import WalletHistory from '../components/WalletHistory';
-import { PageHeader } from '../components/PageHeader';
-const Wallet = ({ navigation }) => {
+
+const Wallet = () => {
     const [sendCredits] = useSendCreditsMutation();
     const [isTransferHistoryActive, setIsTransferHistoryActive] =
         useState(true);
@@ -51,68 +51,59 @@ const Wallet = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView>
-            <PageHeader title="Wallet" navigation={navigation} />
-            <View style={styles.container}>
-                <Text style={styles.pageHeader}>Wallet</Text>
-                <Balance balance={user.creditBalance} />
-                <Expandable
-                    shouldExpand={isSendMoneyActive}
-                    onExpand={onExpand}
-                    style={styles.expandable}
-                >
-                    <Header style={styles.expandableHeader}>
-                        <Text style={styles.expandableHeaderText}>
-                            Transfer Money
-                        </Text>
-                        <Icon style={styles.expandableHeaderIcon} />
-                    </Header>
+        <View style={styles.container}>
+            <Balance balance={user.creditBalance} />
+            <Expandable
+                shouldExpand={isSendMoneyActive}
+                onExpand={onExpand}
+                style={styles.expandable}
+            >
+                <Header style={styles.expandableHeader}>
+                    <Text style={styles.expandableHeaderText}>
+                        Transfer Money
+                    </Text>
+                    <Icon style={styles.expandableHeaderIcon} />
+                </Header>
 
-                    <Body>
-                        <View style={styles.expandableBody}>
-                            {user.friends.map(({ name, id, creditBalance }) => (
-                                <Payee
-                                    name={name}
-                                    key={id}
-                                    onSendMoney={(amount) =>
-                                        sendMoney(
-                                            amount,
-                                            id,
-                                            creditBalance,
-                                            name
-                                        )
-                                    }
-                                />
-                            ))}
-                        </View>
-                    </Body>
-                </Expandable>
-                <Expandable
-                    shouldExpand={isTransferHistoryActive}
-                    onExpand={onHistoryExpand}
-                    style={styles.expandable}
-                >
-                    <Header style={styles.expandableHeader}>
-                        <Text style={styles.expandableHeaderText}>
-                            Transfer History
-                        </Text>
-                        <Icon style={styles.expandableHeaderIcon} />
-                    </Header>
+                <Body>
+                    <View style={styles.expandableBody}>
+                        {user.friends.map(({ name, id, creditBalance }) => (
+                            <Payee
+                                name={name}
+                                key={id}
+                                onSendMoney={(amount) =>
+                                    sendMoney(amount, id, creditBalance, name)
+                                }
+                            />
+                        ))}
+                    </View>
+                </Body>
+            </Expandable>
+            <Expandable
+                shouldExpand={isTransferHistoryActive}
+                onExpand={onHistoryExpand}
+                style={styles.expandable}
+            >
+                <Header style={styles.expandableHeader}>
+                    <Text style={styles.expandableHeaderText}>
+                        Transfer History
+                    </Text>
+                    <Icon style={styles.expandableHeaderIcon} />
+                </Header>
 
-                    <Body>
-                        <View style={styles.expandableBody}>
-                            {user.friends.map(({ name, id, creditBalance }) => (
-                                <WalletHistory
-                                    name={name}
-                                    key={id}
-                                    creditBalance={creditBalance}
-                                />
-                            ))}
-                        </View>
-                    </Body>
-                </Expandable>
-            </View>
-        </SafeAreaView>
+                <Body>
+                    <View style={styles.expandableBody}>
+                        {user.friends.map(({ name, id, creditBalance }) => (
+                            <WalletHistory
+                                name={name}
+                                key={id}
+                                creditBalance={creditBalance}
+                            />
+                        ))}
+                    </View>
+                </Body>
+            </Expandable>
+        </View>
     );
 };
 
@@ -131,11 +122,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'stretch',
         justifyContent: 'flex-start',
-    },
-    pageHeader: {
-        fontSize: 36,
-        fontWeight: 'bold',
-        marginBottom: 10,
     },
     balanceContainer: {
         marginTop: 10,
