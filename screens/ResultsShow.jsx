@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import {
-    Text,
-    StyleSheet,
-    Image,
-    ScrollView,
-    View,
-    SafeAreaView,
-} from 'react-native';
-import yelp from '../api/yelp';
+import React from 'react';
+import { SafeAreaView } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+
 import RestaurantItem from '../components/RestaurantItem';
 
 const ResultsShow = ({ navigation, route }) => {
-    const category = route.params.category;
+    const { category } = route.params;
     const arr = route.params.results;
 
     const result = getAllIndexes(arr, category);
@@ -37,7 +30,6 @@ const ResultsShow = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={{ backgroundColor: '#eee', flex: 1 }}>
-            <Text style={styles.text}>{route.params.category}</Text>
             <FlatList
                 data={result}
                 keyExtractor={(item) => item.id}
@@ -46,30 +38,9 @@ const ResultsShow = ({ navigation, route }) => {
         </SafeAreaView>
     );
 };
+
 const getAllIndexes = (arr, val) => {
-    var indexes = [],
-        i;
-    for (i = 0; i < arr.length; i++)
-        if (arr[i].category === val) indexes.push(arr[i]);
-
-    return indexes;
+    return arr.filter((item) => item.category === val);
 };
-
-const styles = StyleSheet.create({
-    text: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginVertical: 10,
-        alignSelf: 'center',
-    },
-    image: {
-        height: 200,
-        width: 300,
-        borderRadius: 5,
-        marginBottom: 5,
-        alignSelf: 'center',
-        flexDirection: 'row',
-    },
-});
 
 export default ResultsShow;

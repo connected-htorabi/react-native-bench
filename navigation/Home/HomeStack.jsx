@@ -36,6 +36,12 @@ export const HomeStack = () => (
             component={ItemDetails}
             options={({ route }) => ({ title: route.params.itemName })}
         />
-        <Stack.Screen name="Results Show" component={ResultsShow} />
+        <Stack.Screen
+            name="Results Show"
+            component={ResultsShow}
+            options={({ route }) => ({
+                title: route.params.category,
+            })}
+        />
     </Stack.Navigator>
 );
