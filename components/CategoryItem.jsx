@@ -1,15 +1,8 @@
 import React from 'react';
 
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    ImageBackground,
-} from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
 
-export default function CategoryItem({ image, title, id, onPress }) {
+const CategoryItem = ({ image, title, id, onPress }) => {
     return (
         <TouchableOpacity
             key={id}
@@ -71,4 +64,6 @@ export default function CategoryItem({ image, title, id, onPress }) {
             </View>
         </TouchableOpacity>
     );
-}
+};
+
+export default CategoryItem;
