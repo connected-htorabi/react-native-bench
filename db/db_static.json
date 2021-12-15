@@ -38,7 +38,17 @@
             "numReviews": 700,
             "rating": 4.9,
             "category": "Indian",
-            "deliveryTime": "5 - 20 min"
+            "deliveryTime": "10 - 15 min"
+        },
+        {
+            "id": 5,
+            "name": "Breka Cafe",
+            "imageUrl": "https://s3-media0.fl.yelpcdn.com/bphoto/kPJ_-HvDtutY3HDXuzz42A/o.jpg",
+            "price": 5.0,
+            "numReviews": 700,
+            "rating": 4.9,
+            "category": "Coffee",
+            "deliveryTime": "10 - 15 min"
         }
     ],
     "cartItems": [

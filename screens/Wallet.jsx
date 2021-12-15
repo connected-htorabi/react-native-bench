@@ -11,8 +11,8 @@ import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 import WalletHistory from '../components/WalletHistory';
-
-const Wallet = () => {
+import {PageHeader} from '../components/PageHeader';
+const Wallet = ({navigation}) => {
     const [sendCredits] = useSendCreditsMutation();
     const [isTransferHistoryActive, setIsTransferHistoryActive] =
         useState(true);
@@ -52,6 +52,7 @@ const Wallet = () => {
 
     return (
         <SafeAreaView>
+             <PageHeader title="Wallet" navigation={navigation} />
             <View style={styles.container}>
                 <Text style={styles.pageHeader}>Wallet</Text>
                 <Balance balance={user.creditBalance} />

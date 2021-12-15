@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    ScrollView,
-    Button,
-} from 'react-native';
+import React, {useState,useEffect} from "react";
+import { SafeAreaView, ScrollView, FlatList,Text,View,StyleSheet,TextInput } from "react-native";
 import { PageHeader } from '../components/PageHeader';
-import {meals} from "../components/CategoryData"
+import {meals} from "../components/CategoryData";
+import useResults from "../hooks/useResults";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSelector } from 'react-redux';
+import ResultsList from "../components/ResultsList";
+import CategoryItem from "../components/CategoryItem";
+import { selectRestaurants } from '../redux/restaurants/selectors';
 export default function Browse({ navigation, route }) {
+    const restaurants = useSelector(selectRestaurants);
     const [term, setTerm] = useState("");
     const [searchApi, results, errorMessage] = useResults();
+
     const filterResultsByPrice = price => {
         // price === '$' || '$$' || '$$$'
-        console.log(results)
+       
         return results.filter(result => {
           return result.price === price;
         });
@@ -36,7 +37,12 @@ export default function Browse({ navigation, route }) {
                 <CategoryItem title={title} 
                 image={image}
                 id={id}
-                onPress={navigate}
+                onPress={() =>
+                    navigation.navigate('Results Show', {
+                        category:title,
+                        results:restaurants
+                    })
+                }
              />
              ))}
          </View>
@@ -47,12 +53,12 @@ export default function Browse({ navigation, route }) {
                 <View>
                 <ResultsList
           results={filterResultsByPrice("$")}
-          title='Cost Effective'
+          title='$'
         />
-        <ResultsList results={filterResultsByPrice("$$")} title='Pricier' />
+        <ResultsList results={filterResultsByPrice("$$")} title='$$' />
         <ResultsList
           results={filterResultsByPrice("$$$")}
-          title='Expensive'
+          title='$$$'
         />
                 </View>
       
@@ -63,3 +69,9 @@ export default function Browse({ navigation, route }) {
         </SafeAreaView>
     );
 }
+const styles = StyleSheet.create({
+    input: {
+        borderColor: '#F3F3F3',
+        borderWidth: 1,
+    },
+  })
