@@ -21,7 +21,7 @@ const axiosBaseQuery =
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:9001/' }),
-    tagTypes: ['Orders', 'Users'],
+    tagTypes: ['Orders', 'Users', 'Transfers'],
     endpoints: (builder) => ({
         getOrders: builder.query({
             query: () => ({ url: 'orders?_expand=restaurant' }),
@@ -34,6 +34,14 @@ export const api = createApi({
                 data: { ...order, date: Date.now(), status: 'upcoming' },
             }),
             invalidatesTags: ['Orders'],
+        }),
+        placeTransfer: builder.mutation({
+            query: (transfer) => ({
+                url: 'transfers',
+                method: 'post',
+                data: { ...transfer },
+            }),
+            invalidatesTags: ['Transfers'],
         }),
         getUser: builder.query({
             // Note: userId will be passed an arg
@@ -78,6 +86,7 @@ export const api = createApi({
 export const {
     useGetOrdersQuery,
     usePlaceOrderMutation,
+    usePlaceTransferMutation,
     useGetUserQuery,
     useSendCreditsMutation,
 } = api;

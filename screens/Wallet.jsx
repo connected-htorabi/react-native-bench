@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useToast } from 'react-native-styled-toast';
-import { useSelector } from 'react-redux';
 
-import { useSendCreditsMutation } from '../redux/services/restaurant';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchTransfers } from '../redux/thunks/fetchTransfers';
+import {
+    useSendCreditsMutation,
+    usePlaceTransferMutation,
+} from '../redux/services/restaurant';
 import { selectUser } from '../redux/users/selectors';
 import Expandable from '../components/Expandable';
 import Header from '../components/Header';
@@ -11,9 +15,12 @@ import Body from '../components/Body';
 import Icon from '../components/Icon';
 import Payee from '../components/Payee';
 import WalletHistory from '../components/WalletHistory';
+import { selectTransfersByUserId } from '../redux/transfers/selectors';
 
 const Wallet = () => {
+    const dispatch = useDispatch();
     const [sendCredits] = useSendCreditsMutation();
+    const [placeTransfer] = usePlaceTransferMutation();
     const [isTransferHistoryActive, setIsTransferHistoryActive] =
         useState(true);
 
@@ -29,25 +36,46 @@ const Wallet = () => {
         setIsTransferHistoryActive((prev) => setIsTransferHistoryActive(!prev));
     };
 
-    const sendMoney = (
+    useEffect(() => {
+        dispatch(fetchTransfers());
+    }, [dispatch, user.creditBalance]);
+
+    const transfersHistory = useSelector(selectTransfersByUserId(user.id));
+
+    const sendMoney = async (
         amount,
         recipientId,
         recipientBalance,
         recipientName
     ) => {
-        sendCredits({
-            senderId: user.id,
-            recipientId,
-            senderBalance: user.creditBalance,
-            recipientBalance,
-            amount,
-        })
-            .unwrap()
-            .then(() => {
-                toast({
-                    message: `$${amount} sent to ${recipientName}`,
-                });
+        try {
+            if (amount > user.creditBalance)
+                throw new Error(`The amount is greater than your credit`);
+
+            const promises = [
+                sendCredits({
+                    senderId: user.id,
+                    recipientId,
+                    senderBalance: user.creditBalance,
+                    recipientBalance,
+                    amount,
+                }).unwrap(),
+                placeTransfer({
+                    senderId: user.id,
+                    receiverId: recipientId,
+                    amount,
+                }).unwrap(),
+            ];
+            await Promise.all(promises);
+            toast({
+                message: `$${amount} sent to ${recipientName}`,
             });
+        } catch (e) {
+            toast({
+                message: e.message,
+                intent: 'ERROR',
+            });
+        }
     };
 
     return (
@@ -93,13 +121,17 @@ const Wallet = () => {
 
                 <Body>
                     <View style={styles.expandableBody}>
-                        {user.friends.map(({ name, id, creditBalance }) => (
-                            <WalletHistory
-                                name={name}
-                                key={id}
-                                creditBalance={creditBalance}
-                            />
-                        ))}
+                        {transfersHistory.map(
+                            ({ senderId, receiverId, id, amount }) => (
+                                <WalletHistory
+                                    senderId={senderId}
+                                    receiverId={receiverId}
+                                    key={id}
+                                    amount={amount}
+                                    userId={user.id}
+                                />
+                            )
+                        )}
                     </View>
                 </Body>
             </Expandable>
