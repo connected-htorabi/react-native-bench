@@ -24,7 +24,6 @@ export const HomeStack = () => (
             name="Home"
             component={Home}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />

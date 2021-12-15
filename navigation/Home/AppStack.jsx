@@ -26,6 +26,7 @@ const AppStack = () => (
         drawerContent={(props) => <CustomDrawerNav {...props} />}
         initialRouteName="Home"
         screenOptions={({ route }) => ({
+            headerTitleAlign: 'center',
             drawerActiveBackgroundColor: '#3CB371',
             drawerActiveTintColor: '#fff',
             drawerInactiveTintColor: '#333',
@@ -53,7 +54,6 @@ const AppStack = () => (
             name="Favorites"
             component={Favourites}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
@@ -61,7 +61,6 @@ const AppStack = () => (
             name="Wallet"
             component={Wallet}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
@@ -69,7 +68,6 @@ const AppStack = () => (
             name="Help"
             component={Help}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
@@ -77,7 +75,6 @@ const AppStack = () => (
             name="Promotions"
             component={Promotions}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
@@ -85,7 +82,6 @@ const AppStack = () => (
             name="Gift"
             component={Gift}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />

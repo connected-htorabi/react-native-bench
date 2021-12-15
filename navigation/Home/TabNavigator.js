@@ -23,7 +23,6 @@ const TabNavigator = () => (
         screenOptions={({ route }) => ({
             tabBarActiveTintColor: 'black',
             headerTitleAlign: 'center',
-            // headerShown:false,
             tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                     name={IconMapping[route.name]}
@@ -42,7 +41,6 @@ const TabNavigator = () => (
             name="Browse"
             component={Browse}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
@@ -50,7 +48,6 @@ const TabNavigator = () => (
             name="Orders"
             component={OrdersScreen}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
@@ -58,7 +55,6 @@ const TabNavigator = () => (
             name="Account"
             component={AccountScreen}
             options={({ navigation }) => ({
-                headerTitleAlign: 'center',
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
