@@ -12,7 +12,7 @@ import Favourites from '../../screens/Favourites';
 const Drawer = createDrawerNavigator();
 
 const IconMapping = {
-    Drawer: 'shield',
+    Main: 'shield',
     Favorites: 'heart',
     Wallet: 'credit-card',
     Help: 'lifebuoy',
@@ -41,7 +41,7 @@ const AppStack = () => (
         })}
         style={{ borderBottomColor: '#995d9a', borderBottomWidth: 0.3 }}
     >
-        <Drawer.Screen name="Drawer" component={TabNavigator} />
+        <Drawer.Screen name="Main" component={TabNavigator} />
         <Drawer.Screen name="Favorites" component={Favourites} />
         <Drawer.Screen name="Wallet" component={Wallet} />
         <Drawer.Screen name="Help" component={Help} />

@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Dimensions} from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import AppStack from '../navigation/Home/AppStack';
 
 export var PageHeader = ({ title, navigation }) => (
     <View
@@ -9,7 +8,7 @@ export var PageHeader = ({ title, navigation }) => (
             backgroundColor: 'white',
             padding: 1,
             flexDirection: 'row',
-            width:Dimensions.get('window').width,
+            width: Dimensions.get('window').width,
             alignSelf: 'stretch',
         }}
     >
