@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export var PageHeader = ({ title, navigation }) => (
+export const PageHeader = ({ title, navigation }) => (
     <View
         style={{
             backgroundColor: 'white',
