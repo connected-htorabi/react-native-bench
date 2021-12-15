@@ -3,7 +3,7 @@ import { Text, View, Image, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/users/selectors';
 import { PageHeader } from '../components/PageHeader';
-const AccountScreen = ({navigation}) => {
+const AccountScreen = ({ navigation }) => {
     const user = useSelector(selectUser);
 
     return (

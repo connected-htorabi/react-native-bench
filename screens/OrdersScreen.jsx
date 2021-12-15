@@ -8,13 +8,13 @@ import {
     selectHistoryOrders,
     selectUpcomingOrders,
 } from '../redux/orders/selectors';
-import { SafeAreaView } from "react-native";
+import { SafeAreaView } from 'react-native';
 
 import { useGetOrdersQuery } from '../redux/services/restaurant';
 
 const Tab = createMaterialTopTabNavigator();
 
-const OrdersScreen = ({ navigation}) => {
+const OrdersScreen = ({ navigation }) => {
     useGetOrdersQuery();
 
     const upcomingOrders = useSelector(selectUpcomingOrders);
@@ -22,31 +22,31 @@ const OrdersScreen = ({ navigation}) => {
 
     return (
         <SafeAreaView style={{ backgroundColor: '#eee', flex: 1 }}>
-        <PageHeader title="Orders" navigation={navigation} />
-        <Tab.Navigator
-            initialRouteName="Upcoming"
-            tabBarOptions={{
-                labelStyle: {
-                    fontSize: 15,
-                },
-            }}
-            screenOptions={{
-                tabBarActiveTintColor: 'black',
-                headerTitleAlign: 'center',
-                tabBarIconStyle: { display: 'none' },
-            }}
-        >
-            <Tab.Screen
-                name="Upcoming"
-                title="Upcoming"
-                component={() => <Orders orders={upcomingOrders} />}
-            />
-            <Tab.Screen
-                name="History"
-                title="History"
-                component={() => <Orders orders={historyOrders} />}
-            />
-        </Tab.Navigator>
+            <PageHeader title="Orders" navigation={navigation} />
+            <Tab.Navigator
+                initialRouteName="Upcoming"
+                tabBarOptions={{
+                    labelStyle: {
+                        fontSize: 15,
+                    },
+                }}
+                screenOptions={{
+                    tabBarActiveTintColor: 'black',
+                    headerTitleAlign: 'center',
+                    tabBarIconStyle: { display: 'none' },
+                }}
+            >
+                <Tab.Screen
+                    name="Upcoming"
+                    title="Upcoming"
+                    component={() => <Orders orders={upcomingOrders} />}
+                />
+                <Tab.Screen
+                    name="History"
+                    title="History"
+                    component={() => <Orders orders={historyOrders} />}
+                />
+            </Tab.Navigator>
         </SafeAreaView>
     );
 };

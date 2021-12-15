@@ -2,28 +2,27 @@ import { useEffect, useState } from 'react';
 import yelp from '../api/yelp';
 
 export default () => {
-  const [results, setResults] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+    const [results, setResults] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
-  const searchApi = async searchTerm => {
-    try {
-      const response = await yelp.get('/search', {
-        params: {
-          limit: 50,
-          term: searchTerm,
-          location: 'Vancouver'
+    const searchApi = async (searchTerm) => {
+        try {
+            const response = await yelp.get('/search', {
+                params: {
+                    limit: 50,
+                    term: searchTerm,
+                    location: 'Vancouver',
+                },
+            });
+            setResults(response.data.businesses);
+        } catch (err) {
+            setErrorMessage('Something went wrong');
         }
-      });
-      setResults(response.data.businesses);
-    } catch (err) {
-      setErrorMessage('Something went wrong');
-    }
-  };
+    };
 
+    useEffect(() => {
+        searchApi('Breakfast');
+    }, []);
 
-  useEffect(() => {
-    searchApi('Breakfast');
-  }, []);
-
-  return [searchApi, results, errorMessage];
+    return [searchApi, results, errorMessage];
 };
