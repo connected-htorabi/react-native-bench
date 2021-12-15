@@ -20,7 +20,7 @@ const Expandable = ({ children, onExpand, shouldExpand, ...otherProps }) => {
             onExpand(expanded);
         }
         componentJustMounted.current = false;
-    }, [expanded, isExpandControlled]);
+    }, [expanded, isExpandControlled, onExpand]);
 
     const getState = isExpandControlled ? shouldExpand : expanded;
     const toggle = useCallback(

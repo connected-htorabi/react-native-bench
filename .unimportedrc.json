@@ -1,5 +1,5 @@
 {
-    "entry": ["index.js"],
+    "entry": ["index.jsx"],
     "extensions": [".js", ".jsx"],
     "ignorePatterns": [
         "**/node_modules/**",
