@@ -25,7 +25,7 @@ const TabNavigator = () => (
         screenOptions={({ route }) => ({
             tabBarActiveTintColor: 'black',
             headerTitleAlign: 'center',
-            headerShown:false,
+            // headerShown:false,
             tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                     name={IconMapping[route.name]}
