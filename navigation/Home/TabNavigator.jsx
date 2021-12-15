@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Browse from '../../screens/Browse';
 import { HomeStack } from './HomeStack';
 import OrdersScreen from '../../screens/OrdersScreen';
 import AccountScreen from '../../screens/AccountScreen';
@@ -12,7 +11,7 @@ const Tab = createBottomTabNavigator();
 
 const IconMapping = {
     Grocery: 'basket',
-    Home: 'home',
+    MainScreen: 'home',
     Browse: 'text-search',
     Orders: 'receipt',
     Account: 'account',
@@ -20,7 +19,7 @@ const IconMapping = {
 
 const TabNavigator = () => (
     <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="MainScreen"
         screenOptions={({ route }) => ({
             tabBarActiveTintColor: 'black',
             headerTitleAlign: 'center',
@@ -34,9 +33,9 @@ const TabNavigator = () => (
         })}
     >
         <Tab.Screen
-            name="Home"
+            name="MainScreen"
             component={HomeStack}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, title: 'Home' }}
         />
         <Tab.Screen
             name="Browse"
