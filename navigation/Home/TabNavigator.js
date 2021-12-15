@@ -1,13 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Browse from '../../screens/Browse';
 import { HomeStack } from './HomeStack';
-import AppStack from './AppStack';
 import OrdersScreen from '../../screens/OrdersScreen';
 import AccountScreen from '../../screens/AccountScreen';
+import { HeaderLeft } from '../../components/NavHeader';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +23,6 @@ const TabNavigator = () => (
         screenOptions={({ route }) => ({
             tabBarActiveTintColor: 'black',
             headerTitleAlign: 'center',
-            // headerShown:false,
             tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                     name={IconMapping[route.name]}
@@ -40,9 +37,27 @@ const TabNavigator = () => (
             component={HomeStack}
             options={{ headerShown: false }}
         />
-        <Tab.Screen name="Browse" component={Browse} />
-        <Tab.Screen name="Orders" component={OrdersScreen} />
-        <Tab.Screen name="Account" component={AccountScreen} />
+        <Tab.Screen
+            name="Browse"
+            component={Browse}
+            options={({ navigation }) => ({
+                headerLeft: () => <HeaderLeft navigation={navigation} />,
+            })}
+        />
+        <Tab.Screen
+            name="Orders"
+            component={OrdersScreen}
+            options={({ navigation }) => ({
+                headerLeft: () => <HeaderLeft navigation={navigation} />,
+            })}
+        />
+        <Tab.Screen
+            name="Account"
+            component={AccountScreen}
+            options={({ navigation }) => ({
+                headerLeft: () => <HeaderLeft navigation={navigation} />,
+            })}
+        />
     </Tab.Navigator>
 );
 export default TabNavigator;

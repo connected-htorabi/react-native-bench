@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
-import {
-    SafeAreaView,
-    ScrollView,
-    Text,
-    View,
-    StyleSheet,
-    TextInput,
-} from 'react-native';
+import { ScrollView, Text, View, StyleSheet, TextInput } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
-import { PageHeader } from '../components/PageHeader';
+
 import { meals } from '../components/CategoryData';
 import useResults from '../hooks/useResults';
 import ResultsList from '../components/ResultsList';
@@ -21,16 +14,12 @@ const Browse = ({ navigation }) => {
     const [term, setTerm] = useState('');
     const [searchApi, results] = useResults();
 
-    const filterResultsByPrice = (price) => {
-        // price === '$' || '$$' || '$$$'
+    // price === '$' || '$$' || '$$$'
+    const filterResultsByPrice = (price) =>
+        results.filter((result) => result.price === price);
 
-        return results.filter((result) => {
-            return result.price === price;
-        });
-    };
     return (
-        <SafeAreaView style={{ backgroundColor: '#eee', flex: 1 }}>
-            <PageHeader title="Browse" navigation={navigation} />
+        <>
             <View
                 style={{
                     marginTop: 2,
@@ -94,6 +83,7 @@ const Browse = ({ navigation }) => {
                                 image={image}
                                 id={id}
                                 onPress={() =>
+                                    // TODO - remove 'results show' and show the 'category' as the header title
                                     navigation.navigate('Results Show', {
                                         category: title,
                                         results: restaurants,
@@ -124,7 +114,7 @@ const Browse = ({ navigation }) => {
                     </View>
                 </ScrollView>
             )}
-        </SafeAreaView>
+        </>
     );
 };
 
