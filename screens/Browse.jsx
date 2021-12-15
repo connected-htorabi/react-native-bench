@@ -83,6 +83,7 @@ const Browse = ({ navigation }) => {
                                 image={image}
                                 id={id}
                                 onPress={() =>
+                                    // TODO - remove 'results show' and show the 'category' as the header title
                                     navigation.navigate('Results Show', {
                                         category: title,
                                         results: restaurants,
