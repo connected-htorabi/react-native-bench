@@ -8,6 +8,7 @@ import RestaurantDetails from '../../screens/RestaurantDetails';
 import ItemDetails from '../../screens/ItemDetails';
 import Cart from '../../screens/Cart';
 import ResultsShow from '../../screens/ResultsShow';
+
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => (

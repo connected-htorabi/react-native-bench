@@ -29,15 +29,13 @@ const OrdersScreen = () => {
     return (
         <Tab.Navigator
             initialRouteName="Upcoming"
-            tabBarOptions={{
-                labelStyle: {
-                    fontSize: 15,
-                },
-            }}
             screenOptions={{
                 tabBarActiveTintColor: 'black',
                 headerTitleAlign: 'center',
                 tabBarIconStyle: { display: 'none' },
+                tabBarLabelStyle: {
+                    fontSize: 15,
+                },
             }}
         >
             <Tab.Screen
