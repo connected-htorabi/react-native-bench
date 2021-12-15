@@ -47,7 +47,14 @@ const TabNavigator = () => (
                 headerLeft: () => <HeaderLeft navigation={navigation} />,
             })}
         />
-        <Tab.Screen name="Account" component={AccountScreen} />
+        <Tab.Screen
+            name="Account"
+            component={AccountScreen}
+            options={({ navigation }) => ({
+                headerTitleAlign: 'center',
+                headerLeft: () => <HeaderLeft navigation={navigation} />,
+            })}
+        />
     </Tab.Navigator>
 );
 export default TabNavigator;

@@ -2,13 +2,12 @@ import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/users/selectors';
-import { PageHeader } from '../components/PageHeader';
-const AccountScreen = ({ navigation }) => {
+
+const AccountScreen = () => {
     const user = useSelector(selectUser);
 
     return (
         <View style={styles.container}>
-            <PageHeader title="My Account" navigation={navigation} />
             <Image
                 source={{
                     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWYo2yKCLQmnzoC9UZxuXzkjBMZCNtvSt_0A&usqp=CAU',
