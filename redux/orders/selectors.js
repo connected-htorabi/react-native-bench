@@ -9,5 +9,7 @@ export const selectHistoryOrders = createSelector([selectOrders], (orders) =>
     orders.filter((order) => order.status === ORDER_STATUS.COMPLETED)
 );
 export const selectUpcomingOrders = createSelector([selectOrders], (orders) =>
-    orders.filter((order) => order.status === ORDER_STATUS.UPCOMING)
+    orders
+        .filter((order) => order.status === ORDER_STATUS.UPCOMING)
+        .sort((a, b) => b.date - a.date)
 );
