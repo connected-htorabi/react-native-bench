@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { alignItems } from 'styled-system';
 import OrderItem from './OrderItem';
 
 const renderItem = ({ item }) => <OrderItem order={item} />;
