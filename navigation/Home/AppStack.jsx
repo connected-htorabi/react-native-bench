@@ -24,7 +24,7 @@ const IconMapping = {
 const AppStack = () => (
     <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerNav {...props} />}
-        initialRouteName="Home"
+        initialRouteName="Main"
         screenOptions={({ route }) => ({
             headerTitleAlign: 'center',
             drawerActiveBackgroundColor: '#3CB371',
