@@ -74,6 +74,17 @@ const ItemDetails = ({ route }) => {
     const dispatch = useDispatch();
     const { toast } = useToast();
 
+    const numRequiredSections = itemOptions.filter(
+        ({ isMultiSelect }) => !isMultiSelect
+    ).length;
+    const numSelectedRequiredSections = Object.values(sectionData)
+        .filter(({ isMultiSelect }) => !isMultiSelect)
+        .reduce((acc, curr) => {
+            if (Object.values(curr.data).includes(true)) acc += 1;
+            return acc;
+        }, 0);
+    const disabled = numSelectedRequiredSections !== numRequiredSections;
+
     const selectedOptionsArr = useMemo(
         () =>
             flatten(
@@ -200,7 +211,11 @@ const ItemDetails = ({ route }) => {
                 }
             />
             <TouchableOpacity
-                style={styles.addToCartButton}
+                disabled={disabled}
+                style={[
+                    styles.addToCartButton,
+                    disabled ? styles.disabledAddToCartButton : false,
+                ]}
                 onPress={() => addItemToCart({ id: dishId, quantity })}
             >
                 <Text style={styles.buttonText}>
@@ -257,6 +272,9 @@ const styles = StyleSheet.create({
         width: '90%',
         backgroundColor: 'black',
         color: 'white',
+    },
+    disabledAddToCartButton: {
+        opacity: 0.5,
     },
     buttonText: {
         color: 'white',
