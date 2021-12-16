@@ -34,8 +34,8 @@ const renderSectionHeader = ({ section: { sectionName, isMultiSelect } }) => (
 
 const renderSectionItem = ({ item, value, price, onToggle }) => {
     return (
-        <View style={styles.optionContainer}>
-            <Checkbox value={value} onValueChange={onToggle} />
+        <View style={styles.optionContainer} onTouchEnd={onToggle}>
+            <Checkbox value={value} />
             <View style={styles.optionContainerText}>
                 <Text style={styles.optionName}>{item}</Text>
                 {price !== 0 && (
