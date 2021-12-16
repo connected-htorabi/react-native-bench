@@ -12,7 +12,7 @@ const OrderItem = ({ order }) => {
     const navigation = useNavigation();
 
     const onReorder = () => {
-        dispatch(replaceCart(items));
+        dispatch(replaceCart({ restaurantId: restaurant.id, items, total }));
         navigation.navigate('Cart');
     };
 

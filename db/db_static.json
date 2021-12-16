@@ -154,6 +154,7 @@
                     "quantity": 1,
                     "name": "Burger",
                     "description": "A delicious burger.",
+                    "options": [],
                     "price": 5.0
                 },
                 {
@@ -161,6 +162,7 @@
                     "quantity": 2,
                     "name": "Fries",
                     "description": "A delicious fries.",
+                    "options": [],
                     "price": 3.0
                 }
             ],
@@ -177,6 +179,7 @@
                     "quantity": 3,
                     "name": "Salad",
                     "description": "A delicious salad.",
+                    "options": [],
                     "price": 3.5
                 },
                 {
@@ -184,6 +187,7 @@
                     "quantity": 4,
                     "name": "Soda",
                     "description": "A delicious soda.",
+                    "options": [],
                     "price": 1.0
                 }
             ],
@@ -200,13 +204,15 @@
                     "quantity": 2,
                     "name": "Fries",
                     "description": "A delicious fries.",
-                    "price": 3.0
+                    "price": 3.0,
+                    "options": []
                 },
                 {
                     "id": 3,
                     "quantity": 3,
                     "name": "Salad",
                     "description": "A delicious salad.",
+                    "options": [],
                     "price": 3.5
                 }
             ],

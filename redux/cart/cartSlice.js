@@ -43,9 +43,9 @@ const { actions, reducer } = createSlice({
         resetRestaurantId: (state) => {
             state.restaurantId = initialState.restaurantId;
         },
-        replaceCart: (state, { payload: items }) => {
-            state.restaurantId = items[0].restaurantId;
-            cartAdapter.setAll(state, items);
+        replaceCart: (state, { payload: details }) => {
+            state.restaurantId = details.restaurantId;
+            cartAdapter.setAll(state, details.items);
         },
         selectCreditCard: (state, { payload: creditCardId }) => {
             state.selectedCreditCardId = creditCardId;
