@@ -1,7 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform } from 'react-native';
 
-import { HeaderRight, TempHeaderLeft } from '../../components/NavHeader';
+import {
+    HeaderRight,
+    HeaderLeft,
+    TempHeaderLeft,
+} from '../../components/NavHeader';
 import HomeScreen from '../../screens/HomeScreen';
 import RestaurantDetails from '../../screens/RestaurantDetails';
 import ItemDetails from '../../screens/ItemDetails';
@@ -22,7 +27,7 @@ export const HomeStack = () => (
             name="Home"
             component={HomeScreen}
             options={{
-                headerLeft: TempHeaderLeft,
+                headerLeft: Platform.OS === 'ios' ? TempHeaderLeft : HeaderLeft,
             }}
         />
         <Stack.Screen
