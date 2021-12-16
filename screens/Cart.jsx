@@ -57,7 +57,7 @@ const Cart = ({ navigation }) => {
                                         toast({
                                             message: 'Order placed',
                                         });
-                                        navigation.navigate('Home');
+                                        navigation.navigate('Orders');
                                     });
                             }}
                         >
