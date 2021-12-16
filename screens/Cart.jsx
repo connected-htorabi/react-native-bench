@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useToast } from 'react-native-styled-toast';
 
 import { usePlaceOrderMutation } from '../redux/services/restaurant';
 import {
@@ -19,7 +20,7 @@ import PaymentSection from '../components/cart/payment/PaymentSection';
 import NoteSection from '../components/cart/note/NoteSection';
 import CardSection from '../components/cart/card/CardSection';
 
-const Cart = () => {
+const Cart = ({ navigation }) => {
     const [placeOrder] = usePlaceOrderMutation();
     const dispatch = useDispatch();
     const restaurantId = useSelector(selectRestaurantId);
@@ -27,6 +28,7 @@ const Cart = () => {
     const subtotal = useSelector(selectCartSubtotal);
     const tax = useSelector(selectCartTax);
     const total = useSelector(selectCartTotal);
+    const { toast } = useToast();
 
     return (
         <View style={styles.container}>
@@ -50,7 +52,13 @@ const Cart = () => {
                             onPress={() => {
                                 placeOrder({ restaurantId, items, total })
                                     .unwrap()
-                                    .then(() => dispatch(resetCart()));
+                                    .then(() => {
+                                        dispatch(resetCart());
+                                        toast({
+                                            message: 'Order placed',
+                                        });
+                                        navigation.navigate('Home');
+                                    });
                             }}
                         >
                             <Text style={styles.placeOrderText}>

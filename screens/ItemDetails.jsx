@@ -10,6 +10,7 @@ import {
 import Checkbox from 'expo-checkbox';
 import { useSelector, useDispatch } from 'react-redux';
 import { clone, round, flatten, sumBy } from 'lodash';
+import { useToast } from 'react-native-styled-toast';
 
 import { selectDishById } from '../redux/menu/selectors';
 import {
@@ -71,6 +72,7 @@ const ItemDetails = ({ route }) => {
     });
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
+    const { toast } = useToast();
 
     const selectedOptionsArr = useMemo(
         () =>
@@ -106,7 +108,7 @@ const ItemDetails = ({ route }) => {
         [dishDetails.price, quantity, selectedOptionsArr]
     );
 
-    const dispatchAddItem = () =>
+    const dispatchAddItem = () => {
         dispatch(
             addItem({
                 id: dishId,
@@ -117,6 +119,10 @@ const ItemDetails = ({ route }) => {
                 options: selectedOptionsArr,
             })
         );
+        toast({
+            message: 'Added to cart',
+        });
+    };
 
     const showAlert = () =>
         Alert.alert(
